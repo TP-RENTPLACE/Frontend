@@ -1,0 +1,79 @@
+/* .ad-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .price {
+    font-size: 24px;
+    font-weight: bold;
+    color: #27ae60;
+  }
+  
+  .address {
+    font-size: 18px;
+    color: #666;
+  }
+  
+  .owner {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .images-section {
+    margin: 20px 0;
+  }
+  
+  .main-image {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .thumbnail-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .description {
+    margin: 15px 0;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .moderation-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .approve-button, .reject-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .approve-button {
+    background-color: #2ecc71;
+    color: white;
+  }
+  
+  .reject-button {
+    background-color: #e74c3c;
+    color: white;
+  }
+   */
