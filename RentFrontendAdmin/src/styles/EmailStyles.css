@@ -1,0 +1,108 @@
+/* Общий стиль для всей страницы */
+.auth-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Логотип */
+.auth-logo {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 200px; /* Поднял выше */
+}
+
+/* Подзаголовок */
+.auth-subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px; /* Сделал меньше */
+  margin-top: 0;
+  color: #4A4A4A;
+}
+
+/* Карточка формы */
+.auth-box {
+  width: 100%;
+  max-width: 400px;
+  background: #FFFFFF;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Добавил промежутки между элементами */
+}
+
+/* Заголовок формы */
+.auth-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 12px; /* Уменьшен отступ */
+  color: #000;
+}
+
+.auth-description {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px; /* Уменьшен отступ */
+}
+
+/* Поля ввода */
+.auth-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 12px;
+  background: #F9F9F9;
+  margin-bottom: 16px; /* Сделал компактнее */
+}
+
+.auth-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+}
+
+.auth-input-icon {
+  margin-left: 8px;
+  color: #888;
+}
+
+/* Кнопки */
+.auth-button {
+  width: 100%;
+  padding: 12px; /* Сделал компактнее */
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 12px; 
+}
+
+.auth-button-primary {
+  background: #006AFF;
+  color: white;
+}
+
+.auth-button-primary:hover {
+  background: #0051CC;
+}
+
+.auth-button-success {
+  background: #10B981;
+}
+

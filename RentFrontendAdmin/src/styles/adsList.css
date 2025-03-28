@@ -1,0 +1,143 @@
+/* ads-list.css */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+.page-container {
+  display: flex;
+  height: 100vh; /* Занимает всю высоту экрана */
+}
+
+.content {
+  font-family: 'Raleway', sans-serif;
+  margin-left: 200px; /* Отступ слева, чтобы учесть сайдбар */
+  flex: 1; /* Занимает всю оставшуюся ширину */
+  font-family: 'Raleway', sans-serif;
+  padding: 100px;
+  
+  font-family: 'Raleway', sans-serif;
+  overflow-y: auto; 
+}
+
+.header {
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-ad-button {
+  font-family: 'Raleway', sans-serif;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-ad-button:hover {
+  background-color: #007acc;
+}
+
+.ads-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ads-table td, .ads-table th {
+  padding: 20px 14px; 
+  text-align: left;
+  border-bottom: 1px solid ;
+}
+
+
+.ads-table tr {
+  height: 100px; 
+}
+
+
+.ads-table th {
+  
+}
+
+.ad-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+  min-width: 160px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content button {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.dropdown-content button:hover {
+  background-color: #ffffff;
+}
+.ads-list-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%; 
+}
+
+.ads-list-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.add-ad-button {
+  padding: 12px 24px;
+  background-color: #0095ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  margin-left: auto; 
+}
+
+.add-ad-button:hover {
+  background-color: #007acc;
+}
+.ad-row {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ad-row:hover {
+  background-color: #f0f0f0;
+}

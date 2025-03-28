@@ -1,0 +1,62 @@
+/* sidebar.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+.sidebar {
+  width: 220px; /* Фиксированная ширина */
+  height: 100vh; /* На всю высоту экрана */
+  font-family: 'Raleway', sans-serif;
+  background: white;
+  border-right: 1px solid #ddd;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  position: fixed; /* Фиксируем сайдбар слева */
+  left: 0;
+  top: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: black;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+  text-align: left;
+  text-decoration: none;
+}
+
+.menu-item:hover {
+  background: #f3f3f3;
+}
+
+.menu-item.active {
+  background: #0095ff;
+  color: white;
+  border-radius: 6px; 
+  padding: 8px 12px; 
+  width: auto; 
+  display: inline-block; 
+}
