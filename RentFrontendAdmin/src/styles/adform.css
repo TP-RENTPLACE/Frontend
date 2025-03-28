@@ -1,0 +1,80 @@
+/* Стиль для формы добавления */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+.add-ad-form {
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* Стиль для загрузки изображения */
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preview-image {
+  margin-top: 10px;
+  max-width: 100px;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Стиль для строк с полями */
+.fields-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.fields-row div {
+  width: 32%; /* Каждое поле будет занимать 32% ширины, чтобы уместиться в одну строку */
+}
+
+/* Увеличенные отступы между полями */
+input, textarea {
+  width: 95%;
+  padding: 12px;
+  border-radius: 15px; /* Округлые поля */
+  border: 1px solid #ccc;
+  font-family: 'Raleway', sans-serif;
+}
+
+textarea {
+  height: 100px; /* Высота для textarea */
+  resize: vertical;
+}
+
+/* Кнопки "Сохранить" и "Отменить" на одном уровне */
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.submit-button, .cancel-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 200px; /* Ширина кнопок */
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+}
+
+.cancel-button {
+  background-color: white;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.submit-button:hover, .cancel-button:hover {
+  opacity: 0.8;
+}

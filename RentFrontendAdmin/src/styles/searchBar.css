@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+
+.search-bar {
+  font-family: 'Raleway', sans-serif;
+  position: absolute;
+  left: 320px; /* Сразу справа от сайдбара */
+  top: 20px; /* Отступ сверху */
+  width: 500px; /* Фиксированная ширина, можно подправить */
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Округлые края */
+  padding: 5px 12px;
+  border-bottom: 2px solid #ddd; /* Добавлена линия снизу */
+}
+
+.search-bar .search-icon {
+  font-size: 18px;
+  color: #888;
+  margin-right: 8px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+  padding: 8px 0;
+}
