@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddAdForm from "./AddAdForm";
-import SearchBar from "./SearchBar";
+import Header from "./Header";
 import '../styles/moderationList.css'; 
 
 const ModerationList = () => {
@@ -16,7 +16,7 @@ const ModerationList = () => {
       owner: "petr_petrov@gmail.com",
     },
   ]);
-
+  
   const [showForm, setShowForm] = useState(false);
   const [editingAd, setEditingAd] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,6 +40,7 @@ const ModerationList = () => {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
+    console.log("Поиск изменился на:", e.target.value); // Проверка обновления состояния
   };
 
   const handleApprove = (id) => {
@@ -50,16 +51,25 @@ const ModerationList = () => {
     setAdsData((prevAds) => prevAds.filter((ad) => ad.id !== id));
   };
 
-  const filteredAds = adsData.filter((ad) =>
-    ad.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Фильтрация объявлений
+  const filteredAds = adsData.filter((ad) => {
+    const lowercasedQuery = searchQuery.toLowerCase().trim();
+    console.log("Фильтрация с запросом:", lowercasedQuery); // Проверка фильтрации
+    return (
+      ad.title.toLowerCase().includes(lowercasedQuery) ||
+      ad.price.toLowerCase().includes(lowercasedQuery) ||
+      ad.address.toLowerCase().includes(lowercasedQuery) ||
+      ad.owner.toLowerCase().includes(lowercasedQuery)
+    );
+  });
 
   return (
     <div className="ads-list">
+      <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+
       {!showForm ? (
         <>
           <div className="header">
-            <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
             <div className="ads-list-header">
               <h1>Модерация объявлений</h1>
             </div>

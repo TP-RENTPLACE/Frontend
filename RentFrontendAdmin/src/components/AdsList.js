@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddAdForm from "./AddAdForm";
-import SearchBar from "./SearchBar";
-import '../styles/adsList.css'; 
+import Header from "./Header";
+import "../styles/adsList.css";
 
 const AdsList = () => {
   const [adsData, setAdsData] = useState([
@@ -13,26 +13,38 @@ const AdsList = () => {
       image: "/images/ad-image.jpg",
       owner: "petr_petrov@gmail.com",
     },
+    // Дополнительные объявления для тестирования
+    {
+      id: 2,
+      title: "Лесное озеро",
+      price: "15000 ₽",
+      address: "Деревня Протасово, ул. Лесная, 5",
+      image: "/images/ad-image.jpg",
+      owner: "irina_sidorova@gmail.com",
+    },
+    {
+      id: 3,
+      title: "Солнечная долина",
+      price: "22000 ₽",
+      address: "Вилкова, Солнечный проезд, 7/2",
+      image: "/images/ad-image.jpg",
+      owner: "maksim_ivanov@gmail.com",
+    },
   ]);
 
   const [showForm, setShowForm] = useState(false);
   const [editingAd, setEditingAd] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [user, setUser] = useState(null);
+  const [openMenuId, setOpenMenuId] = useState(null);
 
-  const toggleForm = () => {
-    setShowForm(!showForm);
-    setEditingAd(null);
+  const toggleMenu = (id) => {
+    setOpenMenuId(openMenuId === id ? null : id);
   };
 
-  const addNewAd = (newAd) => {
-    if (editingAd) {
-      setAdsData((prevAds) =>
-        prevAds.map((ad) => (ad.id === editingAd.id ? newAd : ad))
-      );
-      setEditingAd(null);
-    } else {
-      setAdsData((prevAds) => [...prevAds, newAd]);
-    }
+  const updateAd = (updatedAd) => {
+    setAdsData(adsData.map((ad) => (ad.id === updatedAd.id ? updatedAd : ad)));
+    setEditingAd(null);
     setShowForm(false);
   };
 
@@ -40,39 +52,37 @@ const AdsList = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleEdit = (ad) => {
-    setEditingAd(ad);
-    setShowForm(true);
-  };
-
-  const handleDelete = (id) => {
-    setAdsData((prevAds) => prevAds.filter((ad) => ad.id !== id));
-  };
-
-  const filteredAds = adsData.filter((ad) =>
-    ad.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Фильтрация объявлений по нескольким полям
+  const filteredAds = adsData.filter((ad) => {
+    const lowercasedQuery = searchQuery.toLowerCase().trim();
+    return (
+      ad.title.toLowerCase().includes(lowercasedQuery) ||
+      ad.price.toLowerCase().includes(lowercasedQuery) ||
+      ad.address.toLowerCase().includes(lowercasedQuery) ||
+      ad.owner.toLowerCase().includes(lowercasedQuery)
+    );
+  });
 
   return (
     <div className="ads-list">
+      <Header
+        searchQuery={searchQuery}
+        handleSearchChange={handleSearchChange}
+        user={user}
+      />
+
       {!showForm ? (
         <>
-          <div className="header">
-            
-            
-            <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
-            <div className="ads-list-header">
-              <h1>Объявления</h1>
-              <button className="add-ad-button" onClick={toggleForm}>
-                Добавить объявление
-              </button>
-            </div>
+          <div className="ads-list-header">
+            <h1>Объявления</h1>
+            <button className="add-ad-button" onClick={() => setShowForm(true)}>
+              Добавить объявление
+            </button>
           </div>
 
           <table className="ads-table">
             <thead>
               <tr>
-              
                 <th>Фото</th>
                 <th>Название объявления</th>
                 <th>Цена за сутки</th>
@@ -92,13 +102,36 @@ const AdsList = () => {
                     <td>{ad.price}</td>
                     <td>{ad.address}</td>
                     <td>{ad.owner}</td>
-                    <td>
+                    <td className="actions-cell">
                       <div className="dropdown">
-                        <button className="menu-button">⋮</button>
-                        <div className="dropdown-content">
-                          <button onClick={() => handleEdit(ad)}>Редактировать</button>
-                          <button onClick={() => handleDelete(ad.id)}>Удалить</button>
-                        </div>
+                        <button
+                          className="menu-button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleMenu(ad.id);
+                          }}
+                        >
+                          ⋮
+                        </button>
+                        {openMenuId === ad.id && (
+                          <div className="dropdown-menu">
+                            <button
+                              onClick={() => {
+                                setEditingAd(ad);
+                                setShowForm(true);
+                              }}
+                            >
+                              Редактировать
+                            </button>
+                            <button
+                              onClick={() =>
+                                setAdsData((prev) => prev.filter((a) => a.id !== ad.id))
+                              }
+                            >
+                              Удалить
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -112,7 +145,15 @@ const AdsList = () => {
           </table>
         </>
       ) : (
-        <AddAdForm addNewAd={addNewAd} editingAd={editingAd} onCancel={toggleForm} />
+        <AddAdForm
+          addNewAd={(newAd) => setAdsData([...adsData, newAd])}
+          updateAd={updateAd}
+          onCancel={() => {
+            setShowForm(false);
+            setEditingAd(null);
+          }}
+          ad={editingAd}
+        />
       )}
     </div>
   );
