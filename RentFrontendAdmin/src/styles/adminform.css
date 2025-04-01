@@ -1,0 +1,112 @@
+.admin-edit-form {
+    font-family: "Raleway", sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  /* Блок с фото профиля */
+  .profile-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Контейнер для фото и кнопки */
+  .photo-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+  }
+  
+  .admin-photo-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Кнопка редактирования (кружок) */
+  .photo-edit-button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(101, 101, 101);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  
+  /* Скрытый input */
+  .photo-edit-button input {
+    display: none;
+  }
+  
+  /* Иконка редактирования */
+  .photo-edit-button img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Поля формы */
+  .fields-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .fields-row div {
+    width: 100%;
+  }
+  
+  input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Кнопки */
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .cancel-button {
+    background-color: white;
+    color: #dc3545;
+    border: 2px solid #dc3545;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .cancel-button:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+  
