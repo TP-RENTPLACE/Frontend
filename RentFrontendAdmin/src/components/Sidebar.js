@@ -1,8 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaClock, FaUsers, FaCalendarCheck, FaCog, FaSignOutAlt, FaClipboardList } from "react-icons/fa";
 import "../styles/sidebar.css";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("isAdmin"); // Удаляем флаг авторизации
+    navigate("/"); // Перенаправляем на страницу авторизации
+  };
+
   return (
     <div className="sidebar">
       <div className="logo">rentplace</div>
@@ -10,7 +17,6 @@ const Sidebar = () => {
         <NavLink to="/ads" className="menu-item">
           <FaClipboardList /> <span>Объявления</span>
         </NavLink>
-        
         <NavLink to="/moderation" className="menu-item">
           <FaClock /> <span>Модерация</span>
         </NavLink>
@@ -23,9 +29,11 @@ const Sidebar = () => {
         <NavLink to="/settings" className="menu-item">
           <FaCog /> <span>Настройки</span>
         </NavLink>
-        <NavLink to="/logout" className="menu-item logout">
+        
+        {/* Кнопка выхода */}
+        <button onClick={handleLogout} className="menu-item logout">
           <FaSignOutAlt /> <span>Выход</span>
-        </NavLink>
+        </button>
       </nav>
     </div>
   );

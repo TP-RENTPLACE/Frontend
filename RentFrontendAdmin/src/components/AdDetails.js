@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import '../styles/adDetails.css';
 
@@ -6,16 +6,22 @@ const AdDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Пример данных (замени на загрузку из API, если нужно)
+  // Пример данных (замени на API-запрос)
   const adsData = [
     {
+      id: 1,
+      title: "Таунаус Hillside",
+      price: "18000 ₽",
+      address: "Мистолово, Английский проезд, 3/1",
+      images: [
         "/images/ad-1.jpg",
         "/images/ad-2.jpg",
         "/images/ad-3.jpg",
-        "/images/ad-4.jpg",
-        "/images/ad-4"
+        "/images/ad-4.jpg"
       ],
-    },
+      owner: "petr_petrov@gmail.com",
+      description: "Просторный дом с удобствами.",
+    }
   ];
 
   const ad = adsData.find((ad) => ad.id === Number(id));
@@ -26,12 +32,12 @@ const AdDetails = () => {
 
   const handleApprove = () => {
     console.log(`Объявление ${id} подтверждено`);
-    navigate("/moderation"); // Возвращаемся к списку
+    navigate("/moderation");
   };
 
   const handleReject = () => {
     console.log(`Объявление ${id} отклонено`);
-    navigate("/moderation"); // Возвращаемся к списку
+    navigate("/moderation");
   };
 
   return (
