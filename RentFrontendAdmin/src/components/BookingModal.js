@@ -31,39 +31,45 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
       <div className="modal">
         <h2>{isEditing ? "Редактировать бронь" : "Добавить бронь"}</h2>
         <form onSubmit={handleSubmit}>
-          <label>
-            Объявление:
-            <input type="text" name="listing" value={formData.listing} onChange={handleChange} required />
-          </label>
+          <div className="form-row">
+            <label>
+              Объявление:
+              <input type="text" name="listing" value={formData.listing} onChange={handleChange} required />
+            </label>
 
-          <label>
-            Арендатор (Email):
-            <input type="email" name="tenant" value={formData.tenant} onChange={handleChange} required />
-          </label>
+            <label>
+              Арендатор (Email):
+              <input type="email" name="tenant" value={formData.tenant} onChange={handleChange} required />
+            </label>
 
-          <label>
-            Арендодатель (Email):
-            <input type="email" name="landlord" value={formData.landlord} onChange={handleChange} required />
-          </label>
+            <label>
+              Арендодатель (Email):
+              <input type="email" name="landlord" value={formData.landlord} onChange={handleChange} required />
+            </label>
+          </div>
 
-          <label>
-            Дата заезда:
-            <input type="date" name="checkIn" value={formData.checkIn} onChange={handleChange} required />
-          </label>
+          <div className="form-row">
+            <label>
+              Дата заезда:
+              <input type="date" name="checkIn" value={formData.checkIn} onChange={handleChange} required />
+            </label>
 
-          <label>
-            Дата выезда:
-            <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
-          </label>
+            <label>
+              Дата выезда:
+              <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
+            </label>
 
-          <label>
-            Стоимость:
-            <input type="text" name="price" value={formData.price} onChange={handleChange} required />
-          </label>
+            <label>
+              Стоимость:
+              <input type="text" name="price" value={formData.price} onChange={handleChange} required />
+            </label>
+          </div>
 
           <div className="modal-actions">
-            <button type="submit">{isEditing ? "Сохранить изменения" : "Добавить бронь"}</button>
-            <button type="button" onClick={onCancel}>
+            <button className="add-btn" type="submit">
+              {isEditing ? "Сохранить изменения" : "Добавить бронь"}
+            </button>
+            <button className="cancel-btn" type="button" onClick={onCancel}>
               Отмена
             </button>
           </div>

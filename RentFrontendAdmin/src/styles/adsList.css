@@ -1,42 +1,52 @@
-/* ads-list.css */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
-.page-container {
-  display: flex;
-  height: 100vh; /* Занимает всю высоту экрана */
+.ads-list {
+  position: relative;
+  top: 20px; /* Поднял ближе к header */
+  width: calc(100% - 240px);
+  max-width: 100%;
+  margin-left: 240px;
+  padding: 20px;
+  font-family: Montserrat, sans-serif;
+  box-sizing: border-box;
+  margin-top: 0; /* Убираем старый отступ */
 }
 
-.content {
-  font-family: 'Raleway', sans-serif;
-  margin-left: 200px; /* Отступ слева, чтобы учесть сайдбар */
-  flex: 1; /* Занимает всю оставшуюся ширину */
-  font-family: 'Raleway', sans-serif;
-  padding: 100px;
-  
-  font-family: 'Raleway', sans-serif;
-  overflow-y: auto; 
-}
-
-.header {
-  font-family: 'Raleway', sans-serif;
+.ads-list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #151515;
 }
 
 .add-ad-button {
-  font-family: 'Raleway', sans-serif;
-  padding: 10px 20px;
-  background-color: #ffffff;
-  
-  border: none;
-  border-radius: 5px;
+  display: flex;
+  height: 44px;
+  padding: 14px 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #007AFF;
+  background: none;
+  color: #007AFF;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s;
+  margin-left: auto; /* Выравнивание кнопки по правому краю */
+  margin-bottom: 20px; /* Добавляем отступ снизу, чтобы кнопка не вылазила за границы */
 }
 
 .add-ad-button:hover {
-  background-color: #007acc;
+  background: #007AFF;
+  color: white;
 }
 
 .ads-table {
@@ -44,100 +54,141 @@
   border-collapse: collapse;
 }
 
-.ads-table td, .ads-table th {
-  padding: 20px 14px; 
-  text-align: left;
-  border-bottom: 1px solid ;
+.ads-table thead {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  align-items: center;
 }
-
-
-.ads-table tr {
-  height: 100px; 
-}
-
 
 .ads-table th {
-  
+  flex: 1;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.ads-table tbody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ads-table tr {
+  display: flex;
+  width: 100%;
+  height: 100px;
+  align-items: center;
+}
+
+.ads-table td {
+  flex: 1;
+  padding: 10px;
 }
 
 .ad-image {
   width: 80px;
   height: 80px;
+  flex-shrink: 0;
+  border-radius: 10px;
   object-fit: cover;
-  border-radius: 8px;
 }
 
-.dropdown {
+.category-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.category-cell svg {
+  font-size: 20px;
+  color: #151515;
+}
+
+.actions-cell {
   position: relative;
-  display: inline-block;
 }
 
 .menu-button {
   background: none;
   border: none;
+  font-size: 20px;
   cursor: pointer;
-  font-size: 18px;
 }
 
-.dropdown-content {
-  display: none;
+.dropdown-menu {
   position: absolute;
-  background-color: white;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
-  min-width: 160px;
+  overflow: hidden;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown-menu button {
   display: block;
-}
-
-.dropdown-content button {
-  background: none;
-  border: none;
-  padding: 10px 20px;
-  text-align: left;
   width: 100%;
-  cursor: pointer;
-}
-
-.dropdown-content button:hover {
-  background-color: #ffffff;
-}
-.ads-list-header {
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  margin-bottom: 20px;
-  width: 100%; 
-}
-
-.ads-list-header h1 {
-  font-size: 2rem;
-  margin: 0;
-}
-
-.add-ad-button {
-  padding: 12px 24px;
-  background-color: #0095ff;
-  color: white;
+  padding: 10px;
+  text-align: left;
   border: none;
-  border-radius: 5px;
+  background: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+}
+/* Информация о хозяине */
+.host-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.host-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.host-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.host-name {
   font-size: 16px;
-  margin-left: auto; 
+  font-weight: 600;
+  color: #151515;
 }
 
-.add-ad-button:hover {
-  background-color: #007acc;
-}
-.ad-row {
-  cursor: pointer;
-  transition: background-color 0.3s;
+.host-email {
+  font-size: 14px;
+  color: #888;
 }
 
-.ad-row:hover {
-  background-color: #f0f0f0;
+.host-member {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.dropdown-menu button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .ads-list {
+    width: calc(100% - 220px); /* Подстраиваем ширину */
+    margin-left: 220px; /* Оставляем сайдбар */
+  }
+}
+
+@media (max-width: 768px) {
+  .ads-list {
+    width: 100%;
+    margin-left: 0; /* На маленьких экранах убираем отступ */
+  }
+}
+* {
+  font-family: 'Raleway', sans-serif;
 }

@@ -27,17 +27,23 @@ const AdminEditForm = ({ onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUser(formData); // Обновляем глобального пользователя
+    setUser(formData);
   };
 
   return (
     <div>
-      
       <form className="admin-edit-form" onSubmit={handleSubmit}>
         <h2>Профиль администратора</h2>
+
         <div className="profile-photo">
           <div className="photo-container">
-            <img src={formData.avatar || "/images/default-avatar.png"} alt="Фото профиля" className="admin-photo-preview" />
+            <div className="photo-preview">
+              {formData.avatar ? (
+                <img src={formData.avatar} alt="" />
+              ) : (
+                <div className="empty-photo" />
+              )}
+            </div>
             <label className="photo-edit-button">
               <input type="file" accept="image/*" onChange={handleImageChange} />
               <img src="/images/edit-icon.png" alt="Изменить" />
@@ -90,8 +96,9 @@ const AdminEditForm = ({ onCancel }) => {
         </div>
 
         <div className="button-group">
-          <button type="button" className="cancel-button" onClick={onCancel}>Отмена</button>
           <button type="submit" className="submit-button">Сохранить</button>
+          <button type="button" className="cancel-button" onClick={onCancel}>Отмена</button>
+          
         </div>
       </form>
     </div>

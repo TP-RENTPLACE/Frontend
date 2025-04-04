@@ -1,112 +1,212 @@
 .admin-edit-form {
-    font-family: "Raleway", sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    max-width: 600px;
-    margin: auto;
-  }
-  
-  h2 {
-    text-align: center;
-  }
-  
-  /* Блок с фото профиля */
-  .profile-photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Контейнер для фото и кнопки */
-  .photo-container {
-    position: relative;
-    width: 120px;
-    height: 120px;
-  }
-  
-  .admin-photo-preview {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  /* Кнопка редактирования (кружок) */
-  .photo-edit-button {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    width: 30px;
-    height: 30px;
-    background-color: rgb(101, 101, 101);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-  }
-  
-  /* Скрытый input */
-  .photo-edit-button input {
-    display: none;
-  }
-  
-  /* Иконка редактирования */
-  .photo-edit-button img {
-    width: 20px;
-    height: 20px;
-  }
-  
-  /* Поля формы */
-  .fields-row {
-    display: flex;
-    gap: 20px;
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Фото профиля */
+.admin-edit-form .profile-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-edit-form .photo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.admin-edit-form .photo-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-edit-form .photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.admin-edit-form .empty-photo {
+  width: 100%;
+  height: 100%;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+}
+
+.admin-edit-form .photo-edit-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.admin-edit-form .photo-edit-button input {
+  display: none;
+}
+
+.admin-edit-form .photo-edit-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Поля ввода */
+.admin-edit-form .fields-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.admin-edit-form .fields-row div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.admin-edit-form input,
+.admin-edit-form select {
+  display: flex;
+  width: 362px;
+  height: 54px;
+  padding: 0px 20px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+}
+
+.admin-edit-form input:focus,
+.admin-edit-form select:focus {
+  border-color: #007AFF;
+}
+
+/* Дата регистрации */
+.admin-edit-form .fields-row:last-of-type {
+  justify-content: flex-start;
+}
+
+.admin-edit-form .fields-row:last-of-type div {
+  flex: 0 0 362px;
+}
+
+/* Кнопки */
+.admin-edit-form .button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.admin-edit-form .add-btn,
+.admin-edit-form .cancel-btn {
+  display: flex;
+  width: 540px;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.admin-edit-form .cancel-btn {
+  border-radius: 20px;
+  border: 1px solid var(--Main-Color-Red, #FF7878);
+  background: var(--White, #FFF);
+  color: #FF7878;
+}
+
+.admin-edit-form .cancel-btn:hover {
+  background: #ff4d4f;
+  color: white;
+}
+
+.admin-edit-form .add-btn {
+  border-radius: 20px;
+  border: 1px solid var(--Main-Color-Blue, #007AFF);
+  background: var(--Main-Color-Blue, #007AFF);
+  color: white;
+}
+
+.admin-edit-form .add-btn:hover {
+  background: #0056b3;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 992px) {
+  .admin-edit-form .fields-row {
     flex-wrap: wrap;
   }
-  
-  .fields-row div {
-    width: 100%;
+
+  .admin-edit-form .fields-row div {
+    flex: 1 1 100%;
+    margin-bottom: 10px;
   }
-  
-  input, select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-  }
-  
-  /* Кнопки */
-  .button-group {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .submit-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .cancel-button {
-    background-color: white;
-    color: #dc3545;
-    border: 2px solid #dc3545;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .submit-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .cancel-button:hover {
-    background-color: #dc3545;
-    color: white;
-  }
-  
+}
+
+.admin-edit-form .button-group {
+  position: fixed;
+  bottom: 20px;
+  left: 55%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+}
+.admin-edit-form .photo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.admin-edit-form .photo-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-edit-form .photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.admin-edit-form .empty-photo {
+  width: 100%;
+  height: 100%;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+}
