@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/userform.css";
 
-const AddUserForm = ({ addNewUser, editingUser, onCancel }) => {
+const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
   const [formData, setFormData] = useState(
     editingUser || {
       email: "",
@@ -44,24 +44,26 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel }) => {
 
   return (
     <form className="add-user-form" onSubmit={handleSubmit}>
-      <h2>{editingUser ? "Редактировать пользователя" : "Добавить пользователя"}</h2>
+      <h2>{editingUser ? "Изменение пользователя" : "Добавление пользователя"}</h2>
 
-      {/* Фото профиля с кнопкой редактирования */}
       <div className="profile-photo">
         <div className="photo-container">
-          <img
-            src={formData.photo || "/images/default-avatar.png"}
-            alt="Фото профиля"
-            className="user-photo-preview"
-          />
-          <label className="photo-edit-button">
+          <label className="photo-upload">
             <input type="file" accept="image/*" onChange={handleImageChange} />
-            <img src="/images/edit-icon.png" alt="Изменить" />
+            <div className="photo-preview">
+              {formData.photo ? (
+                <img src={formData.photo} alt="Фото профиля" />
+              ) : (
+                <div className="empty-photo"></div>
+              )}
+              <div className="photo-edit-button">
+                <img src="/images/edit-icon.png" alt="Изменить" />
+              </div>
+            </div>
           </label>
         </div>
       </div>
 
-      {/* Поля формы */}
       <div className="fields-row">
         <div>
           <label>Почта:</label>
@@ -100,12 +102,13 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel }) => {
         </div>
       </div>
 
-      <div>
-        <label>Дата регистрации:</label>
-        <input type="date" name="registrationDate" value={formData.registrationDate} onChange={handleChange} required />
+      <div className="fields-row registration-field">
+        <div>
+          <label>Дата регистрации:</label>
+          <input type="date" name="registrationDate" value={formData.registrationDate} onChange={handleChange} required />
+        </div>
       </div>
 
-      {/* Кнопки */}
       <div className="button-group">
         <button type="submit" className="submit-button">
           {editingUser ? "Сохранить" : "Добавить"}
@@ -113,6 +116,11 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel }) => {
         <button type="button" className="cancel-button" onClick={onCancel}>
           Отменить
         </button>
+        {editingUser && (
+          <button type="button" className="delete-button" onClick={onDelete}>
+            
+          </button>
+        )}
       </div>
     </form>
   );
