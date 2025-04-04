@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import '../styles/adform.css';  
+import "../styles/adform.css";
 
-const AddAdForm = ({ addNewAd, editingAd, onCancel }) => {
+const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
   const [formData, setFormData] = useState(
-    editingAd || {
-      title: "",
-      price: "",
-      address: "",
-      owner: "",
-      rooms: "",
-      bedrooms: "",
-      guests: "",
-      beds: "",
-      area: "",
-      description: "",
-      amenities: "",
-      image: null,
-    }
+    editingAd
+      ? { ...editingAd, images: editingAd.images || [] } // Если images нет, устанавливаем пустой массив
+      : {
+          title: "",
+          price: "",
+          address: "",
+          owner: "",
+          rooms: "",
+          bedrooms: "",
+          guests: "",
+          beds: "",
+          area: "",
+          description: "",
+          amenities: "",
+          images: [], // Гарантируем, что это всегда массив
+        }
   );
+
+  const [selectedRent, setSelectedRent] = useState("daily");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,114 +32,131 @@ const AddAdForm = ({ addNewAd, editingAd, onCancel }) => {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
+    const files = Array.from(e.target.files);
+    if (files.length) {
+      const imageFiles = files.map((file) => ({
+        file,
+        url: URL.createObjectURL(file),
+      }));
+      
       setFormData((prevState) => ({
         ...prevState,
-        image: URL.createObjectURL(file),
+        images: [...prevState.images, ...imageFiles.map(img => img.url)],
       }));
     }
+  };
+  
+
+  const handleDeleteImage = (index) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      images: prevState.images.filter((_, i) => i !== index),
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     const newAd = {
       id: editingAd ? editingAd.id : Date.now(),
-      title: formData.title,
-      price: formData.price,
-      address: formData.address,
-      owner: formData.owner,
-      rooms: formData.rooms,
-      bedrooms: formData.bedrooms,
-      guests: formData.guests,
-      beds: formData.beds,
-      area: formData.area,
-      description: formData.description,
-      amenities: formData.amenities,
-      image: formData.image || "/images/ad-image.jpg",
+      ...formData,
+      image: formData.images.length > 0 ? formData.images[0] : "/images/ad-image.jpg", // Берём первую картинку
     };
-
+    
+  
     addNewAd(newAd);
   };
 
   return (
     <form className="add-ad-form" onSubmit={handleSubmit}>
-      <h2>{editingAd ? "Редактировать объявление" : "Добавить объявление"}</h2>
+      <h2 className="form-title">{editingAd ? "Редактировать объявление" : "Добавить объявление"}</h2>
 
-      {/* Загрузка изображения */}
-      <div className="image-upload">
-        <label>Изображение:</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        {formData.image && <img src={formData.image} alt="Preview" className="preview-image" />}
-      </div>
 
-      {/* Поля ввода: Название, Цена, Адрес */}
-      <div className="fields-row">
-        <div>
-          <label>Название:</label>
-          <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-        </div>
-
-        <div>
-          <label>Цена за сутки:</label>
-          <input type="number" name="price" value={formData.price} onChange={handleChange} required />
-        </div>
-
-        <div>
-          <label>Адрес:</label>
-          <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+      {/* Фото */}
+      <div className="field-group">
+        <label>Изображения:</label>
+        <div className="image-preview-container">
+          {formData.images.map((image, index) => (
+            <div key={index} className="image-preview">
+              <img src={image} alt={`Preview ${index}`} />
+              <button className="delete-image-btn" onClick={() => handleDeleteImage(index)}>
+                🗑
+              </button>
+            </div>
+          ))}
+          <label htmlFor="file-input" className="image-upload-button">+</label>
+          <input id="file-input" type="file" accept="image/*" multiple onChange={handleImageChange} />
         </div>
       </div>
 
-      {/* Поля: Количество комнат, спален, гостей */}
-      <div className="fields-row">
-        <div>
-          <label>Количество комнат:</label>
-          <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required />
+      {/* Поля */}
+      <div className="field">
+        <label>Название:</label>
+        <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+      </div>
+
+      <div className="field">
+        <label>Адрес:</label>
+        <input type="text" name="address" value={formData.address} onChange={handleChange} required />
+      </div>
+
+      <div className="fields-container">
+        <div className="fields-row">
+          <div className="field">
+            <label>Общая площадь (м²):</label>
+            <input type="number" name="area" value={formData.area} onChange={handleChange} required />
+          </div>
+          <div className="field">
+            <label>Количество гостей:</label>
+            <input type="number" name="guests" value={formData.guests} onChange={handleChange} required />
+          </div>
+          <div className="field">
+            <label>Количество комнат:</label>
+            <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required />
+          </div>
         </div>
 
-        <div>
-          <label>Количество спален:</label>
-          <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
-        </div>
-
-        <div>
-          <label>Количество гостей:</label>
-          <input type="number" name="guests" value={formData.guests} onChange={handleChange} required />
+        <div className="fields-row">
+          <div className="field">
+            <label>Количество спален:</label>
+            <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
+          </div>
+          <div className="field">
+            <label>Количество кроватей:</label>
+            <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
+          </div>
+          <div className="field">
+            <label>Хозяин жилья (email):</label>
+            <input type="email" name="owner" value={formData.owner} onChange={handleChange} required />
+          </div>
         </div>
       </div>
 
-      {/* Поля: Количество кроватей, Хозяин жилья, Общая площадь */}
-      <div className="fields-row">
-        <div>
-          <label>Количество кроватей:</label>
-          <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
-        </div>
+      <div className="field rent-price">
+        <label>Арендная плата:</label>
+        <input type="number" name="price" value={formData.price} onChange={handleChange} required />
+      </div>
 
-        <div>
-          <label>Хозяин жилья:</label>
-          <input type="email" name="owner" value={formData.owner} onChange={handleChange} required />
-        </div>
+      <div className="rent-options">
+        <button type="button" className={selectedRent === "daily" ? "active" : ""} onClick={() => setSelectedRent("daily")}>
+          За сутки
+        </button>
+        <button type="button" className={selectedRent === "monthly" ? "active" : ""} onClick={() => setSelectedRent("monthly")}>
+          В месяц
+        </button>
+      </div>
 
-        <div>
-          <label>Общая площадь (м²):</label>
-          <input type="number" name="area" value={formData.area} onChange={handleChange} required />
+      <div className="desc-amenities-container">
+        <div className="field description-field">
+          <label>Описание:</label>
+          <textarea name="description" value={formData.description} onChange={handleChange} required />
+        </div>
+        <div className="field amenities-field">
+          <label>Основные удобства:</label>
+          <textarea name="amenities" value={formData.amenities} onChange={handleChange} required />
         </div>
       </div>
 
-      {/* Поля для описания и удобств */}
-      <div>
-        <label>Описание:</label>
-        <textarea name="description" value={formData.description} onChange={handleChange} required />
-      </div>
-
-      <div>
-        <label>Основные удобства:</label>
-        <textarea name="amenities" value={formData.amenities} onChange={handleChange} required />
-      </div>
-
-      {/* Кнопки */}
       <div className="button-group">
         <button type="submit" className="submit-button">
           {editingAd ? "Сохранить" : "Добавить"}

@@ -1,14 +1,27 @@
-/* Стиль для формы добавления */
+/* Общие стили */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+
 .add-ad-form {
   font-family: 'Raleway', sans-serif;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  font-family: 'Raleway', sans-serif;
+  width: 1600px;
+  height: 1142px;
+  flex-shrink: 0;
+  margin: 0 auto;
+  padding-bottom: 40px; /* Отступ снизу */
+   /* Выравнивание по левому краю */
+  margin-left: 0; /* Убираем возможные отступы */
 }
 
-/* Стиль для загрузки изображения */
+/* Фотография, название и адрес */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .image-upload {
   display: flex;
   flex-direction: column;
@@ -17,50 +30,93 @@
 
 .preview-image {
   margin-top: 10px;
-  max-width: 100px;
-  max-height: 100px;
+  width: 176px;
+  height: 120px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-/* Стиль для строк с полями */
-.fields-row {
+/* Новые стили для Названия и Адреса */
+.field {
   display: flex;
+  width: 548px;
+  height: 94px;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 20px;
-  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
-.fields-row div {
-  width: 32%; /* Каждое поле будет занимать 32% ширины, чтобы уместиться в одну строку */
-}
 
-/* Увеличенные отступы между полями */
-input, textarea {
-  width: 95%;
+.field input {
+  width: 100%;
+  height: 50px;
   padding: 12px;
-  border-radius: 15px; /* Округлые поля */
+  border-radius: 15px;
   border: 1px solid #ccc;
+  font-size: 16px;
   font-family: 'Raleway', sans-serif;
 }
 
-textarea {
-  height: 100px; /* Высота для textarea */
-  resize: vertical;
+/* Контейнер для двух строк */
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-/* Кнопки "Сохранить" и "Отменить" на одном уровне */
+/* Поля, разделенные на строки */
+.fields-row {
+  display: flex;
+  gap: 20px;
+}
+
+.fields-row .field {
+  width: 32%;
+}
+
+/* Поля для описания и удобств */
+textarea {
+  width: 95%;
+  height: 100px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+}
+
+/* Блок выбора аренды */
+.rent-options {
+  display: flex;
+  gap: 10px;
+}
+
+.rent-options button {
+  padding: 10px 20px;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.rent-options button.active {
+  background: #007bff;
+  color: white;
+}
+
+/* Кнопки */
 .button-group {
   display: flex;
   gap: 20px;
-  justify-content: flex-start;
 }
 
 .submit-button, .cancel-button {
+  width: 200px;
   padding: 12px 24px;
   font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  width: 200px; /* Ширина кнопок */
 }
 
 .submit-button {
@@ -77,4 +133,291 @@ textarea {
 
 .submit-button:hover, .cancel-button:hover {
   opacity: 0.8;
+}
+/* Фото */
+.image-preview-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.image-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.image-upload-button {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 36px;
+  color: #888;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.image-upload-button:hover {
+  background: #e0e0e0;
+}
+
+input[type="file"] {
+  display: none;
+}
+.rent-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rent-options {
+  display: flex;
+  gap: 10px;
+}
+
+.rent-options button {
+  padding: 10px 20px;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.rent-options button.active {
+  background: #007bff;
+  color: white;
+}
+
+/* Поле ввода арендной платы */
+.rent-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+/* Блок "Описание" и "Основные удобства" */
+.desc-amenities-container {
+  display: flex;
+  gap: 20px;
+}
+
+.description-field,
+.amenities-field {
+  display: flex;
+  width: 362px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+}
+/* Поле Арендная плата */
+.rent-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+/* Блок кнопок аренды */
+.rent-options {
+  display: flex;
+  gap: 10px;
+}
+
+.rent-options button {
+  padding: 10px 20px;
+  border: 2px solid #007bff;
+  background: white;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.rent-options button.active {
+  background: #007bff;
+  color: white;
+}
+
+/* Поля "Описание" и "Основные удобства" */
+/* Поля "Описание" и "Основные удобства" */
+.desc-amenities-container {
+  display: flex;
+  width: 362px;
+  height: 160px;
+  
+  align-items: flex-start;
+  
+  gap: 20px;
+}
+
+.description-field,
+.amenities-field {
+  display: flex;
+  height: 300px;
+  
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 20px;
+  resize: none; 
+
+
+  
+}
+
+.description-field textarea,
+.amenities-field textarea {
+color: var(--Main-Color-Dark, #151515);
+font-variant-numeric: lining-nums proportional-nums;
+resize: none; 
+/* Rentplace Mobile/Medium */
+font-family: Raleway;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 18px; /* 128.571% */
+}
+/* Заголовок формы */
+.form-title {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Кнопки */
+.button-group {
+  display: flex;
+  gap: 20px;
+}
+
+.submit-button, .cancel-button {
+  display: flex;
+  width: 540px;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+}
+
+.cancel-button {
+  background-color: white;
+  color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.submit-button:hover, .cancel-button:hover {
+  opacity: 0.8;
+}
+
+/* Контейнер для изображений */
+.image-preview-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Обертка для каждого изображения */
+.image-preview {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Кнопка удаления фото */
+.delete-image-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.delete-image-btn:hover {
+  background: rgba(255, 0, 0, 0.8);
+}
+
+/* Кнопка загрузки фото */
+.image-upload-button {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 36px;
+  color: #888;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.image-upload-button:hover {
+  background: #e0e0e0;
+}
+
+input[type="file"] {
+  display: none;
+}
+* {
+  font-family: 'Raleway', sans-serif;
 }
