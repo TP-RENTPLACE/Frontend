@@ -1,79 +1,336 @@
-/* .ad-details-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+.ad-details-container {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 240px);
+  margin-left: 240px;
+  background: #FFF;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Заголовки */
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+/* ГАЛЕРЕЯ */
+.images-section {
+  display: flex;
+  width: 1100px;
+  height: 480px;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.main-image {
+  width: 500px;
+  height: 480px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.thumbnail-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 10px;
+  width: 580px;
+  height: 480px;
+}
+
+.thumbnail {
+  width: 280px;
+  height: 230px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+/* Название и цена */
+.ad-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+h1 {
+  color: #151515;
+  font-family: Montserrat, sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1E88E5;
+}
+
+/* Описание */
+/* Описание */
+.description-container {
+  position: relative;
+  max-width: 700px;
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #151515;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Ограничение в 4 строки */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+
+.description.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.show-more {
+  color: #1E88E5;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+/* Расположение */
+.location {
+  font-size: 16px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Основные удобства */
+.amenities {
+  list-style: none;
+  padding: 0;
+}
+
+.amenities li {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+
+/* Информация о хозяине */
+.host-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.host-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* КНОПКИ */
+.moderation-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.approve-button, .reject-button {
+  padding: 10px 20px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+/* Заголовки */
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 20px;
+  text-align: left; /* Выровнены слева */
+}
+/* Теги с характеристиками */
+.ad-details-tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  border: 1px solid #ddd;
+}
+.amenities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.amenity-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f3f3;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.amenity-item svg {
+  font-size: 20px;
+  color: #1E88E5;
+}
+.amenities {
+  list-style: none;
+  padding: 0;
+}
+
+.amenities li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+/* Информация о хозяине */
+.host-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.host-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.host-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.host-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #151515;
+}
+
+.host-email {
+  font-size: 14px;
+  color: #888;
+}
+
+.host-member {
+  font-size: 14px;
+  color: #555;
+}
+/* КНОПКИ */
+.moderation-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.approve-buttonn, .reject-buttonn {
+  display: flex;
+  width: 540px;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid var(--Main-Color-Blue, #007AFF);
+  background: var(--White, #FFF);
   }
-  
-  .price {
-    font-size: 24px;
-    font-weight: bold;
-    color: #27ae60;
-  }
-  
-  .address {
-    font-size: 18px;
-    color: #666;
-  }
-  
-  .owner {
-    font-size: 16px;
-    color: #333;
-  }
-  
-  .images-section {
-    margin: 20px 0;
-  }
-  
-  .main-image {
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .thumbnail-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .thumbnail {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .description {
-    margin: 15px 0;
-    font-size: 16px;
-    color: #444;
-  }
-  
-  .moderation-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .approve-button, .reject-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .approve-button {
-    background-color: #2ecc71;
-    color: white;
-  }
-  
-  .reject-button {
-    background-color: #e74c3c;
-    color: white;
-  }
-   */
+
+/* Кнопка "Принять" (синяя) */
+.approve-buttonn {
+  background-color: #1E88E5;
+  color: white;
+}
+
+/* Кнопка "Отклонить" (белая) */
+.reject-buttonn {
+  background-color: white;
+  color: #1E88E5;
+}
+h1, h2 {
+  margin-bottom: 20px; /* Увеличенный отступ снизу */
+}
+
+p {
+  margin-bottom: 15px; /* Отступы для абзацев */
+}
+
+.description-container {
+  margin-bottom: 20px; /* Отступ между описанием и следующими элементами */
+}
+
+.amenities {
+  margin-bottom: 20px; /* Отступ между удобствами и следующим разделом */
+}
+
+.location {
+  margin-bottom: 20px; /* Отступ перед информацией о владельце */
+}
+
+.host-info {
+  margin-bottom: 30px; /* Увеличенный отступ перед кнопками */
+}
+
+.moderation-buttons {
+  margin-top: 30px; /* Дополнительный отступ перед кнопками */
+}
+.moderation-buttons {
+  display: flex;
+  justify-content: space-between; /* Распределение кнопок по краям */
+  gap: 40px; /* Увеличенный отступ между кнопками */
+  width: 100%;
+}
+
+.approve-buttonn, .reject-buttonn {
+  flex: 1; /* Равномерное распределение по ширине */
+  display: flex;
+  width: 540px;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid var(--Main-Color-Blue, #007AFF);
+  background: var(--White, #FFF);
+}
+
+/* Убираем отступ внутри кнопок */
+.approve-buttonn {
+  background-color: #1E88E5;
+  color: white;
+}
+
+.reject-buttonn {
+  background-color: white;
+  color: #1E88E5;
+}
