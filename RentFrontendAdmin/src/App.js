@@ -27,7 +27,7 @@ function App() {
               <Route path="/email" element={<EmailAuth />} />
               <Route path="/admin" element={<ProtectedRoute><Navigate to="/ads" replace /></ProtectedRoute>} />
               <Route path="/ads" element={<ProtectedRoute><AdsList /></ProtectedRoute>} />
-              <Route path="/ad/:id" element={<ProtectedRoute><AdDetails /></ProtectedRoute>} />
+              <Route path="/ad/:id" element={<ProtectedRoute><AdDetails /></ProtectedRoute>} /> {/* Маршрут для AdDetails */}
               <Route path="/moderation" element={<ProtectedRoute><ModerationList /></ProtectedRoute>} />
               <Route path="/users" element={<ProtectedRoute><UsersList /></ProtectedRoute>} />
               <Route path="/bookings" element={<ProtectedRoute><BookingsTable /></ProtectedRoute>} />
