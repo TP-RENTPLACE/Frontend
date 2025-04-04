@@ -6,7 +6,9 @@ const SearchBar = ({ searchQuery, handleSearchChange }) => {
   return (
     <div className="search-bar">
       <FiSearch className="search-icon" />
+      
       <input
+        
         type="text"
         placeholder="Поиск..."
         value={searchQuery}
