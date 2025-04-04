@@ -8,9 +8,10 @@
   padding: 3px 10px; /* Уменьшил внутренние отступы */
   border-bottom: 1px solid #ddd; /* Сделал линию снизу тоньше */
   flex: 1;
-  max-width: 500px;
+  max-width: 400px;
   min-width: 200px;
   height: 32px; /* Явно задал высоту */
+  box-sizing: border-box; /* Добавляет рамку и padding в общие размеры */
 }
 
 .search-bar .search-icon {
@@ -25,4 +26,6 @@
   flex: 1;
   font-size: 14px; /* Сделал текст в поиске чуть меньше */
   padding: 4px 0; /* Уменьшил отступы */
+  height: 100%; /* Задаем высоту, чтобы она соответствовала высоте родителя */
+  box-sizing: border-box; /* Также учитывает рамки и padding */
 }

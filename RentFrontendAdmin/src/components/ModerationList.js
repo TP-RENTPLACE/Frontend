@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaLandmark } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { FaHome, FaBuilding, FaHotel } from "react-icons/fa";
+import { FaSwimmingPool } from "react-icons/fa";
+import { LuMountainSnow } from "react-icons/lu";
+
 import AddAdForm from "./AddAdForm";
 import Header from "./Header";
-import '../styles/moderationList.css'; 
+import '../styles/ModerationList.css';
+import image1 from "../assets/image2.png";
 
 const ModerationList = () => {
   const navigate = useNavigate();
@@ -10,9 +18,11 @@ const ModerationList = () => {
     {
       id: 1,
       title: "Таунаус Hillside",
+      category: "Вилла",
+      categoryIcon:  [< FaSwimmingPool/>,< FaBuilding/>,<LuMountainSnow/>],
       price: "18000 ₽",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "petr_petrov@gmail.com",
     },
   ]);
@@ -37,26 +47,34 @@ const ModerationList = () => {
     }
     setShowForm(false);
   };
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.rejectedId) {
+      handleReject(location.state.rejectedId);
+    }
+  }, [location.state]);
+
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    console.log("Поиск изменился на:", e.target.value); // Проверка обновления состояния
   };
 
   const handleApprove = (id) => {
     console.log(`Объявление ${id} подтверждено`);
+    navigate("/moderation");
   };
 
   const handleReject = (id) => {
     setAdsData((prevAds) => prevAds.filter((ad) => ad.id !== id));
+    navigate("/moderation");
   };
 
-  // Фильтрация объявлений
   const filteredAds = adsData.filter((ad) => {
     const lowercasedQuery = searchQuery.toLowerCase().trim();
-    console.log("Фильтрация с запросом:", lowercasedQuery); // Проверка фильтрации
     return (
       ad.title.toLowerCase().includes(lowercasedQuery) ||
+      ad.category.toLowerCase().includes(lowercasedQuery) ||
       ad.price.toLowerCase().includes(lowercasedQuery) ||
       ad.address.toLowerCase().includes(lowercasedQuery) ||
       ad.owner.toLowerCase().includes(lowercasedQuery)
@@ -69,20 +87,19 @@ const ModerationList = () => {
 
       {!showForm ? (
         <>
-          <div className="header">
-            <div className="ads-list-header">
-              <h1>Модерация объявлений</h1>
-            </div>
+          <div className="ads-list-header">
+            <h1>Модерация объявлений</h1>
           </div>
 
           <table className="ads-table">
             <thead>
               <tr>
                 <th>Фото</th>
-                <th>Название объявления</th>
-                <th>Цена за сутки</th>
+                <th>Название</th>
+                <th>Категория</th>
+                <th>Цена</th>
                 <th>Адрес</th>
-                <th>Хозяин жилья</th>
+                <th>Хозяин</th>
                 <th>Действие</th>
               </tr>
             </thead>
@@ -92,12 +109,15 @@ const ModerationList = () => {
                   <tr 
                     key={ad.id} 
                     className="clickable-row" 
-                    onClick={() => navigate(`/ad/${ad.id}`)}
+                    onClick={() => navigate(`/ad/${ad.id}`)} // Используем id для маршрутизации
                   >
                     <td>
                       <img src={ad.image} alt={ad.title} className="ad-image" />
                     </td>
                     <td>{ad.title}</td>
+                    <td className="category-cell">
+                      {ad.categoryIcon} <span>{ad.category}</span>
+                    </td>
                     <td>{ad.price}</td>
                     <td>{ad.address}</td>
                     <td>{ad.owner}</td>
@@ -115,7 +135,7 @@ const ModerationList = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">Нет объявлений, соответствующих запросу.</td>
+                  <td colSpan="7">Нет объявлений, соответствующих запросу.</td>
                 </tr>
               )}
             </tbody>
