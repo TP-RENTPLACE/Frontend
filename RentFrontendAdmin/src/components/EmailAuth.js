@@ -26,21 +26,27 @@ export default function EmailAuth() {
   const verifyCode = () => {
     if (parseInt(code) === sentCode) {
       localStorage.setItem("isAdmin", "true");
-      navigate("/admin");  
+      navigate("/admin");
     } else {
       alert("Неверный код");
     }
   };
 
+  const enterNewEmail = () => {
+    setEmail("");
+    setCode("");
+    setStep(1);
+  };
+
   return (
     <div className="auth-container">
       <img src={logo} alt="Rentplace Logo" className="auth-logo" />
-      <h2 className="auth-subtitle">Administration</h2>
+      <h6 className="auth-subtitle">Administration</h6>
       
       <div className="auth-box">
         {step === 1 ? (
           <>
-            <h2 className="auth-title">Войдите в аккаунт</h2>
+            <h6 className="auth-title">Войдите в аккаунт</h6>
             <p className="auth-description">
               Введите почту. На нее будет отправлено письмо с кодом.
             </p>
@@ -60,7 +66,7 @@ export default function EmailAuth() {
           </>
         ) : (
           <>
-            <h2 className="auth-title">Введите код</h2>
+            <h6 className="auth-title">Введите код</h6>
             <p className="auth-description">Проверьте вашу почту и введите код ниже.</p>
             <div className="auth-input-container">
               <input
@@ -73,6 +79,9 @@ export default function EmailAuth() {
             </div>
             <button onClick={verifyCode} className="auth-button auth-button-success">
               Войти
+            </button>
+            <button onClick={enterNewEmail} className="auth-button auth-button-secondary">
+              Ввести другую почту
             </button>
           </>
         )}
