@@ -10,7 +10,7 @@
   flex: 1;
   max-width: 400px;
   min-width: 200px;
-  height: 32px; /* Явно задал высоту */
+  height: 40px; /* Явно задал высоту */
   box-sizing: border-box; /* Добавляет рамку и padding в общие размеры */
 }
 

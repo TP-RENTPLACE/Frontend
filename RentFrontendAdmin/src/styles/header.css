@@ -17,7 +17,7 @@
   justify-content: space-between;
   padding: 1% 3%;
   z-index: 1000; /* Убедимся, что он поверх остальных элементов */
-  height: 75px; /* Фиксируем высоту */
+  height: 90px; /* Фиксируем высоту */
   padding: 10px 3%;
 }
 
