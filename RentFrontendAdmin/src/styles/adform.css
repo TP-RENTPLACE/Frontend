@@ -56,6 +56,15 @@
   border: 1px solid #ccc;
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Medium */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
 }
 
 /* Контейнер для двух строк */

@@ -81,8 +81,8 @@ const AdminEditForm = ({ onCancel }) => {
           <div>
             <label>Роль:</label>
             <select name="role" value={formData.role} onChange={handleChange}>
-              <option value="Администратор">Администратор</option>
-              <option value="Модератор">Модератор</option>
+              <option value="Admin">Администратор</option>
+              
               <option value="Пользователь">Пользователь</option>
             </select>
           </div>

@@ -17,12 +17,20 @@
   align-items: center;
   margin-bottom: 20px;
   width: 100%;
+  display: flex;
+  justify-content: flex-start; /* теперь всё влево */
+  align-items: center;
+  gap: 68%; /* расстояние между заголовком и кнопкой */
 }
 
 h1 {
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-family: Montserrat;
   font-size: 26px;
+  font-style: normal;
   font-weight: 700;
-  color: #151515;
+  line-height: 30px; /* 115.385% */
 }
 
 .add-ad-button {
@@ -40,7 +48,7 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
-  margin-left: auto; /* Выравнивание кнопки по правому краю */
+  /* margin-left: auto; Выравнивание кнопки по правому краю */
   margin-bottom: 20px; /* Добавляем отступ снизу, чтобы кнопка не вылазила за границы */
 }
 
@@ -191,4 +199,58 @@ h1 {
 }
 * {
   font-family: 'Raleway', sans-serif;
+}
+
+
+.ads-table th {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.ads-table td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left; /* ключ: перенос текста будет по левому краю */
+}
+
+.ads-table td > * {
+  text-align: left;
+}
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.page-info {
+  font-size: 14px;
+  color: #333;
+}
+
+.pagination-buttons {
+  display: flex;
+  gap: 4px; /* или даже 2px для совсем плотного */
+}
+
+.arrow-button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.arrow-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.title-cell {
+  color: #007AFF;
+  font-weight: 600;
+  cursor: pointer;
 }

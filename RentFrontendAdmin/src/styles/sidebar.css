@@ -46,6 +46,17 @@ nav {
   width: 100%;
   text-align: left;
   text-decoration: none;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Web/Big */
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+  display: flex;
+  
 }
 
 .menu-item:hover {
@@ -53,14 +64,45 @@ nav {
 }
 
 .menu-item.active {
-  background: #0095ff;
+  background: var(--Main-Color-Blue, #007AFF);
   color: white;
-  border-radius: 6px; 
-  padding: 8px 12px; 
-  width: auto; 
-  display: inline-block; 
-  
+  border-radius: 20px;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: row; /* <-- важное изменение */
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  width: 190px;
 }
+
 * {
   font-family: 'Raleway', sans-serif;
 }
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.logo-image {
+  width: 24px;
+  height: 24px;
+}
+
+.logo-text {
+  color: var(--Main-Color-Blue, #007AFF);
+  color: var(--Main-Color-Blue, #007AFF);
+  text-align: right;
+  font-variant-numeric: lining-nums tabular-nums;
+
+  /* H2 */
+  font-family: Montserrat;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 30px; /* 115.385% */ 
+  }
+
