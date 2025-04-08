@@ -118,7 +118,8 @@ const AdsList = () => {
                     <td>{ad.owner}</td>
                     <td className="actions-cell">
                       <div className="dropdown">
-                        <button className="menu-button" onClick={() => toggleMenu(ad.id)}>⋮</button>
+                      <button className="menu-button" onClick={() => toggleMenu(ad.id)}>⋯</button>
+
                         {openMenuId === ad.id && (
                           <div className="dropdown-menu">
                             <button onClick={() => { setEditingAd(ad); setShowForm(true); }}>Редактировать</button>
