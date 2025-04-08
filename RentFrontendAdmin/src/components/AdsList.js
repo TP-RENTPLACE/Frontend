@@ -45,7 +45,10 @@ const AdsList = () => {
   const [editingAd, setEditingAd] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
-
+  const [selectedRent, setSelectedRent] = useState(
+    editingAd?.rentType || "daily"
+  );
+  
   const toggleMenu = (id) => {
     setOpenMenuId(openMenuId === id ? null : id);
   };
@@ -113,7 +116,7 @@ const AdsList = () => {
                       {ad.categoryIcon}
                       
                     </td>
-                    <td>{ad.price}</td>
+                    <td>{ad.price} {ad.rentType === "monthly" ? "в месяц" : "за сутки"}</td>
                     <td>{ad.address}</td>
                     <td>{ad.owner}</td>
                     <td className="actions-cell">

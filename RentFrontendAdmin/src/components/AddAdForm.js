@@ -21,7 +21,10 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
         }
   );
 
-  const [selectedRent, setSelectedRent] = useState("daily");
+  const [selectedRent, setSelectedRent] = useState(
+    editingAd?.rentType || "daily"
+  );
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,8 +63,10 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
     const newAd = {
       id: editingAd ? editingAd.id : Date.now(),
       ...formData,
-      image: formData.images.length > 0 ? formData.images[0] : "/images/ad-image.jpg", // Берём первую картинку
+      rentType: selectedRent, // ← Добавляем тип аренды
+      image: formData.images.length > 0 ? formData.images[0] : "/images/ad-image.jpg",
     };
+    
     
   
     addNewAd(newAd);
