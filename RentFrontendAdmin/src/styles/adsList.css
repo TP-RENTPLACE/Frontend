@@ -219,5 +219,38 @@ h1 {
 .ads-table td > * {
   text-align: left;
 }
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 10px;
+}
 
+.page-info {
+  font-size: 14px;
+  color: #333;
+}
 
+.pagination-buttons {
+  display: flex;
+  gap: 4px; /* или даже 2px для совсем плотного */
+}
+
+.arrow-button {
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.arrow-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.title-cell {
+  color: #007AFF;
+  font-weight: 600;
+  cursor: pointer;
+}
