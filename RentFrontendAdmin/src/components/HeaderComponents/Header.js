@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import SearchBar from "./SearchBar";
 import { FiMenu } from "react-icons/fi";
-import { UserContext } from "./UserContext";
-import "../styles/header.css";
+import { UserContext } from "../UserListComponents/UserContext";
+import "../../styles/header.css";
 
 const Header = ({ searchQuery, handleSearchChange }) => {
   const { user } = useContext(UserContext);

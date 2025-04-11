@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import '../styles/EmailStyles.css';
-import logo from '../assets/logo.png';
+import '../../styles/EmailStyles.css';
+import logo from '../../assets/logo.png';
+import { MdOutlineMail } from "react-icons/md";
 
 export default function EmailAuth() {
   const [email, setEmail] = useState("");
@@ -9,6 +10,7 @@ export default function EmailAuth() {
   const [sentCode, setSentCode] = useState(null);
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
+  const inputRefs = useRef([]);
 
   useEffect(() => {
     if (localStorage.getItem("isAdmin") === "true") {
@@ -38,11 +40,31 @@ export default function EmailAuth() {
     setStep(1);
   };
 
+  const handleCodeChange = (e, index) => {
+    const value = e.target.value;
+    if (!/^\d?$/.test(value)) return;
+
+    const newCodeArray = code.split("");
+    newCodeArray[index] = value;
+    const newCode = newCodeArray.join("");
+    setCode(newCode);
+
+    if (value && inputRefs.current[index + 1]) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !e.target.value && inputRefs.current[index - 1]) {
+      inputRefs.current[index - 1].focus();
+    }
+  };
+
   return (
     <div className="auth-container">
       <img src={logo} alt="Rentplace Logo" className="auth-logo" />
       <h6 className="auth-subtitle">Administration</h6>
-      
+
       <div className="auth-box">
         {step === 1 ? (
           <>
@@ -58,7 +80,7 @@ export default function EmailAuth() {
                 placeholder="Введите вашу почту"
                 className="auth-input"
               />
-              <span className="auth-input-icon">📧</span>
+              <span className="auth-input-icon"><MdOutlineMail /></span>
             </div>
             <button onClick={sendCode} className="auth-button auth-button-primary">
               Далее
@@ -66,16 +88,21 @@ export default function EmailAuth() {
           </>
         ) : (
           <>
-            <h6 className="auth-title">Введите код</h6>
+            <h6 className="auth-title">Войдите в аккаунт</h6>
             <p className="auth-description">Проверьте вашу почту и введите код ниже.</p>
-            <div className="auth-input-container">
-              <input
-                type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                placeholder="Введите код"
-                className="auth-input"
-              />
+            <div className="code-input-container">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength={1}
+                  className="code-input"
+                  value={code[index] || ""}
+                  onChange={(e) => handleCodeChange(e, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                />
+              ))}
             </div>
             <button onClick={verifyCode} className="auth-button auth-button-success">
               Войти

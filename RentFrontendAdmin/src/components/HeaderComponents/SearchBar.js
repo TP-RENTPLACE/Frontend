@@ -1,6 +1,6 @@
 import React from "react";
 import { FiSearch } from "react-icons/fi";
-import "../styles/searchBar.css";
+import "../../styles/searchBar.css";
 
 const SearchBar = ({ searchQuery, handleSearchChange }) => {
   return (
