@@ -90,10 +90,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #FF7878;
 }
 
-.cancel-btn:hover {
-  background: #ff4d4f;
-  color: white;
-}
+
 
 .add-btn {
   border-radius: 20px;
