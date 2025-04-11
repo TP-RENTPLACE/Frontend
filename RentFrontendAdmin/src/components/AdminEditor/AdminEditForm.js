@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import "../styles/adminform.css";
-import Header from "./Header";
-import { UserContext } from "./UserContext";
+import "../../styles/adminform.css";
+import Header from "../HeaderComponents/Header";
+import { UserContext } from "../UserListComponents/UserContext";
 
 const AdminEditForm = ({ onCancel }) => {
   const { user, setUser } = useContext(UserContext);
@@ -96,8 +96,9 @@ const AdminEditForm = ({ onCancel }) => {
         </div>
 
         <div className="button-group">
-          <button type="submit" className="submit-button">Сохранить</button>
           <button type="button" className="cancel-button" onClick={onCancel}>Отмена</button>
+          <button type="submit" className="submit-button">Сохранить</button>
+          
           
         </div>
       </form>

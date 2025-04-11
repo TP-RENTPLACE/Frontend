@@ -1,15 +1,21 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import EmailAuth from "./components/EmailAuth";
-import ModerationList from "./components/ModerationList";
-import AdsList from "./components/AdsList";
-import Sidebar from "./components/Sidebar";
+import EmailAuth from "./components/Authentificator/EmailAuth";
+import ModerationList from "./components/ModerationListComponents/ModerationList";
+import AdsList from "./components/AdsListComponents/AdsList";
+import Sidebar from "./components/SideBar/Sidebar";
 import './styles/EmailStyles.css';
-import AdDetails from "./components/AdDetails";
-import UsersList from "./components/UsersList";
-import BookingsTable from "./components/BookingsTable";
-import AdminEditForm from "./components/AdminEditForm";
-import Header from "./components/Header";
-import { UserProvider } from "./components/UserContext"; // Импортируем UserProvider
+import AdDetails from "./components/ModerationListComponents/AdDetails";
+import UsersList from "./components/UserListComponents/UsersList";
+import BookingsTable from "./components/BookingListComponents/BookingsTable";
+import AdminEditForm from "./components/AdminEditor/AdminEditForm";
+import AddAdForm from "./components/AdsListComponents/AddAdForm";
+import AddAdPage from "./components/AdsListComponents/AddAdPage";
+import EditAdFormWrapper from "./components/AdsListComponents/EditAdFormWrapper";
+import Header from "./components/HeaderComponents/Header";
+import { UserProvider } from "./components/UserListComponents/UserContext"; // Импортируем UserProvider
+import AddUserFormWrapper from "./components/UserListComponents/AddUserFormWrapper";
+import EditUserFormWrapper from "./components/UserListComponents/EditUserFormWrapper";
+
 
 function ProtectedRoute({ children }) {
   return localStorage.getItem("isAdmin") === "true" ? children : <Navigate to="/email" />;
@@ -32,6 +38,18 @@ function App() {
               <Route path="/users" element={<ProtectedRoute><UsersList /></ProtectedRoute>} />
               <Route path="/bookings" element={<ProtectedRoute><BookingsTable /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><AdminEditForm /></ProtectedRoute>} />
+              
+              <Route path="/ads/addad" element={<ProtectedRoute><AddAdPage /></ProtectedRoute>} />
+              <Route path="/ads/editad/:id" element={<ProtectedRoute><EditAdFormWrapper /></ProtectedRoute>} />
+
+
+              <Route path="/users/add" element={<ProtectedRoute><AddUserFormWrapper /></ProtectedRoute>} />
+              <Route path="/users/edit/:id" element={<ProtectedRoute><EditUserFormWrapper /></ProtectedRoute>} />
+
+
+
+
+
             </Routes>
           </div>
         </div>

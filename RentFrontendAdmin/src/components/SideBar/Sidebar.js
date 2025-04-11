@@ -5,8 +5,8 @@ import { LuCircleUserRound } from "react-icons/lu";
 import { CiCalendarDate } from "react-icons/ci";
 import { CiSettings } from "react-icons/ci";
 import { RxExit } from "react-icons/rx";
-import "../styles/sidebar.css";
-import logo from "../assets/sidebarLogo.png";
+import "../../styles/sidebar.css";
+import logo from "../../assets/sidebarLogo.png";
 const Sidebar = () => {
   const navigate = useNavigate();
 

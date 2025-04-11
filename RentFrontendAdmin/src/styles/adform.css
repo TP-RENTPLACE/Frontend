@@ -15,6 +15,7 @@
   margin-left: 0; /* Убираем возможные отступы */
 }
 
+
 /* Фотография, название и адрес */
 .field-group {
   display: flex;
@@ -267,7 +268,7 @@ textarea {
   background: white;
   color: #007bff;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: px;
 }
 
 .rent-options button.active {
@@ -326,6 +327,10 @@ line-height: 18px; /* 128.571% */
 .button-group {
   display: flex;
   gap: 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: center; /* Центрирование по горизонтали */
+  align-items: center; 
 }
 
 .submit-button, .cancel-button {
@@ -335,13 +340,9 @@ line-height: 18px; /* 128.571% */
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: px;
   flex-shrink: 0;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
+  border-radius: 20px;
 }
 
 .submit-button {
@@ -352,8 +353,8 @@ line-height: 18px; /* 128.571% */
 
 .cancel-button {
   background-color: white;
-  color: #007bff;
-  border: 2px solid #007bff;
+  color: #FF7878;
+  border: 2px solid #FF7878;
 }
 
 .submit-button:hover, .cancel-button:hover {

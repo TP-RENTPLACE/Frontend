@@ -15,7 +15,11 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%;
+  width: 97%;
+  display: flex;
+  justify-content: flex-start; /* теперь всё влево */
+  align-items: center;
+  gap: 68%; /* расстояние между заголовком и кнопкой */
 }
 
 h1 {
@@ -86,11 +90,13 @@ h1 {
 }
 
 .user-photo {
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  object-fit: cover;
+
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+  
 }
 
 .actions-cell {
@@ -140,4 +146,23 @@ h1 {
     width: 100%;
     margin-left: 0;
   }
+}
+.users-table th {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+}
+
+.users-table td {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.users-table tr:hover {
+  background-color: #f5f5f5;
 }

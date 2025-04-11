@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import AddAdForm from "./AddAdForm";
-import Header from "./Header";
-import "../styles/AdsList.css";
+import Header from "../HeaderComponents/Header";
+
 import { FaHome, FaBuilding, FaHotel } from "react-icons/fa";
 import { FaSwimmingPool } from "react-icons/fa";
 import { LuMountainSnow } from "react-icons/lu";
+import "../../styles/AdsList.css";
+import image1 from "../../assets/image2.png";
+import image2 from "../../assets/image3.png";
+import { useNavigate, useLocation } from "react-router-dom";
+import EditAdForm from "./EditAdForm";
 
 const AdsList = () => {
   const [adsData, setAdsData] = useState([
@@ -16,7 +21,7 @@ const AdsList = () => {
       price: "18000 ₽",
       rentType: "daily",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "petr_petrov@gmail.com",
     },
     {
@@ -27,7 +32,7 @@ const AdsList = () => {
       price: "15000 ₽",
       rentType: "monthly",
       address: "Деревня Протасово, ул. Лесная, 5",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "irina_sidorova@gmail.com",
     },
     {
@@ -38,7 +43,7 @@ const AdsList = () => {
       price: "22000 ₽",
       rentType: "daily",
       address: "Вилкова, Солнечный проезд, 7/2",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "maksim_ivanov@gmail.com",
     },
     {
@@ -49,7 +54,7 @@ const AdsList = () => {
       price: "18000 ₽",
       rentType: "daily",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "petr_petrov@gmail.com",
     },
     {
@@ -60,7 +65,7 @@ const AdsList = () => {
       price: "18000 ₽",
       rentType: "daily",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "petr_petrov@gmail.com",
     },
     {
@@ -71,7 +76,7 @@ const AdsList = () => {
       price: "18000 ₽",
       rentType: "daily",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "/images/ad-image.jpg",
+      image: image1,
       owner: "petr_petrov@gmail.com",
     },
     {
@@ -82,7 +87,7 @@ const AdsList = () => {
       price: "18000 ₽",
       rentType: "daily",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "Frontend/RentFrontendAdmin/src/assets/image1.png",
+      image: image1,
       owner: "petr_petrov@gmail.com",
     },
     {
@@ -93,19 +98,20 @@ const AdsList = () => {
       price: "181000 ₽",
       rentType: "daily",
       address: "Мистолово, Английский проезд, 3/1",
-      image: "/images/ad-image.jpg",
+      image: image2,
       owner: "petr_petrov@gmail.com",
     },
-    // Добавь больше объявлений для проверки пагинации
   ]);
 
   const [showForm, setShowForm] = useState(false);
   const [editingAd, setEditingAd] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
-
   const [currentPage, setCurrentPage] = useState(1);
   const adsPerPage = 7;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const editingAdFromState = location.state?.editingAd;
 
   const toggleMenu = (id) => {
     setOpenMenuId(openMenuId === id ? null : id);
@@ -119,12 +125,13 @@ const AdsList = () => {
     );
     setShowForm(false);
     setEditingAd(null);
-    setCurrentPage(1); // сбрасываем на первую страницу
+    setCurrentPage(1);
+    navigate("/ads");
   };
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // сбрасываем на первую страницу
+    setCurrentPage(1);
   };
 
   const filteredAds = adsData.filter((ad) => {
@@ -141,18 +148,17 @@ const AdsList = () => {
   const indexOfLastAd = currentPage * adsPerPage;
   const indexOfFirstAd = indexOfLastAd - adsPerPage;
   const currentAds = filteredAds.slice(indexOfFirstAd, indexOfLastAd);
-
   const totalPages = Math.ceil(filteredAds.length / adsPerPage);
 
   return (
     <div className="ads-list">
       <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
 
-      {!showForm ? (
+      {!showForm && !editingAdFromState ? (
         <>
           <div className="ads-list-header">
             <h1>Объявления</h1>
-            <button className="add-ad-button" onClick={() => setShowForm(true)}>
+            <button className="add-ad-button" onClick={() => navigate("/ads/addad")}>
               Добавить объявление
             </button>
           </div>
@@ -172,7 +178,22 @@ const AdsList = () => {
             <tbody>
               {currentAds.length > 0 ? (
                 currentAds.map((ad) => (
-                  <tr key={ad.id}>
+                  <tr
+                    key={ad.id}
+                    className="ad-row"
+                    onClick={(e) => {
+                      if (
+                        e.target.closest(".menu-button") ||
+                        e.target.closest(".dropdown-menu")
+                      )
+                        return;
+                      const { categoryIcon, ...serializableAd } = ad;
+                      navigate(`/ads/editad/${ad.id}`, {
+                        state: { editingAd: serializableAd },
+                      });
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
                     <td>
                       <img
                         src={ad.image || (ad.images && ad.images[0]) || "/images/ad-image.jpg"}
@@ -183,12 +204,7 @@ const AdsList = () => {
                     <td className="title-cell">{ad.title}</td>
                     <td className="category-cell">{ad.categoryIcon}</td>
                     <td>
-                      {ad.price}{" "}
-                      {ad.rentType === "monthly"
-                        ? "в месяц"
-                        : ad.rentType === "daily"
-                        ? "за сутки"
-                        : ""}
+                      {ad.price} {ad.rentType === "monthly" ? "в месяц" : ad.rentType === "daily" ? "за сутки" : ""}
                     </td>
                     <td>{ad.address}</td>
                     <td>{ad.owner}</td>
@@ -201,17 +217,15 @@ const AdsList = () => {
                           <div className="dropdown-menu">
                             <button
                               onClick={() => {
-                                setEditingAd(ad);
-                                setShowForm(true);
+                                const { categoryIcon, ...serializableAd } = ad;
+                                navigate(`/ads/editad/${ad.id}`, {
+                                  state: { editingAd: serializableAd },
+                                });
                               }}
                             >
                               Редактировать
                             </button>
-                            <button
-                              onClick={() =>
-                                setAdsData((prev) => prev.filter((a) => a.id !== ad.id))
-                              }
-                            >
+                            <button onClick={() => setAdsData((prev) => prev.filter((a) => a.id !== ad.id))}>
                               Удалить
                             </button>
                           </div>
@@ -228,53 +242,51 @@ const AdsList = () => {
             </tbody>
           </table>
 
-          {/* Пагинация */}
           {totalPages > 1 && (
             <div className="pagination-container">
-            <div className="page-info">Страница {currentPage}</div>
-          
-            <div className="pagination-svg-wrapper">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="86"
-                height="32"
-                viewBox="0 0 86 32"
-                fill="none"
-                onClick={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const clickX = e.clientX - rect.left;
-                  if (clickX < 43 && currentPage > 1) {
-                    setCurrentPage((prev) => prev - 1); // Левая стрелка
-                  } else if (clickX >= 43 && currentPage < totalPages) {
-                    setCurrentPage((prev) => prev + 1); // Правая стрелка
-                  }
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                <rect x="0.3" y="1.3" width="85.4" height="29.4" rx="7.7" fill="white" stroke="#C1C1C1" strokeWidth="0.6"/>
-                <g opacity="0.6">
-                  <path d="M25.41 20.4064L20.83 16L25.41 11.5936L24 10.24L18 16L24 21.76L25.41 20.4064Z" fill="#151515"/>
-                </g>
-                <g opacity="0.9">
-                  <path d="M61.59 20.4064L66.17 16L61.59 11.5936L63 10.24L69 16L63 21.76L61.59 20.4064Z" fill="#151515"/>
-                </g>
-                <path opacity="0.7" d="M43.5 31V1" stroke="#C1C1C1" strokeWidth="0.4" strokeLinecap="square"/>
-              </svg>
+              <div className="page-info">Страница {currentPage}</div>
+              <div className="pagination-svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="86"
+                  height="32"
+                  viewBox="0 0 86 32"
+                  fill="none"
+                  onClick={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    if (clickX < 43 && currentPage > 1) {
+                      setCurrentPage((prev) => prev - 1);
+                    } else if (clickX >= 43 && currentPage < totalPages) {
+                      setCurrentPage((prev) => prev + 1);
+                    }
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <rect x="0.3" y="1.3" width="85.4" height="29.4" rx="7.7" fill="white" stroke="#C1C1C1" strokeWidth="0.6" />
+                  <g opacity="0.6">
+                    <path d="M25.41 20.4064L20.83 16L25.41 11.5936L24 10.24L18 16L24 21.76L25.41 20.4064Z" fill="#151515" />
+                  </g>
+                  <g opacity="0.9">
+                    <path d="M61.59 20.4064L66.17 16L61.59 11.5936L63 10.24L69 16L63 21.76L61.59 20.4064Z" fill="#151515" />
+                  </g>
+                  <path opacity="0.7" d="M43.5 31V1" stroke="#C1C1C1" strokeWidth="0.4" strokeLinecap="square" />
+                </svg>
+              </div>
             </div>
-          </div>
-          
           )}
         </>
-      ) : (
-        <AddAdForm
+      ) : 
+        <EditAdForm
+          editingAd={editingAdFromState || editingAd}
           addNewAd={addNewAd}
-          editingAd={editingAd}
           onCancel={() => {
             setShowForm(false);
             setEditingAd(null);
+            navigate("/ads");
           }}
         />
-      )}
+      }
     </div>
   );
 };

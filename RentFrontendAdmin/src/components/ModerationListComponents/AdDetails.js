@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AiOutlineWifi, AiOutlineCar } from "react-icons/ai";
 import { FaSnowflake, FaDoorOpen } from "react-icons/fa";
-import Header from "./Header";
-import "../styles/adDetails.css";
-import image1 from "../assets/image2.png";
+import Header from "../HeaderComponents/Header";
+import "../../styles/adDetails.css";
+import image1 from "../../assets/image2.png";
 
 const adData = [
   {
@@ -97,8 +97,8 @@ const AdDetails = () => {
         </div>
 
         <div className="moderation-buttons">
-          <button className="reject-buttonn" onClick={() => handleAction("reject")}>✘ Отклонить</button>
-          <button className="approve-buttonn" onClick={() => handleAction("approve")}>✔ Принять</button>
+          <button className="reject-buttonn" onClick={() => handleAction("reject")}> Отклонить</button>
+          <button className="approve-buttonn" onClick={() => handleAction("approve")}> Принять</button>
         </div>
       </div>
     </div>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import AddUserForm from "./AddUserForm";
-import Header from "./Header";
-import "../styles/usersList.css";
+import Header from "../HeaderComponents/Header";
+import "../../styles/usersList.css";
 import { UserContext } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 const UsersList = () => {
   const { user } = useContext(UserContext);
-
+  const navigate = useNavigate();
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -35,12 +36,15 @@ const UsersList = () => {
       birthDate: "1995-12-15",
       gender: "Мужской",
     },
+    // Добавь больше пользователей для теста
   ]);
 
   const [isAddingUser, setIsAddingUser] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 7;
 
   useEffect(() => {
     const closeMenu = (e) => {
@@ -55,6 +59,7 @@ const UsersList = () => {
   const addNewUser = (user) => {
     setUsers([...users, user]);
     setIsAddingUser(false);
+    setCurrentPage(1);
   };
 
   const updateUser = (updatedUser) => {
@@ -70,17 +75,27 @@ const UsersList = () => {
     setOpenMenuId(openMenuId === id ? null : id);
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
   const filteredUsers = users.filter((user) =>
     `${user.firstName} ${user.lastName} ${user.email}`
       .toLowerCase()
       .includes(searchQuery.toLowerCase())
   );
 
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+
   return (
     <div className="users-list">
       <Header
         searchQuery={searchQuery}
-        handleSearchChange={(e) => setSearchQuery(e.target.value)}
+        handleSearchChange={handleSearchChange}
       />
 
       {isAddingUser ? (
@@ -102,26 +117,31 @@ const UsersList = () => {
         <>
           <div className="users-header">
             <h1>Пользователи</h1>
-            <button className="add-user-button" onClick={() => setIsAddingUser(true)}>
+            <button className="add-user-button" onClick={() => navigate("/users/add")}>
               Добавить пользователя
             </button>
           </div>
           <table className="users-table">
             <thead>
               <tr>
-                <th>Фото</th>
+                <th>Фотография</th>
                 <th>Почта</th>
                 <th>Имя</th>
                 <th>Фамилия</th>
-                <th>Дата рождения</th>
                 <th>Пол</th>
+                <th>Дата рождения</th>
+                
                 <th>Действия</th>
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.length > 0 ? (
-                filteredUsers.map((user) => (
-                  <tr key={user.id}>
+              {currentUsers.length > 0 ? (
+                currentUsers.map((user) => (
+                  <tr
+                    key={user.id}
+                    onClick={() => navigate(`/users/edit/${user.id}`, { state: { editingUser: user } })}
+                    style={{ cursor: "pointer" }} // Добавляем стиль для визуального указания, что строка кликабельная
+                  >
                     <td>
                       {user.photo ? (
                         <img src={user.photo} alt="Фото" className="user-photo" />
@@ -132,14 +152,14 @@ const UsersList = () => {
                     <td>{user.email}</td>
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
-                    <td>{user.birthDate}</td>
                     <td>{user.gender}</td>
+                    <td>{user.birthDate}</td>
                     <td className="actions-cell">
                       <div className="dropdown">
                         <button
                           className="menu-button"
                           onClick={(e) => {
-                            e.stopPropagation();
+                            e.stopPropagation(); // Останавливаем всплытие события, чтобы не сработал клик по строке
                             toggleMenu(user.id);
                           }}
                         >
@@ -147,7 +167,9 @@ const UsersList = () => {
                         </button>
                         {openMenuId === user.id && (
                           <div className="dropdown-menu">
-                            <button onClick={() => setEditingUser(user)}>Редактировать</button>
+                            <button onClick={() => navigate(`/users/edit/${user.id}`, { state: { editingUser: user } })}>
+                              Редактировать
+                            </button>
                             <button onClick={() => removeUser(user.id)}>Удалить</button>
                           </div>
                         )}
@@ -161,7 +183,44 @@ const UsersList = () => {
                 </tr>
               )}
             </tbody>
+
           </table>
+
+          {/* Пагинация */}
+          {totalPages > 0 && (
+            <div className="pagination-container">
+              <div className="page-info">Страница {currentPage}</div>
+
+              <div className="pagination-svg-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="86"
+                  height="32"
+                  viewBox="0 0 86 32"
+                  fill="none"
+                  onClick={(e) => {
+                    const rect = e.currentTarget.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    if (clickX < 43 && currentPage > 1) {
+                      setCurrentPage((prev) => prev - 1); // Назад
+                    } else if (clickX >= 43 && currentPage < totalPages) {
+                      setCurrentPage((prev) => prev + 1); // Вперёд
+                    }
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
+                  <rect x="0.3" y="1.3" width="85.4" height="29.4" rx="7.7" fill="white" stroke="#C1C1C1" strokeWidth="0.6"/>
+                  <g opacity="0.6">
+                    <path d="M25.41 20.4064L20.83 16L25.41 11.5936L24 10.24L18 16L24 21.76L25.41 20.4064Z" fill="#151515"/>
+                  </g>
+                  <g opacity="0.9">
+                    <path d="M61.59 20.4064L66.17 16L61.59 11.5936L63 10.24L69 16L63 21.76L61.59 20.4064Z" fill="#151515"/>
+                  </g>
+                  <path opacity="0.7" d="M43.5 31V1" stroke="#C1C1C1" strokeWidth="0.4" strokeLinecap="square"/>
+                </svg>
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

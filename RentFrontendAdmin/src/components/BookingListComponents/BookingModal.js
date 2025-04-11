@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/bookingModal.css";
+import "../../styles/bookingModal.css";
 
 const BookingModal = ({ onCancel, booking, onSave }) => {
   const isEditing = !!booking;
@@ -66,12 +66,13 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
           </div>
 
           <div className="modal-actions">
+           <button className="cancel-btn" type="button" onClick={onCancel}>
+              Отмена
+            </button>
             <button className="add-btn" type="submit">
               {isEditing ? "Сохранить изменения" : "Добавить бронь"}
             </button>
-            <button className="cancel-btn" type="button" onClick={onCancel}>
-              Отмена
-            </button>
+            
           </div>
         </form>
       </div>

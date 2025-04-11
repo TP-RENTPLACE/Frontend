@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Raleway:wght@400;500;600&display=swap');
 /* Общий стиль для всей страницы */
+
+* {
+  font-family: 'Raleway', sans-serif;
+}
 .auth-container {
   position: absolute;
   left: 0;
@@ -57,16 +62,19 @@
   margin-bottom: 20px; /* Уменьшен отступ */
 }
 
-/* Поля ввода */
 .auth-input-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   border: 1px solid #E0E0E0;
-  border-radius: 8px;
-  padding: 12px;
-  background: #F9F9F9;
-  margin-bottom: 16px; /* Сделал компактнее */
+  border-radius: 15px;
+  padding: 16px 20px; /* Увеличим внутренние отступы */
+  background: #fafafa;
+  margin-bottom: 16px;
+  width: 100%;
 }
+
+
 
 .auth-input {
   flex: 1;
@@ -74,23 +82,26 @@
   background: transparent;
   outline: none;
   font-size: 16px;
+  width: 1000px;
 }
 
 .auth-input-icon {
   margin-left: 8px;
-  color: #888;
+  color: #ffffff;
 }
 
 /* Кнопки */
 .auth-button {
-  width: 100%;
-  padding: 12px; /* Сделал компактнее */
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 12px; 
+  display: flex;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 20px;
+  background: var(--Main-Color-Blue, #ffffff);
+  border-color: #007AFF ;
 }
 
 .auth-button-primary {
@@ -103,6 +114,7 @@
   gap: 10px;
   flex-shrink: 0;
   border-radius: 20px;
+  
   background: var(--Main-Color-Blue, #007AFF);
 }
 
@@ -134,4 +146,37 @@
   flex-shrink: 0;
   border-radius: 20px;
 
+}
+
+.code-input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.code-input {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Web/Code numbers */
+  font-family: Raleway;
+  font-size: 36px;
+  font-style: normal;
+  text-align: center;
+  font-weight: 400;
+  line-height: 40px; /* 111.111% */
+  
+}
+
+.code-input:focus {
+  border-color: #007AFF;
 }

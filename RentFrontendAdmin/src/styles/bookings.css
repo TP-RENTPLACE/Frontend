@@ -15,7 +15,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%;
+  width: 97%;
 }
 
 h2 {
@@ -144,4 +144,22 @@ h2 {
     width: 100%;
     margin-left: 0;
   }
+}
+
+.bookings-table th {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.bookings-table td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left; /* Текст может оставаться по левому краю */
+}
+
+.bookings-table td > * {
+  text-align: left; /* Вложенные элементы тоже по левому */
 }
