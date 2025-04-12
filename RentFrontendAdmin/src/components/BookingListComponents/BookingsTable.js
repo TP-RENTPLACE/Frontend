@@ -2,10 +2,21 @@ import React, { useState, useEffect } from "react";
 import "../../styles/bookings.css";
 import BookingModal from "./BookingModal";
 import Header from "../HeaderComponents/Header";
+import { useNavigate } from "react-router-dom";
+
 
 const bookingsData = [
   {
     id: 1,
+    listing: "Парадная квартира рядом с метро Чернышевская",
+    tenant: "ivan.petrov1990@yandex.ru",
+    landlord: "maria.smirnova@gmail.com",
+    checkIn: "2025-03-17",
+    checkOut: "2025-03-24",
+    price: "88 000 ₽",
+  },
+  {
+    id: 2,
     listing: "Парадная квартира рядом с метро Чернышевская",
     tenant: "ivan.petrov1990@yandex.ru",
     landlord: "maria.smirnova@gmail.com",
@@ -24,6 +35,7 @@ const BookingsTable = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const bookingsPerPage = 7;
+  const navigate = useNavigate();
 
   const handleSave = (newBooking) => {
     setBookings((prev) => {
@@ -38,9 +50,9 @@ const BookingsTable = () => {
   };
 
   const handleEdit = (booking) => {
-    setEditingBooking(booking);
-    setIsAdding(true);
+    navigate(`/bookings/edit/${booking.id}`, { state: { booking } });
   };
+  
 
   const handleDelete = (id) => {
     setBookings(bookings.filter((booking) => booking.id !== id));
@@ -88,7 +100,7 @@ const BookingsTable = () => {
       {!isAdding && !editingBooking && (
         <div className="bookings-header">
           <h2>Брони</h2>
-          <button className="add-booking-btn" onClick={() => setIsAdding(true)}>
+          <button className="add-booking-btn" onClick={() => navigate("/bookings/add")}>
             Добавить бронь +
           </button>
         </div>
@@ -111,7 +123,12 @@ const BookingsTable = () => {
             <tbody>
               {currentBookings.length > 0 ? (
                 currentBookings.map((booking) => (
-                  <tr key={booking.id}>
+                  <tr
+                    key={booking.id}
+                    className="clickable-row"
+                    onClick={() => navigate(`/bookings/edit/${booking.id}`, { state: { booking } })}
+                  >
+
                     <td className="id-column">{booking.id}</td>
                     <td>{booking.listing}</td>
                     <td>{booking.tenant}</td>

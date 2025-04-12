@@ -28,4 +28,13 @@
   padding: 4px 0; /* Уменьшил отступы */
   height: 100%; /* Задаем высоту, чтобы она соответствовала высоте родителя */
   box-sizing: border-box; /* Также учитывает рамки и padding */
+  color: var(--Main-Color-Dark, #151515);
+font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Medium */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
 }

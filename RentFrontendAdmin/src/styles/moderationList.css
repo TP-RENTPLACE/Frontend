@@ -8,6 +8,7 @@
     font-family: Montserrat, sans-serif;
     box-sizing: border-box;
     margin-top: 0;
+      
   }
   
   .ads-list-header {
@@ -27,6 +28,7 @@
   .ads-table {
     width: 100%;
     border-collapse: collapse;
+    
   }
   
   .ads-table thead {
