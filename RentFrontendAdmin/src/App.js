@@ -15,7 +15,9 @@ import Header from "./components/HeaderComponents/Header";
 import { UserProvider } from "./components/UserListComponents/UserContext"; // Импортируем UserProvider
 import AddUserFormWrapper from "./components/UserListComponents/AddUserFormWrapper";
 import EditUserFormWrapper from "./components/UserListComponents/EditUserFormWrapper";
-
+import BookingModalRoute from "./components/BookingListComponents/BookingModalRoute";
+import EditBookingModalRoute from "./components/BookingListComponents/EditBookingModalRoute";
+// import AdminEditRoute from "./components/AdminEditor/AdminEditRoute";
 
 function ProtectedRoute({ children }) {
   return localStorage.getItem("isAdmin") === "true" ? children : <Navigate to="/email" />;
@@ -47,7 +49,10 @@ function App() {
               <Route path="/users/edit/:id" element={<ProtectedRoute><EditUserFormWrapper /></ProtectedRoute>} />
 
 
+              <Route path="/bookings/add" element={<ProtectedRoute><BookingModalRoute /></ProtectedRoute>} />
+              <Route path="/bookings/edit/:id" element={<ProtectedRoute><EditBookingModalRoute /> </ProtectedRoute>} />
 
+              {/* <Route path="/admin/profile" element={<ProtectedRoute><AdminEditRoute /></ProtectedRoute>} /> */}
 
 
             </Routes>

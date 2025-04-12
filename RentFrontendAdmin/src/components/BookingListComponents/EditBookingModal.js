@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import "../../styles/bookingModal.css";
 import Header from "../HeaderComponents/Header";
 
-const BookingModal = ({ onCancel, booking, onSave }) => {
-  const isEditing = !!booking;
-
+const EditBookingModal = ({ booking, onCancel, onSave }) => {
   const [formData, setFormData] = useState({
-    id: booking?.id || Date.now(), // Генерируем ID, если это новая бронь
+    id: booking?.id || Date.now(),
     listing: booking?.listing || "",
     tenant: booking?.tenant || "",
     landlord: booking?.landlord || "",
@@ -14,15 +12,15 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
     checkOut: booking?.checkOut || "",
     price: booking?.price || "",
   });
-  const [searchQuery, setSearchQuery] = useState("");
-  
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+    const [searchQuery, setSearchQuery] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -34,9 +32,9 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
 
   return (
     <div className="modal-overlay">
-      <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+        <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
       <div className="modal">
-        <h2>{isEditing ? "Редактировать бронь" : "Добавить бронь"}</h2>
+        <h2>Редактировать бронь</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <label>
@@ -73,13 +71,12 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
           </div>
 
           <div className="modal-actions">
-           <button className="cancel-btn" type="button" onClick={onCancel}>
+            <button className="cancel-btn" type="button" onClick={onCancel}>
               Отмена
             </button>
             <button className="add-btn" type="submit">
-              {isEditing ? "Сохранить изменения" : "Добавить бронь"}
+              Сохранить изменения
             </button>
-            
           </div>
         </form>
       </div>
@@ -87,4 +84,4 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
   );
 };
 
-export default BookingModal;
+export default EditBookingModal;
