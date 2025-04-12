@@ -25,6 +25,23 @@ const adData = [
     ],
     details: ["360 м²", "5 комнат", "6 гостей", "3 спальни", "3 кровати"],
   },
+  {
+    id: 2,
+    title: "Таунаус Hillside",
+    price: "18000 ₽",
+    address: "Мистолово, Английский проезд, 3/1",
+    images: [image1, image1, image1, image1, image1],
+    owner: "petr_petrov@gmail.com",
+    description:
+      "Просторный дом с удобствами. Очень удобное месторасположение, рядом парк, магазины, школы и детские сады.",
+    amenities: [
+      { name: "Wi-Fi", icon: <AiOutlineWifi /> },
+      { name: "Парковка", icon: <AiOutlineCar /> },
+      { name: "Кондиционер", icon: <FaSnowflake /> },
+      { name: "Балкон", icon: <FaDoorOpen /> },
+    ],
+    details: ["360 м²", "5 комнат", "6 гостей", "3 спальни", "3 кровати"],
+  },
 ];
 
 const AdDetails = () => {
