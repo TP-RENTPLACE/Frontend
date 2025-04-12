@@ -7,6 +7,15 @@
   background: #FFF;
   padding: 20px;
   box-sizing: border-box;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Medium */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
 }
 
 /* Заголовки */
@@ -323,7 +332,16 @@ p {
   border-radius: 20px;
   border: 1px solid var(--Main-Color-Blue, #007AFF);
   background: var(--White, #FFF);
-}
+  color: var(--White, #FFF);
+  font-variant-numeric: lining-nums proportional-nums;
+
+    /* Rentplace Mobile/Big Bold */
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 125% */
+  }
 
 /* Убираем отступ внутри кнопок */
 .approve-buttonn {
