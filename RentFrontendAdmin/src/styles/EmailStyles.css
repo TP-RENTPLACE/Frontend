@@ -16,6 +16,15 @@
   align-items: center;
   justify-content: center;
   font-family: 'Inter', sans-serif;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Medium */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
 }
 
 /* Логотип */
@@ -54,12 +63,30 @@
   font-weight: bold;
   margin-bottom: 12px; /* Уменьшен отступ */
   color: #000;
+  color: var(--Main-Color-Dark, #151515);
+  text-align: center;
+  font-variant-numeric: lining-nums tabular-nums;
+  
+  /* H2 Medium */
+  font-family: Montserrat;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 115.385% */
 }
 
 .auth-description {
   font-size: 14px;
   color: #666;
   margin-bottom: 20px; /* Уменьшен отступ */
+  color: var(--Main-Color-Dark, #151515);
+  text-align: center;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 125% */
 }
 
 .auth-input-container {
@@ -180,3 +207,109 @@
 .code-input:focus {
   border-color: #007AFF;
 }
+
+.auth-logo-container {
+  display: flex;
+  align-items: baseline; /* важно: выравнивает текст и иконку по текстовой базе */
+  gap: 4px;
+  margin-bottom: 1rem;
+}
+
+.auth-logo {
+  width: 50px;
+  height: 40px;
+  transform: translateY(6px); /* поднимаем логотип до уровня текста */
+}
+
+.auth-logo-text {
+  color: var(--Main-Color-Dark, #151515);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 56px;
+}
+
+.auth-logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* или center, если всё по центру */
+  margin-bottom: 1rem;
+}
+
+.auth-logo-container {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.auth-logo {
+  width: 50px;
+  height: 40px;
+  transform: translateY(6px);
+}
+
+.auth-logo-text {
+  color: var(--Main-Color-Dark, #151515);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 56px;
+}
+
+.auth-subtitle {
+  margin: 0;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+.auth-logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* выравнивание по центру */
+  margin-bottom: 1rem;
+}
+
+.auth-logo-container {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.auth-logo {
+  width: 50px;
+  height: 40px;
+  transform: translateY(6px); /* подгонка иконки */
+}
+
+.auth-logo-text {
+  color: var(--Main-Color-Dark, #151515);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 56px;
+}
+
+.auth-subtitle {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 500;
+
+  text-align: center;
+    color: var(--Main-Color-Dark, #151515);
+  text-align: right;
+  font-variant-numeric: lining-nums tabular-nums;
+  transform: translateY(-180px);
+  /* H2 Medium */
+  font-family: Montserrat;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 115.385% */
+  justify-content: center;
+}
+
+

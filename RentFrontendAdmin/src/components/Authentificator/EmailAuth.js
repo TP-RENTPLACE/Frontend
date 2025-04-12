@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import '../../styles/EmailStyles.css';
-import logo from '../../assets/logo.png';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { MdOutlineMail } from "react-icons/md";
 
 export default function EmailAuth() {
@@ -62,8 +62,13 @@ export default function EmailAuth() {
 
   return (
     <div className="auth-container">
-      <img src={logo} alt="Rentplace Logo" className="auth-logo" />
-      <h6 className="auth-subtitle">Administration</h6>
+      <div className="auth-logo-wrapper">
+        <div className="auth-logo-container">
+          <Logo className="auth-logo" />
+          <span className="auth-logo-text">rentplace</span>
+        </div>
+        <h6 className="auth-subtitle">Administration</h6>
+      </div>
 
       <div className="auth-box">
         {step === 1 ? (
