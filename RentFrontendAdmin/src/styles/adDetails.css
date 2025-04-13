@@ -16,6 +16,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 18px; /* 128.571% */
+  gap: 30px;
 }
 
 /* Заголовки */
@@ -30,7 +31,8 @@ h2 {
   display: flex;
   width: 1100px;
   height: 480px;
-  gap: 15px;
+  margin-top: 20px;
+  gap: 20px;
   align-items: flex-start;
 }
 
@@ -74,9 +76,15 @@ h1 {
 }
 
 .price {
-  font-size: 22px;
-  font-weight: 600;
-  color: #1E88E5;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums tabular-nums;
+
+  /* H2 Medium */
+  font-family: Montserrat;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 115.385% */
 }
 
 /* Описание */
@@ -122,6 +130,7 @@ h1 {
 .amenities {
   list-style: none;
   padding: 0;
+  margin-top: -10px;
 }
 
 .amenities li {
@@ -172,7 +181,7 @@ h2 {
 .ad-details-tags {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: -10px;
   flex-wrap: wrap;
 }
 
@@ -302,15 +311,18 @@ p {
 }
 
 .location {
-  margin-bottom: 20px; /* Отступ перед информацией о владельце */
+  margin-bottom: 20px;
+  margin-top:-10px; /* Отступ перед информацией о владельце */
 }
 
 .host-info {
-  margin-bottom: 30px; /* Увеличенный отступ перед кнопками */
+  margin-bottom: 30px;
+  margin-top:-10px; /* Увеличенный отступ перед кнопками */
 }
 
 .moderation-buttons {
-  margin-top: 30px; /* Дополнительный отступ перед кнопками */
+  
+  margin-top:-10px; /* Дополнительный отступ перед кнопками */
 }
 .moderation-buttons {
   display: flex;
