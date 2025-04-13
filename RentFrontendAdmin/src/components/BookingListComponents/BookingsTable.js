@@ -145,7 +145,7 @@ const BookingsTable = () => {
                           toggleMenu(booking.id);
                         }}
                       >
-                        ⋮
+                          ⋯
                       </button>
                       {menuOpen === booking.id && (
                         <div className="dropdown-content">

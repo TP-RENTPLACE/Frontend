@@ -163,7 +163,7 @@ const UsersList = () => {
                             toggleMenu(user.id);
                           }}
                         >
-                          ⋮
+                            ⋯
                         </button>
                         {openMenuId === user.id && (
                           <div className="dropdown-menu">
