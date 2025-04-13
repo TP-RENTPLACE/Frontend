@@ -34,51 +34,52 @@ const EditBookingModal = ({ booking, onCancel, onSave }) => {
     <div className="modal-overlay">
         <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
       <div className="modal">
-        <h2>Редактировать бронь</h2>
+        <h2>Изменить бронь</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-row">
-            <label>
-              Объявление:
-              <input type="text" name="listing" value={formData.listing} onChange={handleChange} required />
-            </label>
+            <div className="form-row">
+              <label>
+                <span className="column-name">Объявление:</span>
+                <input type="text" name="listing" value={formData.listing} onChange={handleChange} required />
+              </label>
 
-            <label>
-              Арендатор (Email):
-              <input type="email" name="tenant" value={formData.tenant} onChange={handleChange} required />
-            </label>
+              <label>
+                <span className="column-name">Арендатор (Email):</span>
+                <input type="email" name="tenant" value={formData.tenant} onChange={handleChange} required />
+              </label>
 
-            <label>
-              Арендодатель (Email):
-              <input type="email" name="landlord" value={formData.landlord} onChange={handleChange} required />
-            </label>
-          </div>
+              <label>
+                <span className="column-name">Арендодатель (Email):</span>
+                <input type="email" name="landlord" value={formData.landlord} onChange={handleChange} required />
+              </label>
+            </div>
 
-          <div className="form-row">
-            <label>
-              Дата заезда:
-              <input type="date" name="checkIn" value={formData.checkIn} onChange={handleChange} required />
-            </label>
+            <div className="form-row">
+              <label>
+                <span className="column-name">Дата заезда:</span>
+                <input type="date" name="checkIn" value={formData.checkIn} onChange={handleChange} required />
+              </label>
 
-            <label>
-              Дата выезда:
-              <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
-            </label>
+              <label>
+                <span className="column-name">Дата выезда:</span>
+                <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
+              </label>
 
-            <label>
-              Стоимость:
-              <input type="text" name="price" value={formData.price} onChange={handleChange} required />
-            </label>
-          </div>
+              <label>
+                <span className="column-name">Стоимость:</span>
+                <input type="text" name="price" value={formData.price} onChange={handleChange} required />
+              </label>
+            </div>
 
-          <div className="modal-actions">
-            <button className="cancel-btn" type="button" onClick={onCancel}>
-              Отмена
-            </button>
-            <button className="add-btn" type="submit">
-              Сохранить изменения
-            </button>
-          </div>
-        </form>
+            <div className="modal-actions">
+              <button className="cancel-btn" type="button" onClick={onCancel}>
+                Отмена
+              </button>
+              <button className="add-btn" type="submit">
+                Сохранить изменения
+              </button>
+            </div>
+          </form>
+
       </div>
     </div>
   );

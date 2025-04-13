@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/userform.css";
 import Header from "../HeaderComponents/Header";
+import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
 
 const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
   const [formData, setFormData] = useState(
@@ -52,7 +53,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
     <div className="add-ad-container">
       <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
       <form className="add-user-form" onSubmit={handleSubmit}>
-        <h2>{editingUser ? "Изменение пользователя" : "Добавление пользователя"}</h2>
+        <h2>{editingUser ? "Изменение пользователя" : "Добавить пользователя"}</h2>
 
         <div className="profile-photo">
           <div className="photo-container">
@@ -60,12 +61,12 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
               <input type="file" accept="image/*" onChange={handleImageChange} />
               <div className="photo-preview">
                 {formData.photo ? (
-                  <img src={formData.photo} alt="Фото профиля" />
+                  <img src={formData.photo}/>
                 ) : (
                   <div className="empty-photo"></div>
                 )}
                 <div className="photo-edit-button">
-                  <img src="/images/edit-icon.png" alt="Изменить" />
+                  <EditIcon width="20" height="20" />
                 </div>
               </div>
             </label>
@@ -74,26 +75,26 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
 
         <div className="fields-row">
           <div>
-            <label>Почта:</label>
+            <label className="column-name">Почта:</label>
             <input type="email" name="email" value={formData.email} onChange={handleChange} required />
           </div>
           <div>
-            <label>Имя:</label>
+            <label className="column-name">Имя:</label>
             <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
           </div>
           <div>
-            <label>Фамилия:</label>
+            <label className="column-name">Фамилия:</label>
             <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
           </div>
         </div>
 
         <div className="fields-row">
           <div>
-            <label>Дата рождения:</label>
+            <label className="column-name">Дата рождения:</label>
             <input type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} required />
           </div>
           <div>
-            <label>Пол:</label>
+            <label className="column-name">Пол:</label>
             <select name="gender" value={formData.gender} onChange={handleChange}>
               <option value="Мужской">Мужской</option>
               <option value="Женский">Женский</option>
@@ -101,7 +102,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
             </select>
           </div>
           <div>
-            <label>Роль:</label>
+            <label className="column-name">Роль:</label>
             <select name="role" value={formData.role} onChange={handleChange}>
               <option value="Пользователь">Пользователь</option>
               <option value="Менеджер">Менеджер</option>
@@ -112,7 +113,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
 
         <div className="fields-row registration-field">
           <div>
-            <label>Дата регистрации:</label>
+            <label className="column-name">Дата регистрации:</label>
             <input type="date" name="registrationDate" value={formData.registrationDate} onChange={handleChange} required />
           </div>
         </div>
