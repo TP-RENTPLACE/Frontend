@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import '../../styles/EmailStyles.css';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { MdOutlineMail } from "react-icons/md";
+import { ReactComponent as EmailLogo } from '../../assets/Email.svg';
 
 export default function EmailAuth() {
   const [email, setEmail] = useState("");
@@ -38,14 +39,14 @@ export default function EmailAuth() {
 
   useEffect(() => {
     console.log("canResend:", canResend); // Лог для отладки
-    if (code.length === 6 && code === sentCode?.toString()) {
+    if (code.length === 5 && code === sentCode?.toString()) {
       localStorage.setItem("isAdmin", "true");
       navigate("/admin");
     }
   }, [code, sentCode, navigate, canResend]); // Добавим canResend сюда для отслеживания изменений
 
   const sendCode = () => {
-    const generatedCode = Math.floor(100000 + Math.random() * 900000);
+    const generatedCode = Math.floor(10000 + Math.random() * 90000);
     setSentCode(generatedCode);
     console.log("Your code:", generatedCode);
     setCode("");
@@ -97,18 +98,17 @@ export default function EmailAuth() {
             <p className="auth-description">
               Введите почту. На нее будет отправлено письмо с кодом.
             </p>
-            <div className="auth-input-wrapper">
-              <div className="auth-input-with-icon">
-                <MdOutlineMail className="auth-input-icon" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Введите вашу почту"
-                  className="auth-input"
-                />
-              </div>
+            <div className="auth-input-icon-wrapper">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Введите вашу почту"
+                className="auth-input"
+              />
+              <EmailLogo className="auth-input-svg-icon" />
             </div>
+
 
             <div className="auth-input-wrapper">
               <button onClick={sendCode} className="auth-button auth-button-primary">
@@ -128,7 +128,7 @@ export default function EmailAuth() {
             </p>
 
             <div className="code-input-container">
-              {Array.from({ length: 6 }).map((_, index) => (
+              {Array.from({ length: 5 }).map((_, index) => (
                 <input
                   key={index}
                   type="text"
@@ -145,7 +145,7 @@ export default function EmailAuth() {
             {(
               <button
                 onClick={sendCode}
-                className="auth-button auth-button-primary"
+                className="auth-button-primary"
               >
                 Отправить код повторно
               </button>
