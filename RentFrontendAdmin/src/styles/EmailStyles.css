@@ -78,9 +78,6 @@
 }
 
 .auth-description {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 20px; /* Уменьшен отступ */
   color: var(--Main-Color-Dark, #151515);
   text-align: center;
   font-variant-numeric: lining-nums proportional-nums;
@@ -157,6 +154,7 @@
   border: 1px solid var(--Secondary-Gray, #C1C1C1);
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
+  margin-left: 15px;
 
   /* Rentplace Web/Code numbers */
   font-family: Raleway;
@@ -273,7 +271,7 @@
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
-  margin-left: 15px;
+  margin-left: px;
   
   flex-shrink: 0;
   border-radius: 20px;
@@ -296,23 +294,44 @@
   color: var(--Main-Color-Dark, #151515);
   text-align: center;
   font-variant-numeric: lining-nums proportional-nums;
-
-  /* Rentplace Web/Medium */
   font-family: Raleway;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  font-weight: 600;
+  line-height: 20px; /* 125% */
 
 }
 .auth-button-success{
   display: flex;
-  width: 550px;
+  width: 500px;
   height: 54px;
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
-  margin-left: 15px;
+  margin-left: px;
+  
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: var(--Main-Color-Blue, #007AFF);
+  color: var(--White, #FFF);
+  font-variant-numeric: lining-nums proportional-nums;
+  border-color:var(--Main-Color-Blue, #007AFF);
+
+  /* Rentplace Mobile/Big Bold */
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 125% */
+}
+.auth-button-primary{
+  display: flex;
+  width: 500px;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  margin-left: px;
   
   flex-shrink: 0;
   border-radius: 20px;
@@ -341,7 +360,7 @@
   
   background: #fff;
   color: var(--Main-Color-Blue, #007AFF);
-  border: none; /* 🔥 ВАЖНО: убираем границу полностью */
+  border: none; 
 
   font-variant-numeric: lining-nums proportional-nums;
   font-family: Raleway;
@@ -351,4 +370,23 @@
   line-height: 18px;
   text-align: center;
  
+}
+.auth-input-icon-wrapper {
+  position: relative;
+  width: 500px;
+}
+
+.auth-input {
+  width: 100%;
+  padding-right: 45px; /* отступ для иконки справа */
+}
+
+.auth-input-svg-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none; /* чтобы не мешать вводу */
 }

@@ -174,3 +174,14 @@ h2 {
 .bookings-table td > * {
   text-align: left; /* Вложенные элементы тоже по левому */
 }
+.column-name{
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Big Bold */
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 125% */
+}
