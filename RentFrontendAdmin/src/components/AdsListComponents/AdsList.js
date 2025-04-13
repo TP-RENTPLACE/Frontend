@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import AddAdForm from "./AddAdForm";
+
 import Header from "../HeaderComponents/Header";
 
-import { FaHome, FaBuilding, FaHotel } from "react-icons/fa";
+import {FaBuilding} from "react-icons/fa";
 import { FaSwimmingPool } from "react-icons/fa";
 import { LuMountainSnow } from "react-icons/lu";
 import "../../styles/AdsList.css";
 import image1 from "../../assets/image2.png";
-import image2 from "../../assets/image3.png";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import EditAdForm from "./EditAdForm";
 
