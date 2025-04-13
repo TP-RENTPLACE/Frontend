@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/userform.css";
 import Header from "../HeaderComponents/Header";
+import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
+
 const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
   const [formData, setFormData] = useState(editingUser);
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,12 +58,12 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
               <input type="file" accept="image/*" onChange={handleImageChange} />
               <div className="photo-preview">
                 {formData.photo ? (
-                  <img src={formData.photo} alt="Фото профиля" />
+                  <img src={formData.photo}  />
                 ) : (
                   <div className="empty-photo"></div>
                 )}
                 <div className="photo-edit-button">
-                  <img src="/images/edit-icon.png" alt="Изменить" />
+                  <EditIcon width="20" height="20" />
                 </div>
               </div>
             </label>
@@ -70,7 +72,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
         <div className="fields-row">
           <div>
-            <label>Почта:</label>
+            <label className="column-name">Почта:</label>
             <input
               type="email"
               name="email"
@@ -80,7 +82,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             />
           </div>
           <div>
-            <label>Имя:</label>
+            <label className="column-name">Имя:</label>
             <input
               type="text"
               name="firstName"
@@ -90,7 +92,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             />
           </div>
           <div>
-            <label>Фамилия:</label>
+            <label className="column-name">Фамилия:</label>
             <input
               type="text"
               name="lastName"
@@ -103,7 +105,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
         <div className="fields-row">
           <div>
-            <label>Дата рождения:</label>
+            <label className="column-name">Дата рождения:</label>
             <input
               type="date"
               name="birthDate"
@@ -113,7 +115,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             />
           </div>
           <div>
-            <label>Пол:</label>
+            <label className="column-name">Пол:</label>
             <select
               name="gender"
               value={formData.gender}
@@ -125,7 +127,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             </select>
           </div>
           <div>
-            <label>Роль:</label>
+            <label className="column-name">Роль:</label>
             <select name="role" value={formData.role} onChange={handleChange}>
               <option value="Пользователь">Пользователь</option>
               <option value="Менеджер">Менеджер</option>
@@ -136,7 +138,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
         <div className="fields-row registration-field">
           <div>
-            <label>Дата регистрации:</label>
+            <label className="column-name">Дата регистрации:</label>
             <input
               type="date"
               name="registrationDate"

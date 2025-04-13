@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect,} from "react";
 import AddUserForm from "./AddUserForm";
 import Header from "../HeaderComponents/Header";
 import "../../styles/usersList.css";
-import { UserContext } from "./UserContext";
+
 import { useNavigate } from "react-router-dom";
 
 const UsersList = () => {
-  const { user } = useContext(UserContext);
+  
   const navigate = useNavigate();
   const [users, setUsers] = useState([
     {
@@ -149,7 +149,7 @@ const UsersList = () => {
                         <img src="/images/default-avatar.png" alt="Фото" className="user-photo" />
                       )}
                     </td>
-                    <td>{user.email}</td>
+                    <td className="emaill">{user.email}</td>
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.gender}</td>
@@ -163,7 +163,7 @@ const UsersList = () => {
                             toggleMenu(user.id);
                           }}
                         >
-                          ⋮
+                            ⋯
                         </button>
                         {openMenuId === user.id && (
                           <div className="dropdown-menu">

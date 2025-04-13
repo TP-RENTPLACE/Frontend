@@ -77,10 +77,10 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
     <div className="add-ad-container">
       <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
       <form className="add-ad-form" onSubmit={handleSubmit}>
-        <h2 className="form-title">{editingAd ? "Редактировать объявление" : "Добавить объявление"}</h2>
+        <h2 className="form-title">{editingAd ? "Изменить объявление" : "Добавить объявление"}</h2>
 
         <div className="field-group">
-          <label>Изображения:</label>
+          <label className="ccolumn-name">Изображения:</label>
           <div className="image-preview-container">
             {formData.images.map((image, index) => (
               <div key={index} className="image-preview">
@@ -96,49 +96,49 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
         </div>
 
         <div className="field">
-          <label>Название:</label>
+          <label className="ccolumn-name">Название:</label>
           <input type="text" name="title" value={formData.title} onChange={handleChange} required />
         </div>
 
         <div className="field">
-          <label>Адрес:</label>
+          <label className="ccolumn-name">Адрес:</label>
           <input type="text" name="address" value={formData.address} onChange={handleChange} required />
         </div>
 
         <div className="fields-container">
           <div className="fields-row">
             <div className="field">
-              <label>Общая площадь (м²):</label>
+              <label className="ccolumn-name">Общая площадь (м²):</label>
               <input type="number" name="area" value={formData.area} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label>Количество гостей:</label>
+              <label className="ccolumn-name">Количество гостей:</label>
               <input type="number" name="guests" value={formData.guests} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label>Количество комнат:</label>
+              <label className="ccolumn-name">Количество комнат:</label>
               <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required />
             </div>
           </div>
 
           <div className="fields-row">
             <div className="field">
-              <label>Количество спален:</label>
+              <label className="ccolumn-name">Количество спален:</label>
               <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label>Количество кроватей:</label>
+              <label className="ccolumn-name">Количество кроватей:</label>
               <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label>Хозяин жилья (email):</label>
+              <label className="ccolumn-name">Хозяин жилья (email):</label>
               <input type="email" name="owner" value={formData.owner} onChange={handleChange} required />
             </div>
           </div>
         </div>
 
         <div className="field rent-price">
-          <label>Арендная плата:</label>
+          <label className="ccolumn-name">Арендная плата:</label>
           <input type="number" name="price" value={formData.price} onChange={handleChange} required />
         </div>
 
@@ -153,11 +153,11 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
 
         <div className="desc-amenities-container">
           <div className="field description-field">
-            <label>Описание:</label>
+            <label className="ccolumn-name">Описание:</label>
             <textarea name="description" value={formData.description} onChange={handleChange} required />
           </div>
           <div className="field amenities-field">
-            <label>Основные удобства:</label>
+            <label className="ccolumn-name">Основные удобства:</label>
             <textarea name="amenities" value={formData.amenities} onChange={handleChange} required />
           </div>
         </div>

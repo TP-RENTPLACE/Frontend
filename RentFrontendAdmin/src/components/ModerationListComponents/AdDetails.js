@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { useParams, useNavigate } from "react-router-dom";
 import { AiOutlineWifi, AiOutlineCar } from "react-icons/ai";
 import { FaSnowflake, FaDoorOpen } from "react-icons/fa";
@@ -12,6 +11,7 @@ const adData = [
     id: 1,
     title: "Таунаус Hillside",
     price: "18000 ₽",
+    period: "в месяц",
     address: "Мистолово, Английский проезд, 3/1",
     images: [image1, image1, image1, image1, image1],
     owner: "petr_petrov@gmail.com",
@@ -29,6 +29,7 @@ const adData = [
     id: 2,
     title: "Таунаус Hillside",
     price: "18000 ₽",
+    period: "за сутки",
     address: "Мистолово, Английский проезд, 3/1",
     images: [image1, image1, image1, image1, image1],
     owner: "petr_petrov@gmail.com",
@@ -76,7 +77,9 @@ const AdDetails = () => {
 
         <div className="ad-header">
           <h1>{ad.title}</h1>
-          <p className="price">{ad.price}</p>
+          <p className="price">
+            {ad.price} <span className="price-period">{ad.period}</span>
+          </p>
         </div>
 
         <div className="ad-details-tags">
@@ -114,8 +117,8 @@ const AdDetails = () => {
         </div>
 
         <div className="moderation-buttons">
-          <button className="reject-buttonn" onClick={() => handleAction("reject")}> Отклонить</button>
-          <button className="approve-buttonn" onClick={() => handleAction("approve")}> Принять</button>
+          <button className="reject-buttonn" onClick={() => handleAction("reject")}>Отклонить</button>
+          <button className="approve-buttonn" onClick={() => handleAction("approve")}>Принять</button>
         </div>
       </div>
     </div>

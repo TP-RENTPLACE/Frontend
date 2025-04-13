@@ -101,18 +101,12 @@ textarea {
   gap: 10px;
 }
 
-.rent-options button {
-  padding: 10px 20px;
-  border: 2px solid #007bff;
-  background: white;
-  color: #007bff;
-  cursor: pointer;
-  border-radius: 8px;
-}
+
 
 .rent-options button.active {
-  background: #007bff;
-  color: white;
+  background: white;
+  color: #007bff;
+  border: 1px solid #007bff;
 }
 
 /* Кнопки */
@@ -206,10 +200,7 @@ input[type="file"] {
   border-radius: 8px;
 }
 
-.rent-options button.active {
-  background: #007bff;
-  color: white;
-}
+
 
 /* Поле ввода арендной платы */
 .rent-price {
@@ -265,16 +256,13 @@ textarea {
 .rent-options button {
   padding: 10px 20px;
   border: 2px solid #007bff;
-  background: white;
-  color: #007bff;
+  background: rgb(255, 255, 255);
+  color: #C1C1C1;
   cursor: pointer;
-  border-radius: px;
+  border-radius: 20px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
 }
 
-.rent-options button.active {
-  background: #007bff;
-  color: white;
-}
 
 /* Поля "Описание" и "Основные удобства" */
 /* Поля "Описание" и "Основные удобства" */
@@ -430,4 +418,16 @@ input[type="file"] {
 }
 * {
   font-family: 'Raleway', sans-serif;
+}
+
+.ccolumn-name{
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Big Bold */
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 125% */
 }
