@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../../styles/adform.css";
-
+import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
 import Header from "../HeaderComponents/Header";
-
+import { ReactComponent as Image } from "../../assets/Camera.svg";
 const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
   const [formData, setFormData] = useState({
     ...editingAd,
@@ -64,7 +64,7 @@ const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
         <h2 className="form-title">Изменить объявление</h2>
 
         <div className="field-group">
-          <label className="ccolumn-name">Изображения:</label>
+          <label className="ccolumn-name">Изображения</label>
           <div className="image-preview-container">
             {formData.images.map((image, index) => (
               <div key={index} className="image-preview">
@@ -74,59 +74,66 @@ const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
                 </button>
               </div>
             ))}
-            <label htmlFor="file-input" className="image-upload-button">+</label>
+            <label htmlFor="file-input" className="image-upload-button">
+              <div className="upload-content">
+                <span>Добавить фото</span>
+                <Image className="upload-icon" />
+              </div>
+            </label>
+
             <input id="file-input" type="file" accept="image/*" multiple onChange={handleImageChange} />
           </div>
         </div>
 
         <div className="field">
-          <label className="ccolumn-name">Название:</label>
+          <label className="ccolumn-name">Название</label>
           <input type="text" name="title" value={formData.title} onChange={handleChange} required />
         </div>
 
         <div className="field">
-          <label className="ccolumn-name">Адрес:</label>
+          <label className="ccolumn-name">Адрес</label>
           <input type="text" name="address" value={formData.address} onChange={handleChange} required />
         </div>
 
         <div className="fields-container">
           <div className="fields-row">
             <div className="field">
-              <label className="ccolumn-name">Общая площадь (м²):</label>
+              <label className="ccolumn-name">Общая площадь (м²)</label>
               <input type="number" name="area" value={formData.area} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label className="ccolumn-name">Количество гостей:</label>
+              <label className="ccolumn-name">Количество гостей</label>
               <input type="number" name="guests" value={formData.guests} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label className="ccolumn-name">Количество комнат:</label>
+              <label className="ccolumn-name">Количество комнат</label>
               <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required />
             </div>
           </div>
 
           <div className="fields-row">
             <div className="field">
-              <label className="ccolumn-name">Количество спален:</label>
+              <label className="ccolumn-name">Количество спален</label>
               <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label className="ccolumn-name">Количество кроватей:</label>
+              <label className="ccolumn-name">Количество кроватей</label>
               <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
             </div>
             <div className="field">
-              <label className="ccolumn-name">Хозяин жилья (email):</label>
+              <label className="ccolumn-name">Хозяин жилья (email)</label>
               <input type="email" name="owner" value={formData.owner} onChange={handleChange} required />
             </div>
           </div>
         </div>
 
         <div className="field rent-price">
-          <label className="ccolumn-name">Арендная плата:</label>
-          <input type="number" name="price" value={formData.price} onChange={handleChange} required />
-        </div>
-
-        <div className="rent-options">
+          <label className="ccolumn-name" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            Арендная плата, 
+            <Ruble style={{ width: "18px", height: "18px", fill: "black" }} />
+          </label>
+  
+          <div className="rent-options">
           <button type="button" className={selectedRent === "daily" ? "active" : ""} onClick={() => setSelectedRent("daily")}>
             За сутки
           </button>
@@ -134,14 +141,25 @@ const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
             В месяц
           </button>
         </div>
+          <input className="field"type="number" name="price" value={formData.price} onChange={handleChange} required />
+        </div>
+
+        {/* <div className="rent-options">
+          <button type="button" className={selectedRent === "daily" ? "active" : ""} onClick={() => setSelectedRent("daily")}>
+            За сутки
+          </button>
+          <button type="button" className={selectedRent === "monthly" ? "active" : ""} onClick={() => setSelectedRent("monthly")}>
+            В месяц
+          </button>
+        </div> */}
 
         <div className="desc-amenities-container">
           <div className="field description-field">
-            <label className="ccolumn-name">Описание:</label>
+            <label className="ccolumn-name">Описание</label>
             <textarea name="description" value={formData.description} onChange={handleChange} required />
           </div>
           <div className="field amenities-field">
-            <label className="ccolumn-name">Основные удобства:</label>
+            <label className="ccolumn-name">Основные удобства</label>
             <textarea name="amenities" value={formData.amenities} onChange={handleChange} required />
           </div>
         </div>

@@ -51,28 +51,25 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
           
         <h2>Изменение пользователя</h2>
         
-
         <div className="profile-photo">
           <div className="photo-container">
-            <label className="photo-upload">
+            <div className="photo-preview">
+              {formData.avatar ? (
+                <img src={formData.avatar} alt="" />
+              ) : (
+                <div className="empty-photo" />
+              )}
+            </div>
+            <label className="photo-edit-button">
               <input type="file" accept="image/*" onChange={handleImageChange} />
-              <div className="photo-preview">
-                {formData.photo ? (
-                  <img src={formData.photo}  />
-                ) : (
-                  <div className="empty-photo"></div>
-                )}
-                <div className="photo-edit-button">
-                  <EditIcon width="20" height="20" />
-                </div>
-              </div>
+              <EditIcon width="20" height="20" />
             </label>
           </div>
         </div>
 
         <div className="fields-row">
           <div>
-            <label className="column-name">Почта:</label>
+            <label className="column-name">Почта</label>
             <input
               type="email"
               name="email"
@@ -82,7 +79,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             />
           </div>
           <div>
-            <label className="column-name">Имя:</label>
+            <label className="column-name">Имя</label>
             <input
               type="text"
               name="firstName"
@@ -92,7 +89,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             />
           </div>
           <div>
-            <label className="column-name">Фамилия:</label>
+            <label className="column-name">Фамилия</label>
             <input
               type="text"
               name="lastName"
@@ -105,7 +102,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
         <div className="fields-row">
           <div>
-            <label className="column-name">Дата рождения:</label>
+            <label className="column-name">Дата рождения</label>
             <input
               type="date"
               name="birthDate"
@@ -115,7 +112,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             />
           </div>
           <div>
-            <label className="column-name">Пол:</label>
+            <label className="column-name">Пол</label>
             <select
               name="gender"
               value={formData.gender}
@@ -127,7 +124,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             </select>
           </div>
           <div>
-            <label className="column-name">Роль:</label>
+            <label className="column-name">Роль</label>
             <select name="role" value={formData.role} onChange={handleChange}>
               <option value="Пользователь">Пользователь</option>
               <option value="Менеджер">Менеджер</option>
@@ -138,7 +135,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
         <div className="fields-row registration-field">
           <div>
-            <label className="column-name">Дата регистрации:</label>
+            <label className="column-name">Дата регистрации</label>
             <input
               type="date"
               name="registrationDate"
@@ -149,14 +146,13 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
           </div>
         </div>
 
-        <div className="button-group">
+        <div className="footer-buttons">
           <button type="button" className="cancel-button" onClick={onCancel}>
             Отменить
           </button>
           <button type="submit" className="submit-button">
             Сохранить
           </button>
-
         </div>
       </form>
     </div>
