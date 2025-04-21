@@ -7,6 +7,7 @@ import { FaSwimmingPool } from "react-icons/fa";
 import { LuMountainSnow } from "react-icons/lu";
 import "../../styles/AdsList.css";
 import image1 from "../../assets/image2.png";
+import { ReactComponent as Plus } from "../../assets/Plus.svg";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import EditAdForm from "./EditAdForm";
@@ -82,8 +83,9 @@ const AdsList = () => {
         <>
           <div className="ads-list-header">
             <h1>Объявления</h1>
-            <button className="add-ad-button" onClick={() => navigate("/ads/addad")}>
+            <button className="add-ad-button" onClick={() => navigate("/ads/add")}>
               Добавить объявление
+              <Plus/>
             </button>
           </div>
 
@@ -166,7 +168,7 @@ const AdsList = () => {
             </tbody>
           </table>
 
-          {totalPages > 1 && (
+          {totalPages > 0 && (
             <div className="pagination-container">
               <div className="page-info">Страница {currentPage}</div>
               <div className="pagination-svg-wrapper">

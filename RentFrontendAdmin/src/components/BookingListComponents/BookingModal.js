@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../../styles/bookingModal.css";
 import Header from "../HeaderComponents/Header";
-
+import "../../styles/adform.css";
+import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
 const BookingModal = ({ onCancel, booking, onSave }) => {
   const isEditing = !!booking;
 
@@ -37,7 +38,7 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
       <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
       <div className="modal">
         <h2>{isEditing ? "Редактировать бронь" : "Добавить бронь"}</h2>
-        <form onSubmit={handleSubmit}>
+        <form className="booking-modal-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label>
               <span className="column-name">Объявление:</span>
@@ -97,7 +98,8 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
             </label>
 
             <label>
-              <span className="column-name">Стоимость:</span>
+              <span className="column-name">Стоимость проживания, <Ruble style={{ width: "18px", height: "18px", fill: "black" }} /></span>
+              
               <input
                 type="text"
                 name="price"
@@ -105,17 +107,18 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
+              
             </label>
           </div>
 
-          <div className="modal-actions">
-            <button className="cancel-btn" type="button" onClick={onCancel}>
-              Отмена
-            </button>
-            <button className="add-btn" type="submit">
-              {isEditing ? "Сохранить изменения" : "Добавить бронь"}
-            </button>
-          </div>
+        <div className="footer-buttons">
+          <button type="button" className="cancel-button" onClick={onCancel}>
+            Отменить
+          </button>
+          <button type="submit" className="submit-button">
+            Добавить
+          </button>
+        </div>
         </form>
       </div>
     </div>

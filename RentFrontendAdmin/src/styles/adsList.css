@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
 .ads-list {
   position: relative;
-  top: 20px; /* Поднял ближе к header */
+  top: 20px;
   width: calc(100% - 240px);
   max-width: 100%;
   margin-left: 240px;
   padding: 20px;
   font-family: Montserrat, sans-serif;
   box-sizing: border-box;
-  margin-top: 0; /* Убираем старый отступ */
+  margin-top: 0;
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
+
   
   /* Rentplace Mobile/Medium */
   font-family: Raleway;
@@ -25,11 +26,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: flex-start; /* теперь всё влево */
-  align-items: center;
-  gap: 68%; /* расстояние между заголовком и кнопкой */
+  width: 97%;
 }
 
 h1 {
@@ -57,8 +54,8 @@ h1 {
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
-  /* margin-left: auto; Выравнивание кнопки по правому краю */
-  margin-bottom: 20px; /* Добавляем отступ снизу, чтобы кнопка не вылазила за границы */
+  margin-left: auto;
+  margin-bottom: 20px;
 }
 
 .add-ad-button:hover {

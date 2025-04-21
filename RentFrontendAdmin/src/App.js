@@ -41,7 +41,7 @@ function App() {
               <Route path="/bookings" element={<ProtectedRoute><BookingsTable /></ProtectedRoute>} />
               <Route path="/settings" element={<ProtectedRoute><AdminEditForm /></ProtectedRoute>} />
               
-              <Route path="/ads/addad" element={<ProtectedRoute><AddAdPage /></ProtectedRoute>} />
+              <Route path="/ads/add" element={<ProtectedRoute><AddAdPage /></ProtectedRoute>} />
               <Route path="/ads/editad/:id" element={<ProtectedRoute><EditAdFormWrapper /></ProtectedRoute>} />
 
 

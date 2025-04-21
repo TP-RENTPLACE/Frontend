@@ -2,7 +2,7 @@ import React, { useState, useEffect,} from "react";
 import AddUserForm from "./AddUserForm";
 import Header from "../HeaderComponents/Header";
 import "../../styles/usersList.css";
-
+import { ReactComponent as Plus } from "../../assets/Plus.svg";
 import { useNavigate } from "react-router-dom";
 
 const UsersList = () => {
@@ -119,6 +119,7 @@ const UsersList = () => {
             <h1>Пользователи</h1>
             <button className="add-user-button" onClick={() => navigate("/users/add")}>
               Добавить пользователя
+              <Plus/>
             </button>
           </div>
           <table className="users-table">
