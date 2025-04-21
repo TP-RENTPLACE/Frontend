@@ -64,50 +64,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Кнопки фиксированы снизу */
-.modal-actions {
-  position: fixed;
-  bottom: 20px;
-  left: 55%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  z-index: 100;
-}
-
-/* Стиль кнопок */
-.cancel-btn,
-.add-btn {
-  display: flex;
-  width: 540px;
-  height: 54px;
-  padding: 14px 100px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.cancel-btn {
-  border-radius: 20px;
-  border: 1px solid var(--Main-Color-Red, #FF7878);
-  background: var(--White, #FFF);
-  color: #FF7878;
-}
 
 
 
-.add-btn {
-  border-radius: 20px;
-  border: 1px solid var(--Main-Color-Red, #007AFF);
-  background: var(--Main-Color-Blue, #007AFF);
-  color: white;
-}
+
+
+
 
 .add-btn:hover {
   background: #0056b3;
@@ -141,4 +103,30 @@ line-height: 20px; /* 125% */
 }
 .modal h2 {
   margin-bottom: 40px; /* отступ от заголовка до формы */
+}
+.admin-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* растянуть обертку на весь экран */
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.button-group {
+  margin-top: auto; /* кнопки уходят в самый низ формы */
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+}
+.booking-modal-form .footer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 26%;
+  border-top: 1px solid #ffffff;
 }

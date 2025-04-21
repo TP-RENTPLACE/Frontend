@@ -1,10 +1,26 @@
+
 .admin-edit-form {
-  font-family: "Raleway", sans-serif;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
+  top: -50px;
+  width: calc(100% - 240px);
+  max-width: 100%;
+  margin-left: 240px;
+  padding: 20px;
+  font-family: Montserrat, sans-serif;
+  box-sizing: border-box;
+  margin-top: 0;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  
+  /* Rentplace Mobile/Medium */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
+  
+
 }
 
 /* Фото профиля */
@@ -59,7 +75,7 @@
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-    border: 2px solid #007AFF; /* добавлена обводка */
+    border: 1px solid #007AFF; /* добавлена обводка */
   padding: 4px;
 }
 
@@ -75,7 +91,7 @@
 /* Поля ввода */
 .admin-edit-form .fields-row {
   display: flex;
-  gap: 20px;
+  gap: 0px;
   flex-wrap: nowrap;
   justify-content: space-between;
 }
@@ -94,7 +110,7 @@
   height: 54px;
   padding: 0px 20px;
   align-items: center;
-  gap: 10px;
+  gap: 0px;
   border-radius: 20px;
   border: 1px solid var(--Secondary-Gray, #C1C1C1);
   color: var(--Main-Color-Dark, #151515);
@@ -125,7 +141,7 @@
 /* Кнопки */
 .admin-edit-form .button-group {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   justify-content: flex-end;
 }
 
@@ -178,19 +194,7 @@
   }
 }
 
-.admin-edit-form .button-group {
-  position: fixed;
-  bottom: 20px;
-  left: 55%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  z-index: 100;
-}
+
 .admin-edit-form .photo-container {
   position: relative;
   width: 120px;
@@ -231,4 +235,44 @@
   font-style: normal;
   font-weight: 700;
   line-height: 20px; /* 125% */
+  margin-top: 30px;
+}
+.admin-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* растянуть обертку на весь экран */
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.button-group {
+  margin-top: auto; /* кнопки уходят в самый низ формы */
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+}
+.admin-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* растянуть обертку на весь экран */
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+.admin-edit-form .footer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20%;
+  border-top: 1px solid #ffffff;
 }

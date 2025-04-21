@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+
 .ad-details-container {
   display: flex;
   flex-direction: column;
@@ -368,3 +369,49 @@ p {
 * {
   font-family: 'Raleway', sans-serif;
 }
+.modal-overlayy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+
+
+
+
+
+
+
+
+.image-wrapper {
+  position: relative;
+}
+
+.show-all-button {
+  display: flex;
+  width: 194px;
+  height: 54px;
+  padding: 5px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  position: absolute;
+  left: 20px;
+  top: 406px;
+
+  border-radius: 20px;
+  border: 1px solid var(--White, #FFF);
+  background: rgba(217, 217, 217, 0.10);
+  backdrop-filter: blur(2px);
+  color: white;
+  cursor: pointer;
+}
+

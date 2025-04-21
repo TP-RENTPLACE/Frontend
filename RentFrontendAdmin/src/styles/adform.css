@@ -1,12 +1,13 @@
 /* Общие стили */
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
 .add-ad-form {
   font-family: 'Raleway', sans-serif;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 1600px;
+  
   height: 1142px;
   flex-shrink: 0;
   margin: 0 auto;
@@ -73,6 +74,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  
 }
 
 /* Поля, разделенные на строки */
@@ -81,18 +83,23 @@
   gap: 20px;
 }
 
-.fields-row .field {
-  width: 32%;
+.field {
+  width: 100%;
+  max-width: 548px;
 }
+
 
 /* Поля для описания и удобств */
 textarea {
   width: 95%;
-  height: 100px;
+  gap: 20px;
+
+  
   resize: vertical;
   padding: 12px;
   border-radius: 15px;
   border: 1px solid #ccc;
+  height: 360px;
 }
 
 /* Блок выбора аренды */
@@ -189,6 +196,7 @@ input[type="file"] {
 .rent-options {
   display: flex;
   gap: 10px;
+    
 }
 
 .rent-options button {
@@ -218,24 +226,18 @@ input[type="file"] {
   gap: 20px;
 }
 
-.description-field,
-.amenities-field {
-  display: flex;
-  width: 362px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
+
 
 textarea {
   width: 100%;
-  height: 100px;
+  height: 160px;
   resize: vertical;
   padding: 12px;
   border-radius: 15px;
   border: 1px solid #ccc;
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
+  gap: 20px;
 }
 /* Поле Арендная плата */
 .rent-price {
@@ -261,6 +263,7 @@ textarea {
   cursor: pointer;
   border-radius: 20px;
   border: 1px solid var(--Secondary-Gray, #C1C1C1);
+  
 }
 
 
@@ -268,27 +271,19 @@ textarea {
 /* Поля "Описание" и "Основные удобства" */
 .desc-amenities-container {
   display: flex;
-  width: 362px;
-  height: 160px;
-  
-  align-items: flex-start;
-  
   gap: 20px;
+  width: 100%;
 }
 
 .description-field,
 .amenities-field {
   display: flex;
-  height: 300px;
-  
-  align-items: flex-start;
-  gap: 10px;
-  align-self: stretch;
-  border-radius: 20px;
-  resize: none; 
-
-
-  
+  flex-direction: column;
+  width: 100%;
+  max-width: 23%;
+  height: 160px;
+  gap: 20px;
+  margin-top: 60px;
 }
 
 .description-field textarea,
@@ -302,6 +297,8 @@ font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: 18px; /* 128.571% */
+padding-top: 20px;
+
 }
 /* Заголовок формы */
 .form-title {
@@ -323,8 +320,8 @@ line-height: 18px; /* 128.571% */
 
 .submit-button, .cancel-button {
   display: flex;
-  width: 540px;
-  height: 54px;
+  width: 45%;  /* заменено на 50% */
+  height: 100%;
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
@@ -366,11 +363,14 @@ line-height: 18px; /* 128.571% */
 }
 
 .image-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-}
+  display: flex;
+  width: 176px;
+  height: 120px;
+  padding: 6px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 10px;
+  }
 
 /* Кнопка удаления фото */
 .delete-image-btn {
@@ -396,17 +396,28 @@ line-height: 18px; /* 128.571% */
 
 /* Кнопка загрузки фото */
 .image-upload-button {
-  width: 100px;
-  height: 100px;
   display: flex;
-  align-items: center;
+  width: 176px;
+  height: 120px;
+  padding: 36px 76px;
   justify-content: center;
-  background: #f0f0f0;
+  align-items: center;
+  gap: 10px;
+  background: var(--Secondary-Gray, #C1C1C1);
   border-radius: 12px;
   font-size: 36px;
   color: #888;
   cursor: pointer;
   transition: background 0.3s ease;
+  color: var(--White, #FFF);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  /* Rentplace Mobile/Medium Bold */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 128.571% */
 }
 
 .image-upload-button:hover {
@@ -430,4 +441,110 @@ input[type="file"] {
   font-style: normal;
   font-weight: 700;
   line-height: 20px; /* 125% */
+  width: 362.001px;
+  
+}
+
+.fields-row .field {
+  width: 100%;
+  max-width: 23%;
+}
+.upload-content {
+  display: flex;
+  flex-direction: column-reverse; /* сначала иконка, потом текст */
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  width: 176px;
+  height: 120px;
+  white-space: nowrap; /* вот это главное — не переносить строку */
+  text-align: center;
+ 
+}
+
+.upload-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Сделаем изображения такого же размера, как кнопка добавления */
+.image-preview {
+  width: 176px;
+  height: 120px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.image-upload-button {
+  width: 176px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+
+@media (max-width: 1200px) {
+  .add-ad-form {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .field,
+  .fields-row .field,
+  .description-field,
+  .amenities-field {
+    width: 100%;
+    max-width: 362px;
+    
+  }
+
+  .desc-amenities-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .submit-button, .cancel-button {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fields-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .image-preview-container {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .form-title {
+    font-size: 20px;
+  }
+
+  .ccolumn-name {
+    font-size: 14px;
+  }
+
+  textarea {
+    height: 120px;
+  }
+}
+.h2{
+  font-family: 'Montserrat', sans-serif;
 }
