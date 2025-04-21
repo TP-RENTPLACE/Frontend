@@ -4,7 +4,8 @@ import { AiOutlineWifi, AiOutlineCar } from "react-icons/ai";
 import { FaSnowflake, FaDoorOpen } from "react-icons/fa";
 import Header from "../HeaderComponents/Header";
 import "../../styles/adDetails.css";
-import image1 from "../../assets/image2.png";
+import image1 from "../../assets/image1.png";
+import image2 from "../../assets/image2.png";
 
 const adData = [
   {
@@ -13,7 +14,7 @@ const adData = [
     price: "18000 ₽",
     period: "в месяц",
     address: "Мистолово, Английский проезд, 3/1",
-    images: [image1, image1, image1, image1, image1],
+    images: [image2, image1, image1, image1, image2],
     owner: "petr_petrov@gmail.com",
     description:
       "Просторный дом с удобствами. Очень удобное месторасположение, рядом парк, магазины, школы и детские сады.",
@@ -49,6 +50,8 @@ const AdDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
 
   const ad = adData.find((a) => a.id === Number(id));
 
@@ -62,18 +65,42 @@ const AdDetails = () => {
     });
   };
 
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % ad.images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImage((prev) => (prev - 1 + ad.images.length) % ad.images.length);
+  };
+
   return (
     <div>
       <Header />
       <div className="ad-details-container">
         <div className="images-section">
-          <img src={ad.images[0]} alt="Главное фото" className="main-image" />
+          <div className="image-wrapper">
+            <img src={ad.images[0]} alt="Главное фото" className="main-image" />
+            <button className="show-all-button" onClick={() => setIsModalOpen(true)}>
+              Показать все
+            </button>
+          </div>
           <div className="thumbnail-container">
             {ad.images.slice(1).map((img, index) => (
               <img key={index} src={img} alt={`Фото ${index + 1}`} className="thumbnail" />
             ))}
           </div>
         </div>
+
+        {isModalOpen && (
+          <div className="modal-overlayy" onClick={() => setIsModalOpen(false)}>
+            <div className="modal-slider" onClick={(e) => e.stopPropagation()}>
+              <button className="close-button" onClick={() => setIsModalOpen(false)}>×</button>
+              <img src={ad.images[currentImage]} alt={`Фото ${currentImage + 1}`} className="modal-large-image" />
+              <button className="prev-button" onClick={prevImage}>‹</button>
+              <button className="next-button" onClick={nextImage}>›</button>
+            </div>
+          </div>
+        )}
 
         <div className="ad-header">
           <h1>{ad.title}</h1>

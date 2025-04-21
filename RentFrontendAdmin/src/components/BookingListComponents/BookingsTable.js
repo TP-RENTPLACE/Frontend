@@ -3,7 +3,7 @@ import "../../styles/bookings.css";
 import BookingModal from "./BookingModal";
 import Header from "../HeaderComponents/Header";
 import { useNavigate } from "react-router-dom";
-
+import { ReactComponent as Plus } from "../../assets/Plus.svg";
 
 const bookingsData = [
   {
@@ -101,7 +101,8 @@ const BookingsTable = () => {
         <div className="bookings-header">
           <h2>Брони</h2>
           <button className="add-booking-btn" onClick={() => navigate("/bookings/add")}>
-            Добавить бронь +
+            Добавить бронь
+            <Plus/>
           </button>
         </div>
       )}
