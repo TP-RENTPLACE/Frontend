@@ -3,6 +3,7 @@ import "../../styles/adform.css";
 import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
 import Header from "../HeaderComponents/Header";
 import { ReactComponent as Image } from "../../assets/Camera.svg";
+import { ReactComponent as Trash} from "../../assets/Trash.svg";
 const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
   const [formData, setFormData] = useState({
     ...editingAd,
@@ -63,27 +64,27 @@ const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
       <form className="add-ad-form" onSubmit={handleSubmit}>
         <h2 className="form-title">Изменить объявление</h2>
 
-        <div className="field-group">
-          <label className="ccolumn-name">Изображения</label>
-          <div className="image-preview-container">
-            {formData.images.map((image, index) => (
-              <div key={index} className="image-preview">
-                <img src={image} alt={`Preview ${index}`} />
-                <button className="delete-image-btn" onClick={() => handleDeleteImage(index)} type="button">
-                  🗑
-                </button>
+            <div className="field-group">
+              <label className="ccolumn-name">Изображения</label>
+              <div className="image-preview-container">
+                {formData.images.map((image, index) => (
+                  <div key={index} className="image-preview">
+                    <img src={image} alt={`Preview ${index}`} />
+                    <button className="delete-image-btn" onClick={() => handleDeleteImage(index)} type="button">
+                      <Trash/>
+                    </button>
+                  </div>
+                ))}
+                <label htmlFor="file-input" className="image-upload-button">
+                  <div className="upload-content">
+                    <span>Добавить фото</span>
+                    <Image className="upload-icon" />
+                  </div>
+                </label>
+    
+                <input id="file-input" type="file" accept="image/*" multiple onChange={handleImageChange} />
               </div>
-            ))}
-            <label htmlFor="file-input" className="image-upload-button">
-              <div className="upload-content">
-                <span>Добавить фото</span>
-                <Image className="upload-icon" />
-              </div>
-            </label>
-
-            <input id="file-input" type="file" accept="image/*" multiple onChange={handleImageChange} />
-          </div>
-        </div>
+            </div>
 
         <div className="field">
           <label className="ccolumn-name">Название</label>
@@ -153,20 +154,30 @@ const EditAdForm = ({ editingAd, addNewAd, onCancel }) => {
           </button>
         </div> */}
 
-        <div className="desc-amenities-container">
-          <div className="field description-field">
-            <label className="ccolumn-name">Описание</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} required />
-          </div>
-          <div className="field amenities-field">
-            <label className="ccolumn-name">Основные удобства</label>
-            <textarea name="amenities" value={formData.amenities} onChange={handleChange} required />
-          </div>
+          <div className="fields-container">
+            <div className="fields-row">
+              <div className="field description-field">
+                <div className="field">
+                  <label className="ccolumn-name">Описание</label>
+                  <textarea className="custom-textarea" name="description" value={formData.description} onChange={handleChange} required />
+                </div>
+              </div>
+              <div className="field amenities-field">
+                <div className="field">
+                  
+                <label className="ccolumn-name">Основные удобства</label>
+                <textarea className="custom-textarea" name="amenities" value={formData.amenities} onChange={handleChange} required />
+                </div>
+              </div>
+              <div className="field">
+
+              </div>
+            </div>
         </div>
 
         <div className="button-group">
           <button type="button" className="cancel-button" onClick={onCancel}>
-            Отменить
+            Удалить
           </button>
           <button type="submit" className="submit-button">
             Сохранить

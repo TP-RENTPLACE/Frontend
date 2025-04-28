@@ -37,50 +37,53 @@ const AdminEditForm = ({ onCancel }) => {
           <h2>Профиль администратора</h2>
 
           <div className="profile-photo">
-            <div className="photo-container">
-              <div className="photo-preview">
-                {formData.avatar ? (
-                  <img src={formData.avatar} alt="" />
-                ) : (
-                  <div className="empty-photo" />
-                )}
+            <div className="photo-wrapper">
+              <div className="photo-label">Фотография профиля</div>
+              <div className="photo-container">
+                <div className="photo-preview">
+                  {formData.photo ? (
+                    <img src={formData.photo} alt="" />
+                  ) : (
+                    <div className="empty-photo" />
+                  )}
+                </div>
+                <label className="photo-edit-button">
+                  <input type="file" accept="image/*" onChange={handleImageChange} />
+                  <EditIcon width="20" height="20" />
+                </label>
               </div>
-              <label className="photo-edit-button">
-                <input type="file" accept="image/*" onChange={handleImageChange} />
-                <EditIcon width="20" height="20" />
-              </label>
             </div>
           </div>
 
           <div className="fields-row">
             <div>
-              <label className="column-name">Почта:</label>
+              <label className="column-name">Почта</label>
               <input type="email" name="email" value={formData.email} onChange={handleChange} required />
             </div>
             <div>
-              <label className="column-name">Имя:</label>
+              <label className="column-name">Имя</label>
               <input type="text" name="name" value={formData.name} onChange={handleChange} required />
             </div>
             <div>
-              <label className="column-name">Фамилия:</label>
+              <label className="column-name">Фамилия</label>
               <input type="text" name="surname" value={formData.surname} onChange={handleChange} required />
             </div>
           </div>
 
           <div className="fields-row">
             <div>
-              <label className="column-name">Дата рождения:</label>
+              <label className="column-name">Дата рождения</label>
               <input type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} required />
             </div>
             <div>
-              <label className="column-name">Пол:</label>
+              <label className="column-name">Пол</label>
               <select name="gender" value={formData.gender} onChange={handleChange}>
                 <option value="Мужской">Мужской</option>
                 <option value="Женский">Женский</option>
               </select>
             </div>
             <div>
-              <label className="column-name">Роль:</label>
+              <label className="column-name">Роль</label>
               <select name="role" value={formData.role} onChange={handleChange}>
                 <option value="Admin">Администратор</option>
                 
@@ -88,17 +91,18 @@ const AdminEditForm = ({ onCancel }) => {
               </select>
             </div>
           </div>
-
           <div className="fields-row">
             <div>
-              <label className="column-name">Дата регистрации:</label>
+              <label className="column-name">Дата регистрации</label>
               <input type="date" name="registrationDate" value={formData.registrationDate} onChange={handleChange} required />
             </div>
+            <div></div>
+            <div></div>
           </div>
 
           <div className="button-group">
             <button type="button" className="cancel-button" onClick={onCancel}>
-              Отменить
+              Отмена
             </button>
             <button type="submit" className="submit-button">
               Сохранить

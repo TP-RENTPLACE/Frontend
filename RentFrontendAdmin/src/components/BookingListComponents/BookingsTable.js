@@ -112,13 +112,13 @@ const BookingsTable = () => {
           <table className="bookings-table">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Объявление</th>
-                <th>Арендатор</th>
-                <th>Арендодатель</th>
-                <th>Дата проживания</th>
-                <th>Стоимость</th>
-                <th>Действие</th>
+              <th style={{ width: "5%" }}>ID</th>
+              <th style={{ width: "20%" }}>Объявление</th>
+              <th style={{ width: "15%" }}>Арендатор</th>
+              <th style={{ width: "15%" }}>Арендодатель</th>
+              <th style={{ width: "15%" }}>Дата проживания</th>
+              <th style={{ width: "15%" }}>Стоимость</th>
+              <th style={{ width: "5%" }}>Действие</th>
               </tr>
             </thead>
             <tbody>
@@ -129,16 +129,13 @@ const BookingsTable = () => {
                     className="clickable-row"
                     onClick={() => navigate(`/bookings/edit/${booking.id}`, { state: { booking } })}
                   >
-
                     <td className="id-column">{booking.id}</td>
-                    <td>{booking.listing}</td>
-                    <td>{booking.tenant}</td>
-                    <td>{booking.landlord}</td>
-                    <td>
-                      {booking.checkIn} <br /> {booking.checkOut}
-                    </td>
-                    <td>{booking.price}</td>
-                    <td className="dropdown">
+                    <td className="listing-column">{booking.listing}</td>
+                    <td className="tenant-column"> {booking.tenant}</td>
+                    <td className="landlord-column">{booking.landlord}</td>
+                    <td className="dates-column">{booking.checkIn} <br /> {booking.checkOut}</td>
+                    <td className="price-column">{booking.price}</td>
+                    <td className="action-column dropdown">
                       <button
                         className="action-btn"
                         onClick={(e) => {
@@ -146,7 +143,7 @@ const BookingsTable = () => {
                           toggleMenu(booking.id);
                         }}
                       >
-                          ⋯
+                        ⋯
                       </button>
                       {menuOpen === booking.id && (
                         <div className="dropdown-content">

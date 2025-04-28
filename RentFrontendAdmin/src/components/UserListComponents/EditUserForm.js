@@ -133,22 +133,18 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
           </div>
         </div>
 
-        <div className="fields-row registration-field">
+        <div className="fields-row">
           <div>
             <label className="column-name">Дата регистрации</label>
-            <input
-              type="date"
-              name="registrationDate"
-              value={formData.registrationDate}
-              onChange={handleChange}
-              required
-            />
+            <input type="date" name="registrationDate" value={formData.registrationDate} onChange={handleChange} required />
           </div>
+          <div></div> {/* Пустое место для равномерного распределения */}
+          <div></div> 
         </div>
 
         <div className="footer-buttons">
           <button type="button" className="cancel-button" onClick={onCancel}>
-            Отменить
+            Удалить
           </button>
           <button type="submit" className="submit-button">
             Сохранить

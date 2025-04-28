@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Header from "../HeaderComponents/Header";
 import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
 import { ReactComponent as Calendar } from '../../assets/Birthday.svg';
+import { ReactComponent as Arrow } from '../../assets/Chevrondown.svg';
 
 
 const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
@@ -56,22 +57,25 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
       <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
       <form className="add-user-form" onSubmit={handleSubmit}>
         <h2>{ "Добавить пользователя"}</h2>
-
-        <div className="profile-photo">
-          <div className="photo-container">
-            <div className="photo-preview">
-              {formData.avatar ? (
-                <img src={formData.avatar} alt="" />
-              ) : (
-                <div className="empty-photo" />
-              )}
+          
+          <div className="profile-photo">
+            <div className="photo-wrapper">
+              <div className="photo-label">Фотография профиля</div>
+              <div className="photo-container">
+                <div className="photo-preview">
+                  {formData.photo ? (
+                    <img src={formData.photo} alt="" />
+                  ) : (
+                    <div className="empty-photo" />
+                  )}
+                </div>
+                <label className="photo-edit-button">
+                  <input type="file" accept="image/*" onChange={handleImageChange} />
+                  <EditIcon width="20" height="20" />
+                </label>
+              </div>
             </div>
-            <label className="photo-edit-button">
-              <input type="file" accept="image/*" onChange={handleImageChange} />
-              <EditIcon width="20" height="20" />
-            </label>
           </div>
-        </div>
 
         <div className="fields-row">
           <div>
@@ -106,6 +110,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
               <option value="Женский">Женский</option>
               <option value="Не указан">Не указан</option>
             </select>
+
           </div>
           <div>
             <label className="column-name">Роль</label>
@@ -117,19 +122,21 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
           </div>
         </div>
 
-        <div className="fields-row registration-field">
+        <div className="fields-row">
           <div>
             <label className="column-name">Дата регистрации</label>
             <input type="date" name="registrationDate" value={formData.registrationDate} onChange={handleChange} required />
           </div>
+          <div></div> {/* Пустое место для равномерного распределения */}
+          <div></div> {/* Пустое место для равномерного распределения */}
         </div>
 
         <div className="footer-buttons">
           <button type="button" className="cancel-button" onClick={onCancel}>
-            Отменить
+            Отмена
           </button>
           <button type="submit" className="submit-button">
-            Сохранить
+            Добавить
           </button>
         </div>
       </form>
