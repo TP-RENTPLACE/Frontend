@@ -17,6 +17,7 @@ import AddUserFormWrapper from "./components/UserListComponents/AddUserFormWrapp
 import EditUserFormWrapper from "./components/UserListComponents/EditUserFormWrapper";
 import BookingModalRoute from "./components/BookingListComponents/BookingModalRoute";
 import EditBookingModalRoute from "./components/BookingListComponents/EditBookingModalRoute";
+import GalleryView from "./components/ModerationListComponents/GalleryView"
 // import AdminEditRoute from "./components/AdminEditor/AdminEditRoute";
 
 function ProtectedRoute({ children }) {
@@ -53,7 +54,7 @@ function App() {
               <Route path="/bookings/edit/:id" element={<ProtectedRoute><EditBookingModalRoute /> </ProtectedRoute>} />
 
               {/* <Route path="/admin/profile" element={<ProtectedRoute><AdminEditRoute /></ProtectedRoute>} /> */}
-
+              <Route path="/gallery/:id" element={<GalleryView />} />
 
             </Routes>
           </div>
