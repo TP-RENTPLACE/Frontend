@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import "../../styles/bookingModal.css";
 import Header from "../HeaderComponents/Header";
 import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
-const EditBookingModal = ({ booking, onCancel, onSave }) => {
+
+const EditBookingModal = ({ onCancel, booking, onSave }) => {
+  const isEditing = !!booking;
+
   const [formData, setFormData] = useState({
     id: booking?.id || Date.now(),
     listing: booking?.listing || "",
@@ -12,15 +15,15 @@ const EditBookingModal = ({ booking, onCancel, onSave }) => {
     checkOut: booking?.checkOut || "",
     price: booking?.price || "",
   });
-    const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -31,59 +34,91 @@ const EditBookingModal = ({ booking, onCancel, onSave }) => {
   };
 
   return (
-    <div className="admin-form-wrapper">
-      <div className="modal-overlay">
-          <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
-        <div className="modal">
-          <h2>Изменить бронь</h2>
-          <form className="booking-modal-form" onSubmit={handleSubmit}>
-              <div className="form-row">
-                <label>
-                  <span className="column-name">Объявление:</span>
-                  <input type="text" name="listing" value={formData.listing} onChange={handleChange} required />
-                </label>
+    <div className="modal-overlay">
+      <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+      <div className="modal">
+        <form className="add-user-form" onSubmit={handleSubmit}>
+          <h2>{isEditing ? "Изменение бронь" : "Добавить бронь"}</h2>
 
-                <label>
-                  <span className="column-name">Арендатор (Email):</span>
-                  <input type="email" name="tenant" value={formData.tenant} onChange={handleChange} required />
-                </label>
+          <div className="fields-row">
+            <div>
+              <label className="column-name">Объявление</label>
+              <input
+                type="text"
+                name="listing"
+                value={formData.listing}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="column-name">Арендатор (Email)</label>
+              <input
+                type="email"
+                name="tenant"
+                value={formData.tenant}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="column-name">Арендодатель (Email)</label>
+              <input
+                type="email"
+                name="landlord"
+                value={formData.landlord}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-                <label>
-                  <span className="column-name">Арендодатель (Email):</span>
-                  <input type="email" name="landlord" value={formData.landlord} onChange={handleChange} required />
-                </label>
-              </div>
+          <div className="fields-row">
+            <div>
+              <label className="column-name">Дата начала проживания</label>
+              <input
+                type="date"
+                name="checkIn"
+                value={formData.checkIn}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="column-name">Дата окончания проживания</label>
+              <input
+                type="date"
+                name="checkOut"
+                value={formData.checkOut}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label className="column-name">
+                Стоимость проживания, <Ruble style={{ width: "18px", height: "18px", fill: "black" }} />
+              </label>
+              <input
+                type="text"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
 
-              <div className="form-row">
-                <label>
-                  <span className="column-name">Дата заезда:</span>
-                  <input type="date" name="checkIn" value={formData.checkIn} onChange={handleChange} required />
-                </label>
-
-                <label>
-                  <span className="column-name">Дата выезда:</span>
-                  <input type="date" name="checkOut" value={formData.checkOut} onChange={handleChange} required />
-                </label>
-
-                <label>
-                  <span className="column-name">Стоимость проживания, <Ruble style={{ width: "18px", height: "18px", fill: "black" }} /></span>
-                  <input type="text" name="price" value={formData.price} onChange={handleChange} required />
-                </label>
-              </div>
-
-              <div className="footer-buttons">
-                <button type="button" className="cancel-button" onClick={onCancel}>
-                  Отменить
-                </button>
-                <button type="submit" className="submit-button">
-                  Добавить
-                </button>
-              </div>
-            </form>
-
-        </div>
+          <div className="footer-buttonss">
+            <button type="button" className="cancel-button" onClick={onCancel}>
+              Удалить
+            </button>
+            <button type="submit" className="submit-button">
+              {"Сохранить" }
+            </button>
+          </div>
+        </form>
       </div>
-      </div>
+    </div>
   );
 };
 

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../../styles/bookingModal.css";
 import Header from "../HeaderComponents/Header";
-import "../../styles/adform.css";
 import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
+
 const BookingModal = ({ onCancel, booking, onSave }) => {
   const isEditing = !!booking;
 
@@ -36,12 +36,13 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
   return (
     <div className="modal-overlay">
       <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
-      <div className="modal">
-        <h2>{isEditing ? "Редактировать бронь" : "Добавить бронь"}</h2>
-        <form className="booking-modal-form" onSubmit={handleSubmit}>
-          <div className="form-row">
-            <label>
-              <span className="column-name">Объявление:</span>
+      <div className="modal booking-modal-wrapper">
+        <form className="add-user-form" onSubmit={handleSubmit}>
+          <h2>{isEditing ? "Редактировать бронь" : "Добавить бронь"}</h2>
+
+          <div className="fields-row">
+            <div>
+              <label className="column-name">Объявление</label>
               <input
                 type="text"
                 name="listing"
@@ -49,10 +50,9 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
-            </label>
-
-            <label>
-              <span className="column-name">Арендатор (Email):</span>
+            </div>
+            <div>
+              <label className="column-name">Арендатор (Email)</label>
               <input
                 type="email"
                 name="tenant"
@@ -60,10 +60,9 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
-            </label>
-
-            <label>
-              <span className="column-name">Арендодатель (Email):</span>
+            </div>
+            <div>
+              <label className="column-name">Арендодатель (Email)</label>
               <input
                 type="email"
                 name="landlord"
@@ -71,12 +70,12 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
-            </label>
+            </div>
           </div>
 
-          <div className="form-row">
-            <label>
-              <span className="column-name">Дата заезда:</span>
+          <div className="fields-row">
+            <div>
+              <label className="column-name">Дата начала проживания</label>
               <input
                 type="date"
                 name="checkIn"
@@ -84,10 +83,9 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
-            </label>
-
-            <label>
-              <span className="column-name">Дата выезда:</span>
+            </div>
+            <div>
+              <label className="column-name">Дата окончания проживания</label>
               <input
                 type="date"
                 name="checkOut"
@@ -95,11 +93,11 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
-            </label>
-
-            <label>
-              <span className="column-name">Стоимость проживания, <Ruble style={{ width: "18px", height: "18px", fill: "black" }} /></span>
-              
+            </div>
+            <div>
+              <label className="column-name">
+                Стоимость проживания, <Ruble style={{ width: "18px", height: "18px", fill: "black" }} />
+              </label>
               <input
                 type="text"
                 name="price"
@@ -107,18 +105,17 @@ const BookingModal = ({ onCancel, booking, onSave }) => {
                 onChange={handleChange}
                 required
               />
-              
-            </label>
+            </div>
           </div>
 
-        <div className="footer-buttons">
-          <button type="button" className="cancel-button" onClick={onCancel}>
-            Отменить
-          </button>
-          <button type="submit" className="submit-button">
-            Добавить
-          </button>
-        </div>
+            
+ 
+              <div className="footer-buttonss">
+                <button type="button" className="cancell-button" onClick={onCancel}>Отмена</button>
+                <button type="submit" className="submitt-button">{isEditing ? "Сохранить" : "Добавить"}</button>
+              </div>
+            
+
         </form>
       </div>
     </div>

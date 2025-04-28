@@ -3,6 +3,7 @@ import "../../styles/adform.css";
 import { ReactComponent as Image } from "../../assets/Camera.svg";
 import Header from "../HeaderComponents/Header";
 import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
+import { ReactComponent as Trash} from "../../assets/Trash.svg";
 
 
 import { createAd, editAd } from "../api/adsApi";
@@ -133,7 +134,7 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
               <div key={index} className="image-preview">
                 <img src={image} alt={`Preview ${index}`} />
                 <button className="delete-image-btn" onClick={() => handleDeleteImage(index)} type="button">
-                  🗑
+                  <Trash/>
                 </button>
               </div>
             ))}
@@ -208,20 +209,30 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
         </div>
 
 
-        <div className="desc-amenities-container">
-          <div className="field description-field">
-            <label className="ccolumn-name">Описание</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} required />
-          </div>
-          <div className="field amenities-field">
-            <label className="ccolumn-name">Основные удобства</label>
-            <textarea name="amenities" value={formData.amenities} onChange={handleChange} required />
-          </div>
+          <div className="fields-container">
+            <div className="fields-row">
+              <div className="field description-field">
+                <div className="field">
+                  <label className="ccolumn-name">Описание</label>
+                  <textarea className="custom-textarea" name="description" value={formData.description} onChange={handleChange} required />
+                </div>
+              </div>
+              <div className="field amenities-field">
+                <div className="field">
+                  
+                <label className="ccolumn-name">Основные удобства</label>
+                <textarea className="custom-textarea" name="amenities" value={formData.amenities} onChange={handleChange} required />
+                </div>
+              </div>
+              <div className="field">
+
+              </div>
+            </div>
         </div>
 
         <div className="button-group">
           <button type="button" className="cancel-button" onClick={onCancel}>
-            Отменить
+            Отмена
           </button>
           <button type="submit" className="submit-button">
             {editingAd ? "Сохранить" : "Добавить"}
