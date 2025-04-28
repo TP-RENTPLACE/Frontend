@@ -5,10 +5,12 @@
   width: calc(100% - 240px);
   max-width: 100%;
   margin-left: 240px;
-  padding: 20px;
-  font-family: Montserrat, sans-serif;
+  padding: 0 37px; /* добавляем отступы 37px */
+  font-family: Raleway, sans-serif;
   box-sizing: border-box;
-  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
@@ -91,29 +93,31 @@
 /* Поля ввода */
 .admin-edit-form .fields-row {
   display: flex;
-  gap: 0px;
+  gap: 20px;
   flex-wrap: nowrap;
   justify-content: space-between;
 }
 
 .admin-edit-form .fields-row div {
-  flex: 1;
+  flex: 1 1 calc(33.333% - 20px); /* три поля в строке */
+  min-width: 200px;
   display: flex;
   flex-direction: column;
-  min-width: 0;
 }
 
 .admin-edit-form input,
 .admin-edit-form select {
-  display: flex;
-  width: 362px;
+  width: 100%;
   height: 54px;
   padding: 0px 20px;
-  align-items: center;
-  gap: 0px;
   border-radius: 20px;
   border: 1px solid var(--Secondary-Gray, #C1C1C1);
   color: var(--Main-Color-Dark, #151515);
+  font-family: Raleway;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  box-sizing: border-box;
   font-variant-numeric: lining-nums proportional-nums;
 
   /* Rentplace Mobile/Medium */
@@ -129,34 +133,23 @@
   border-color: #007AFF;
 }
 
-/* Дата регистрации */
-.admin-edit-form .fields-row:last-of-type {
-  justify-content: flex-start;
-}
 
-.admin-edit-form .fields-row:last-of-type div {
-  flex: 0 0 362px;
-}
 
 /* Кнопки */
-.admin-edit-form .button-group {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-}
+
 
 .admin-edit-form .add-btn,
 .admin-edit-form .cancel-btn {
   display: flex;
-  width: 540px;
+  min-width: 150px; /* минимальная ширина кнопки */
   height: 54px;
-  padding: 14px 100px;
+  padding: 0 30px; /* внутренние отступы по горизонтали */
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+  border-radius: 20px;
   font-weight: 600;
   font-size: 16px;
+  white-space: nowrap; /* текст кнопок не переносится */
 }
 
 .admin-edit-form .cancel-btn {
@@ -182,17 +175,7 @@
   background: #0056b3;
 }
 
-/* Адаптация для мобильных */
-@media (max-width: 992px) {
-  .admin-edit-form .fields-row {
-    flex-wrap: wrap;
-  }
 
-  .admin-edit-form .fields-row div {
-    flex: 1 1 100%;
-    margin-bottom: 10px;
-  }
-}
 
 
 .admin-edit-form .photo-container {
@@ -269,10 +252,62 @@
 }
 
 
-.admin-edit-form .footer-buttons {
+
+.admin-edit-form.footer-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20%;
   border-top: 1px solid #ffffff;
+}
+
+.admin-edit-form.button-group {
+  display: flex;
+  flex-wrap: nowrap; /* никогда не переносить */
+  justify-content: flex-end;
+  gap: 10px;
+  flex-shrink: 1;
+}
+.admin-edit-form .photo-label {
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--Main-Color-Dark, #151515);
+  font-family: "Raleway", sans-serif;
+}
+.admin-edit-form  .photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin-edit-form  .photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin-edit-form .photo-label {
+  margin-bottom: 20px; /* расстояние 20px до аватарки */
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+  
+  /* Rentplace Mobile/Big Bold */
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 125% */
+}
+
+.admin-edit-form select {
+  appearance: none; /* убрать нативную стрелку */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%23000' stroke-width='15' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 12px;
+
+  padding-right: 40px;
 }

@@ -14,6 +14,8 @@
   padding-bottom: 40px; /* Отступ снизу */
    /* Выравнивание по левому краю */
   margin-left: 0; /* Убираем возможные отступы */
+  padding-left: 37px;
+  padding-right: 37px;
 }
 
 
@@ -122,25 +124,9 @@ textarea {
   gap: 20px;
 }
 
-.submit-button, .cancel-button {
-  width: 200px;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-}
 
-.submit-button {
-  background-color: #007bff;
-  color: white;
-  border: 2px solid #007bff;
-}
 
-.cancel-button {
-  background-color: white;
-  color: #007bff;
-  border: 2px solid #007bff;
-}
+
 
 .submit-button:hover, .cancel-button:hover {
   opacity: 0.8;
@@ -319,8 +305,12 @@ padding-top: 20px;
 }
 
 .submit-button, .cancel-button {
-  display: flex;
-  width: 45%;  /* заменено на 50% */
+  flex: 1;
+  padding: 14px 24px;
+  font-size: 16px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;  /* заменено на 50% */
   height: 100%;
   padding: 14px 100px;
   justify-content: center;
@@ -375,24 +365,25 @@ padding-top: 20px;
 /* Кнопка удаления фото */
 .delete-image-btn {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(0, 0, 0, 0.6);
+  top: 74%;
+  right: 9px;
+  border-radius: 20px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.10) 100%);
   border: none;
   color: white;
-  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+ 
+  display: flex;
   width: 24px;
   height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
-.delete-image-btn:hover {
-  background: rgba(255, 0, 0, 0.8);
-}
+
 
 /* Кнопка загрузки фото */
 .image-upload-button {
@@ -447,7 +438,8 @@ input[type="file"] {
 
 .fields-row .field {
   width: 100%;
-  max-width: 23%;
+  display: flex;
+  gap: 20px;
 }
 .upload-content {
   display: flex;
@@ -490,61 +482,25 @@ input[type="file"] {
   transition: background 0.3s ease;
 }
 
-
-@media (max-width: 1200px) {
-  .add-ad-form {
-    width: 100%;
-    padding: 20px;
-  }
-
-  .field,
-  .fields-row .field,
-  .description-field,
-  .amenities-field {
-    width: 100%;
-    max-width: 362px;
-    
-  }
-
-  .desc-amenities-container {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .button-group {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .submit-button, .cancel-button {
-    width: 100%;
-    padding: 12px;
-  }
-}
-
-@media (max-width: 768px) {
-  .fields-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .image-preview-container {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .form-title {
-    font-size: 20px;
-  }
-
-  .ccolumn-name {
-    font-size: 14px;
-  }
-
-  textarea {
-    height: 120px;
-  }
-}
 .h2{
   font-family: 'Montserrat', sans-serif;
+}
+.fields-row .field {
+  flex: 1;
+  max-width: none;
+}
+
+.custom-textarea {
+  width: 100%;
+  height: 160px; /* как у input полей */
+  resize: none; /* запретить растягивание */
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 14px;
+  line-height: 18px;
 }
