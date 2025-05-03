@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import SearchBar from "./SearchBar";
 import { FiMenu } from "react-icons/fi";
 import { UserContext } from "../UserListComponents/UserContext";
@@ -8,8 +8,17 @@ import { ReactComponent as LogoIcon } from "../../assets/sidebarLogo.svg";
 
 
 const Header = ({ searchQuery, handleSearchChange }) => {
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
   const navigate = useNavigate();
+  const [localUser, setLocalUser] = useState(user);
+
+  useEffect(() => {
+    if (user) {
+      setLocalUser(user);
+    }
+  }, [user]);
+
+  if (loading || !user) return null;
 
   return (
     <header className="header">
@@ -28,7 +37,7 @@ const Header = ({ searchQuery, handleSearchChange }) => {
       <img src={user.avatar} alt={user.name} className="user-avatar" />
       <div className="user-info">
         <span className="user-name">{user.name} {user.surname}</span>
-        <span className="user-role">{user.role}</span>
+        <span className="user-role">Администратор</span>
       </div>
     </div>
     </header>
