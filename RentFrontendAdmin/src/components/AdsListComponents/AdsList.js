@@ -5,7 +5,7 @@ import Header from "../HeaderComponents/Header";
 import {FaBuilding} from "react-icons/fa";
 import { FaSwimmingPool } from "react-icons/fa";
 import { LuMountainSnow } from "react-icons/lu";
-import "../../styles/AdsList.css";
+import "../../styles/adsList.css";
 import image1 from "../../assets/image2.png";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
 

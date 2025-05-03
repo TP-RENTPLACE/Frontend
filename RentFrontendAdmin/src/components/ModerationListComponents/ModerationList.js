@@ -5,7 +5,7 @@ import { LuMountainSnow } from "react-icons/lu";
 import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
 import AddAdForm from "../AdsListComponents/AddAdForm";
 import Header from "../HeaderComponents/Header";
-import "../../styles/ModerationList.css";
+import "../../styles/moderationList.css";
 import image1 from "../../assets/image2.png";
 
 const ModerationList = () => {
