@@ -7,21 +7,21 @@ const EditBookingModalRoute = () => {
   const location = useLocation();
   const { id } = useParams();
 
-  const booking = location.state?.booking;
+  const reservation = location.state?.reservation;
 
-  if (!booking) {
+  if (!reservation) {
     return <div>Бронь не найдена или не передана через state</div>;
   }
 
-  const handleSave = (updatedBooking) => {
-    console.log("Обновлённая бронь:", updatedBooking);
+  const handleSave = (updateReservation) => {
+    console.log("Обновлённая бронь:", updateReservation);
     navigate("/bookings");
   };
 
   return (
     <div className="bookings-container">
         <EditBookingModal
-        booking={booking}
+        reservation={reservation}
         onSave={handleSave}
         onCancel={() => navigate("/bookings")}
         />
