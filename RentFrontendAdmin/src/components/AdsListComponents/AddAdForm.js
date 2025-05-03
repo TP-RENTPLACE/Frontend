@@ -1,246 +1,318 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import "../../styles/adform.css";
-import { ReactComponent as Image } from "../../assets/Camera.svg";
+import {ReactComponent as Image} from "../../assets/Camera.svg";
 import Header from "../HeaderComponents/Header";
-import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
-import { ReactComponent as Trash} from "../../assets/Trash.svg";
+import {ReactComponent as Ruble} from "../../assets/Ruble.svg";
+import {ReactComponent as Trash} from "../../assets/Trash.svg";
+import {useNavigate} from "react-router-dom";
+import PropertyService from "../../api/propertyService";
+import categoryService from "../../api/categoryService";
+import facilityService from "../../api/facilityService";
+import userService from "../../api/userService";
 
 
-import { createAd, editAd } from "../api/adsApi";
+const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
+    const navigate = useNavigate();
+    const [propertyStatuses] = useState([
+        "PUBLISHED",
+        "ON_MODERATION",
+        "REJECTED",
+        "NOT_PUBLISHED"
+    ]);
 
+    const [categories, setCategories] = useState([]);
+    const [facilities, setFacilities] = useState([]);
+    const [owners, setOwners] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
+    const [formData, setFormData] = useState({
+        propertyStatus: "ON_MODERATION",
+        title: "",
+        address: "",
+        description: "",
+        longTermRent: false,
+        cost: 0,
+        area: 0,
+        rooms: 0,
+        bedrooms: 0,
+        sleepingPlaces: 0,
+        bathrooms: 0,
+        maxGuests: 0,
+        ownerId: "",
+        categoriesIds: [],
+        facilitiesIds: [],
+        images: []
+    });
 
-const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
-  const [formData, setFormData] = useState(
-    editingAd
-      ? { ...editingAd, images: editingAd.images || [] }
-      : {
-          title: "",
-          price: "",
-          address: "",
-          ownerEmail: "",
-          rooms: "",
-          bedrooms: "",
-          guests: "",
-          beds: "",
-          area: "",
-          description: "",
-          amenities: "",
-          images: [],
-        }
-  );
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedRent, setSelectedRent] = useState(
-    editingAd?.rentType || "daily"
-  );
+    useEffect(() => {
+        const loadInitialData = async () => {
+            try {
+                const [cats, facs, ownersRes] = await Promise.all([
+                    categoryService.getAll(),
+                    facilityService.getAll(),
+                    userService.getAll()
+                ]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+                setCategories(cats);
+                setFacilities(facs);
+                setOwners(ownersRes);
+            } catch (err) {
+                console.error("Ошибка загрузки данных:", err);
+            }
+        };
+        loadInitialData();
+    }, []);
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-   
-  };
-
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length) {
-      const imageFiles = files.map((file) => ({
-        file,
-        url: URL.createObjectURL(file),
-      }));
-
-      setFormData((prevState) => ({
-        ...prevState,
-        images: [...prevState.images, ...imageFiles.map((img) => img.url)],
-      }));
-    }
-  };
-
-  const handleDeleteImage = (index) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      images: prevState.images.filter((_, i) => i !== index),
-    }));
-  };
-
-
-    
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      
-      const formDataToSend = new FormData();
-      formDataToSend.append("propertyStatus", "ON_MODERATION"); 
-      formDataToSend.append("address", formData.address);
-      formDataToSend.append("description", formData.description);
-      formDataToSend.append("rating", parseFloat(formData.rating) || 0); 
-      formDataToSend.append("cost", parseFloat(formData.price) || 0); 
-      formDataToSend.append("area", parseFloat(formData.area) || 0); 
-      formDataToSend.append("bedrooms", parseInt(formData.bedrooms) || 0);
-      formDataToSend.append("sleepingPlaces", parseInt(formData.guests) || 0);
-      formDataToSend.append("bathrooms", parseInt(formData.bathrooms) || 0); 
-      formDataToSend.append("maxGuests", parseInt(formData.guests) || 0); 
-    
-     
-      formDataToSend.append(
-        "owner",
-        JSON.stringify({
-          userId: 1, 
-          name: "", 
-          surname: "", 
-          birthDate: "", 
-          registrationDate: "", 
-          email: formData.ownerEmail, 
-          image: null, 
-        })
-      );
-    
-     
-      formData.images.forEach((image) => {
-        formDataToSend.append("images", image); 
-      });
-    
-     
-      formDataToSend.append("categories", JSON.stringify([]));  
-      formDataToSend.append("facilities", JSON.stringify([]));  
-      formDataToSend.append("longTermRent", false); 
-    
-      try {
-        const createdAd = await createAd(formDataToSend); 
-        console.log("Объявление создано:", createdAd);
-    
-        onCancel(); 
-      } catch (error) {
-        
-      }
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked
+                : type === "number" ? Number(value)
+                    : value
+        }));
     };
 
-  return (
-    <div className="add-ad-container">
-      <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
-      <form className="add-ad-form" onSubmit={handleSubmit}>
-        <h2 className="form-title">{"Добавить объявление"}</h2>
+    const formatSelectedValues = (ids, data) => {
+        return data
+            .filter(item => ids.includes(item.categoryId || item.facilityId))
+            .map(item => item.name)
+            .join(", ");
+    }
 
-        <div className="field-group">
-          <label className="ccolumn-name">Изображения</label>
-          <div className="image-preview-container">
-            {formData.images.map((image, index) => (
-              <div key={index} className="image-preview">
-                <img src={image} alt={`Preview ${index}`} />
-                <button className="delete-image-btn" onClick={() => handleDeleteImage(index)} type="button">
-                  <Trash/>
-                </button>
-              </div>
-            ))}
-            <label htmlFor="file-input" className="image-upload-button">
-              <div className="upload-content">
-                <span>Добавить фото</span>
-                <Image className="upload-icon" />
-              </div>
-            </label>
+    const handleMultiSelect = (e, field) => {
+        const options = Array.from(e.target.selectedOptions, opt => Number(opt.value));
+        setFormData(prev => ({ ...prev, [field]: options }));
+    };
 
-            <input id="file-input" type="file" accept="image/*" multiple onChange={handleImageChange} />
-          </div>
-        </div>
+    const handleFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        if (files.length === 0) return;
 
-        <div className="field">
-          <label className="ccolumn-name">Название</label>
-          <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-        </div>
+        const newImages = files.map(file => ({
+            file,
+            preview: URL.createObjectURL(file)
+        }));
 
-        <div className="field">
-          <label className="ccolumn-name">Адрес</label>
-          <input type="text" name="address" value={formData.address} onChange={handleChange} required />
-        </div>
+        setFormData(prev => ({
+            ...prev,
+            images: [...prev.images, ...newImages]
+        }));
 
-        <div className="fields-container">
-          <div className="fields-row">
-            <div className="field">
-              <label className="ccolumn-name">Общая площадь (м²)</label>
-              <input type="number" name="area" value={formData.area} onChange={handleChange} required />
-            </div>
-            <div className="field">
-              <label className="ccolumn-name">Количество гостей</label>
-              <input type="number" name="guests" value={formData.guests} onChange={handleChange} required />
-            </div>
-            <div className="field">
-              <label className="ccolumn-name">Количество комнат</label>
-              <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required />
-            </div>
-          </div>
+        e.target.value = null;
+    };
 
-          <div className="fields-row">
-            <div className="field">
-              <label className="ccolumn-name">Количество спален</label>
-              <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
-            </div>
-            <div className="field">
-              <label className="ccolumn-name">Количество кроватей</label>
-              <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
-            </div>
-            <div className="field">
-              <label className="ccolumn-name">Хозяин жилья (email)</label>
-              <input type="email" name="owner" value={formData.owner} onChange={handleChange} required />
-            </div>
-          </div>
-        </div>
+    const removeImage = (index) => {
+        const newImages = formData.images.filter((_, i) => i !== index);
+        setFormData(prev => ({ ...prev, images: newImages }));
+    };
 
-        <div className="field rent-price">
-        <label className="ccolumn-name" style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          Арендная плата, 
-          <Ruble style={{ width: "18px", height: "18px", fill: "black" }} />
-        </label>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-          <div className="rent-options">
-          <button type="button" className={selectedRent === "daily" ? "active" : ""} onClick={() => setSelectedRent("daily")}>
-            За сутки
-          </button>
-          <button type="button" className={selectedRent === "monthly" ? "active" : ""} onClick={() => setSelectedRent("monthly")}>
-            В месяц
-          </button>
-        </div>
-          <input className="field" type="number" name="price" value={formData.price} onChange={handleChange} required />
-        </div>
+        try {
+            const formDataToSend = new FormData();
+
+            Object.entries(formData).forEach(([key, value]) => {
+                if (key === 'categoriesIds' || key === 'facilitiesIds') {
+                    value.forEach(v => formDataToSend.append(key, v.toString()));
+                } else if (key !== 'images') {
+                    formDataToSend.append(key, value.toString());
+                }
+            });
+
+            formData.images.forEach(img => {
+                formDataToSend.append("files", img.file, img.file.name);
+            });await PropertyService.create(formDataToSend);
+            navigate("/ads", { state: { refresh: true } });
+
+        } catch (err) {
+            console.error("Ошибка создания объявления:", err);
+        }
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
 
 
-          <div className="fields-container">
-            <div className="fields-row">
-              <div className="field description-field">
-                <div className="field">
-                  <label className="ccolumn-name">Описание</label>
-                  <textarea className="custom-textarea" name="description" value={formData.description} onChange={handleChange} required />
+    return (
+        <div className="add-ad-container">
+            <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange}/>
+            <form className="add-ad-form" onSubmit={handleSubmit}>
+                <h2 className="form-title">{"Добавить объявление"}</h2>
+
+                <div className="field-group">
+                    <label className="ccolumn-name">Изображения</label>
+                    <div className="image-preview-container">
+                        {formData.images.map((image, index) => (
+                            <div key={index} className="image-preview">
+                                <img src={image.preview} alt={`Preview ${index}`}/>
+                                <button className="delete-image-btn"
+                                        onClick={() => removeImage(index)}
+                                        type="button">
+                                    <Trash/>
+                                </button>
+                            </div>
+                        ))}
+                        <label htmlFor="file-input" className="image-upload-button">
+                            <div className="upload-content">
+                                <span>Добавить фото</span>
+                                <Image className="upload-icon"/>
+                            </div>
+                        </label>
+
+                        <input id="file-input" type="file" accept="image/*" multiple onChange={handleFileChange}/>
+                    </div>
                 </div>
-              </div>
-              <div className="field amenities-field">
+
                 <div className="field">
-                  
-                <label className="ccolumn-name">Основные удобства</label>
-                <textarea className="custom-textarea" name="amenities" value={formData.amenities} onChange={handleChange} required />
+                    <label className="ccolumn-name">Название</label>
+                    <input type="text" name="title" value={formData.title} onChange={handleChange} required/>
                 </div>
-              </div>
-              <div className="field">
 
-              </div>
-            </div>
-        </div>
+                <div className="field">
+                    <label className="ccolumn-name">Адрес</label>
+                    <input type="text" name="address" value={formData.address} onChange={handleChange} required/>
+                </div>
 
-        <div className="button-group">
-          <button type="button" className="cancel-button" onClick={onCancel}>
-            Отмена
-          </button>
-          <button type="submit" className="submit-button">
-            {editingAd ? "Сохранить" : "Добавить"}
-          </button>
+                <div className="fields-container">
+                    <div className="fields-row">
+                        <div className="field">
+                            <label className="ccolumn-name">Общая площадь (м²)</label>
+                            <input type="number" name="area" value={formData.area} onChange={handleChange} required/>
+                        </div>
+                        <div className="field">
+                            <label className="ccolumn-name">Количество гостей</label>
+                            <input type="number" name="maxGuests" value={formData.maxGuests} onChange={handleChange}
+                                   required/>
+                        </div>
+                        <div className="field">
+                            <label className="ccolumn-name">Количество комнат</label>
+                            <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required/>
+                        </div>
+                    </div><div className="fields-row">
+                        <div className="field">
+                            <label className="ccolumn-name">Количество спален</label>
+                            <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange}
+                                   required/>
+                        </div>
+                        <div className="field">
+                            <label className="ccolumn-name">Количество кроватей</label>
+                            <input type="number" name="sleepingPlaces" value={formData.sleepingPlaces} onChange={handleChange} required/>
+                        </div>
+                        <div className="field">
+                            <label className="ccolumn-name">Хозяин жилья (email)</label>
+                            <select
+                                name="ownerId"
+                                value={formData.ownerId}
+                                onChange={handleChange}
+                            >
+                                {owners.map((owner) => (
+                                    <option key={owner.userId} value={owner.userId}>
+                                        {owner.email}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div><div className="fields-row">
+                    <div className="field">
+                        <label className="ccolumn-name">Категории</label>
+                        <select
+                            multiple
+                            name="categoriesIds"
+                            value={formData.categoriesIds}
+                            onChange={(e) => handleMultiSelect(e, 'categoriesIds')}
+                            className="multi-select"
+                        >
+                            <option>{formatSelectedValues(formData.categoriesIds, categories) || "Выберите категории..."}</option>
+                            {categories.map(category => (
+                                <option
+                                    key={category.categoryId}
+                                    value={category.categoryId}
+                                >
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="field">
+                        <label className="ccolumn-name">Удобства</label>
+                        <select
+                            multiple
+                            name="facilitiesIds"
+                            value={formData.facilitiesIds}
+                            onChange={(e) => handleMultiSelect(e, 'facilitiesIds')}
+                            className="multi-select"
+                        >
+                            <option>{formatSelectedValues(formData.facilitiesIds, facilities) || "Выберите удобства..."}</option>
+                            {facilities.map(facility => (
+                                <option
+                                    key={facility.facilityId}
+                                    value={facility.facilityId}
+                                >
+                                    {facility.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="field">
+                        <label className="ccolumn-name">Статус</label>
+                        <select
+                            name="propertyStatus"
+                            value={formData.propertyStatus}
+                            onChange={handleChange}
+                        >
+                            {propertyStatuses.map(status => (
+                                <option key={status} value={status}>{status}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <div className="field rent-price">
+                    <label className="ccolumn-name" style={{display: "flex", alignItems: "center", gap: "6px"}}>
+                        Арендная плата,
+                        <Ruble style={{width: "18px", height: "18px", fill: "black"}}/>
+                    </label>
+
+                    <div className="rent-options">
+                        <button type="button" className={`${!formData.longTermRent ? "active" : ""}`}
+                                onClick={() => setFormData(p => ({...p, longTermRent: false}))}>
+                            За сутки
+                        </button>
+                        <button type="button" className={`${formData.longTermRent ? "active" : ""}`}
+                                onClick={() => setFormData(p => ({...p, longTermRent: true}))}>
+                            В месяц
+                        </button>
+                    </div>
+                    <input type="number" name="cost" value={formData.price} onChange={handleChange} required/>
+                </div><div className="fields-container">
+                    <div className="fields-row">
+                        <div className="field description-field">
+                            <div className="field">
+                                <label className="ccolumn-name">Описание</label>
+                                <textarea className="custom-textarea" name="description" value={formData.description}
+                                          onChange={handleChange} required/>
+                            </div>
+                        </div>
+                        <div className="field"></div>
+                        <div className="field"></div>
+                    </div>
+                </div>
+
+                <div className="button-group">
+                    <button type="button" className="cancel-button" onClick={onCancel}>
+                        Отмена
+                    </button>
+                    <button type="submit" className="submit-button" onClick={handleSubmit}>
+                        Добавить
+                    </button>
+                </div>
+            </form>
         </div>
-      </form>
-    </div>
-  );
+    );
 };
 
 export default AddAdForm;
