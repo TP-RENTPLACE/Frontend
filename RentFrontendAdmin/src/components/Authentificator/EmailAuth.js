@@ -1,25 +1,80 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import '../../styles/EmailStyles.css';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
-import { MdOutlineMail } from "react-icons/md";
 import { ReactComponent as EmailLogo } from '../../assets/Email.svg';
+import authService from "../../api/authService";
 
 export default function EmailAuth() {
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
-  const [sentCode, setSentCode] = useState(null);
   const [step, setStep] = useState(1);
   const [resendTimer, setResendTimer] = useState(120);
   const [canResend, setCanResend] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const inputRefs = useRef([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleCodeChange = (e, index) => {
+    if (isSubmitting) return;
+
+    const value = e.target.value.replace(/\D/g, '');
+    if (!value && code.length <= index) return;
+
+    const newCode = [...code.slice(0, index), value, ...code.slice(index + 1)].join('');
+    setCode(newCode);
+
+    if (value && index < 4 && inputRefs.current[index + 1]) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleLogin = useCallback(async () => {
+    const savedEmail = localStorage.getItem("authEmail");
+    if (!savedEmail || code.length !== 5 || loading || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      await authService.login(savedEmail, code);
+
+      navigate("/ads");
+    } catch (err) {
+      console.error("Auth error details:", {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message
+      });
+
+      if (err.response?.status !== 400) {
+        setCode("");
+      }
+
+      setError(err.response?.data?.message || "Ошибка авторизации");
+      inputRefs.current[0]?.focus();
+    } finally {
+      setIsSubmitting(false);
+      setLoading(false);
+    }
+  }, [code, loading, isSubmitting, navigate]);
 
   useEffect(() => {
-    if (localStorage.getItem("isAdmin") === "true") {
-      navigate("/admin");
+    if (code.length === 5 && !isSubmitting) {
+      handleLogin();
     }
-  }, [navigate]);
+  }, [code, handleLogin, isSubmitting]);
+
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("authEmail");
+    if (savedEmail) {
+      setEmail(savedEmail);
+      setStep(2);
+    }
+  }, []);
 
   useEffect(() => {
     if (step === 2 && !canResend) {
@@ -27,7 +82,7 @@ export default function EmailAuth() {
         setResendTimer((prev) => {
           if (prev <= 1) {
             clearInterval(timer);
-            setCanResend(true); // Убедитесь, что состояние обновляется
+            setCanResend(true);
             return 0;
           }
           return prev - 1;
@@ -37,41 +92,27 @@ export default function EmailAuth() {
     }
   }, [step, canResend]);
 
-  useEffect(() => {
-    console.log("canResend:", canResend); // Лог для отладки
-    if (code.length === 5 && code === sentCode?.toString()) {
-      localStorage.setItem("isAdmin", "true");
-      navigate("/admin");
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const handleSendCode = async () => {
+    if (!validateEmail(email)) {
+      setError("Некорректный формат email");
+      return;
     }
-  }, [code, sentCode, navigate, canResend]); // Добавим canResend сюда для отслеживания изменений
 
-  const sendCode = () => {
-    const generatedCode = Math.floor(10000 + Math.random() * 90000);
-    setSentCode(generatedCode);
-    console.log("Your code:", generatedCode);
-    setCode("");
-    setCanResend(false);
-    setResendTimer(120);
-    if (step === 1) setStep(2);
-  };
+    setLoading(true);
+    setError("");
 
-  const enterNewEmail = () => {
-    setEmail("");
-    setCode("");
-    setStep(1);
-  };
-
-  const handleCodeChange = (e, index) => {
-    const value = e.target.value;
-    if (!/^\d?$/.test(value)) return;
-
-    const newCodeArray = code.split("");
-    newCodeArray[index] = value;
-    const newCode = newCodeArray.join("");
-    setCode(newCode);
-
-    if (value && inputRefs.current[index + 1]) {
-      inputRefs.current[index + 1].focus();
+    try {
+      await authService.requestCode(email);
+      localStorage.setItem("authEmail", email);
+      setStep(2);
+      setCanResend(false);
+      setResendTimer(120);
+    } catch (err) {
+      setError(err.response?.data?.message || "Ошибка отправки кода");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,81 +123,101 @@ export default function EmailAuth() {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-logo-wrapper">
-        <div className="auth-logo-container">
-          <Logo className="auth-logo" />
-          <span className="auth-logo-text">rentplace</span>
+      <div className="auth-container">
+        <div className="auth-logo-wrapper">
+          <div className="auth-logo-container">
+            <Logo className="auth-logo" />
+            <span className="auth-logo-text">rentplace</span>
+          </div>
+          <h6 className="auth-subtitle">Administration</h6>
+        </div><div className="auth-box">
+          {step === 1 ? (
+              <>
+                <h6 className="auth-title">Войдите в аккаунт</h6>
+                <p className="auth-description">
+                  Введите почту. На нее будет отправлено письмо с кодом.
+                </p>
+                <div className="auth-input-icon-wrapper">
+                  <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setError("");
+                      }}
+                      placeholder="Введите вашу почту"
+                      className="auth-input"
+                      disabled={loading}
+                  />
+                  <EmailLogo className="auth-input-svg-icon" />
+                </div>
+
+                {error && <div className="error-message" style={{color: "red"}}>{error}</div>}
+
+                <div className="auth-input-wrapper">
+                  <button
+                      onClick={handleSendCode}
+                      className="auth-button auth-button-primary"
+                      disabled={loading}
+                  >
+                    {loading ? "Отправка..." : "Далее"}
+                  </button>
+                </div>
+              </>
+          ) : (
+              <>
+                <h6 className="auth-title">Войдите в аккаунт</h6>
+                <p className="auth-description">
+                  Введите код из письма, отправленного на <strong>{email}</strong>
+                </p>
+
+                {!canResend && (
+                    <p style={{ fontSize: "14px", marginBottom: "10px" }}>
+                      Повторная отправка возможна через {resendTimer} секунд
+                    </p>
+                )}
+
+                <div className="code-input-container">
+                  {Array.from({ length: 5 }).map((_, index) => (
+                      <input
+                          key={index}
+                          type="text"
+                          inputMode="numeric"
+                          pattern="[0-9]*"
+                          maxLength={1}
+                          className="code-input"
+                          value={code[index] || ""}
+                          onChange={(e) => handleCodeChange(e, index)}
+                          onKeyDown={(e) => handleKeyDown(e, index)}
+                          ref={(el) => (inputRefs.current[index] = el)}
+                          disabled={loading}
+                          autoFocus={index === 0 && !code[0]}
+                      />
+                  ))}
+                </div>
+
+                {error && <div className="error-message">{error}</div>}
+
+                <div className="auth-buttons-container">
+                  <button
+                      onClick={handleSendCode}
+                      className="auth-button-primary"
+                      disabled={!canResend || loading}
+                  >
+                    {loading ? "Отправка..." : "Отправить код повторно"}
+                  </button>
+
+                  <button
+                      onClick={() => setStep(1)}
+                      className="auth-button auth-button-secondary"
+                      disabled={loading}
+                  >
+                    Ввести другую почту
+                  </button>
+                </div>
+              </>
+          )}
         </div>
-        <h6 className="auth-subtitle">Administration</h6>
       </div>
-
-      <div className="auth-box">
-        {step === 1 ? (
-          <>
-            <h6 className="auth-title">Войдите в аккаунт</h6>
-            <p className="auth-description">
-              Введите почту. На нее будет отправлено письмо с кодом.
-            </p>
-            <div className="auth-input-icon-wrapper">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Введите вашу почту"
-                className="auth-input"
-              />
-              <EmailLogo className="auth-input-svg-icon" />
-            </div>
-
-
-            <div className="auth-input-wrapper">
-              <button onClick={sendCode} className="auth-button auth-button-primary">
-                Далее
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <h6 className="auth-title">Войдите в аккаунт</h6>
-            <p className="auth-description">
-              Введите код из письма, отправленного на <strong>{email}</strong>
-            </p>
-
-            <p style={{ fontSize: "14px", marginBottom: "10px" }}>
-              Повторная отправка возможна через {resendTimer} секунд
-            </p>
-
-            <div className="code-input-container">
-              {Array.from({ length: 5 }).map((_, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  maxLength={1}
-                  className="code-input"
-                  value={code[index] || ""}
-                  onChange={(e) => handleCodeChange(e, index)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  ref={(el) => (inputRefs.current[index] = el)}
-                />
-              ))}
-            </div>
-
-            {(
-              <button
-                onClick={sendCode}
-                className="auth-button-primary"
-              >
-                Отправить код повторно
-              </button>
-            )}
-
-            <button onClick={enterNewEmail} className="auth-button auth-button-secondary">
-              Ввести другую почту
-            </button>
-          </>
-        )}
-      </div>
-    </div>
   );
 }
