@@ -6,7 +6,7 @@ import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
 import { ReactComponent as Trash} from "../../assets/Trash.svg";
 
 
-import { createAd, editAd } from "../api/adsApi";
+
 
 
 
@@ -111,14 +111,7 @@ const AddAdForm = ({ addNewAd, updateAd, editingAd, onCancel }) => {
       formDataToSend.append("facilities", JSON.stringify([]));  
       formDataToSend.append("longTermRent", false); 
     
-      try {
-        const createdAd = await createAd(formDataToSend); 
-        console.log("Объявление создано:", createdAd);
-    
-        onCancel(); 
-      } catch (error) {
-        
-      }
+
     };
 
   return (
