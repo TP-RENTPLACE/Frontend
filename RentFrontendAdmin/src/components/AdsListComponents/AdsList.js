@@ -1,57 +1,38 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 import Header from "../HeaderComponents/Header";
-
-import {FaBuilding} from "react-icons/fa";
-import { FaSwimmingPool } from "react-icons/fa";
-import { LuMountainSnow } from "react-icons/lu";
-import "../../styles/AdsList.css";
-import image1 from "../../assets/image2.png";
+import "../../styles/adsList.css";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
 
 import { useNavigate, useLocation } from "react-router-dom";
 import EditAdForm from "./EditAdForm";
+import PropertyService from "../../api/propertyService";
 
 const AdsList = () => {
-  const [adsData, setAdsData] = useState([
-    {
-      id: 1,
-      title: "Таунаус Hillside",
-      category: "Дом",
-      categoryIcon: [<FaSwimmingPool />, <FaBuilding />, <LuMountainSnow />],
-      price: "18000 ₽",
-      rentType: "daily",
-      address: "Мистолово, Английский проезд, 3/1",
-      image: image1,
-      owner: "petr_petrov@gmail.com",
-    },
-    
-  ]);
-
+  const [properties, setProperties] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [editingAd, setEditingAd] = useState(null);
+  const [editingProperty, setEditingProperty] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [openMenuId, setOpenMenuId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const adsPerPage = 7;
+  const propertyPerPage = 7;
   const navigate = useNavigate();
   const location = useLocation();
   const editingAdFromState = location.state?.editingAd;
 
+  useEffect(() => {
+    PropertyService.getAll()
+        .then((data) => {
+          const publishedProperties = data.filter(
+              property => property.propertyStatus === "PUBLISHED"
+          );
+          setProperties(publishedProperties)
+        })
+        .catch((err) => console.error('Ошибка при загрузке:', err));
+  }, []);
+
   const toggleMenu = (id) => {
     setOpenMenuId(openMenuId === id ? null : id);
-  };
-
-  const addNewAd = (newAd) => {
-    setAdsData((prevAds) =>
-      prevAds.some((ad) => ad.id === newAd.id)
-        ? prevAds.map((ad) => (ad.id === newAd.id ? newAd : ad))
-        : [...prevAds, newAd]
-    );
-    setShowForm(false);
-    setEditingAd(null);
-    setCurrentPage(1);
-    navigate("/ads");
   };
 
   const handleSearchChange = (e) => {
@@ -59,21 +40,32 @@ const AdsList = () => {
     setCurrentPage(1);
   };
 
-  const filteredAds = adsData.filter((ad) => {
+  const filteredAds = properties.filter((property) => {
     const lowercasedQuery = searchQuery.toLowerCase().trim();
     return (
-      ad.title.toLowerCase().includes(lowercasedQuery) ||
-      ad.category.toLowerCase().includes(lowercasedQuery) ||
-      ad.price.toLowerCase().includes(lowercasedQuery) ||
-      ad.address.toLowerCase().includes(lowercasedQuery) ||
-      ad.owner.toLowerCase().includes(lowercasedQuery)
+      property.title.toLowerCase().includes(lowercasedQuery) ||
+      property.category.toLowerCase().includes(lowercasedQuery) ||
+      property.cost.toLowerCase().includes(lowercasedQuery) ||
+      property.address.toLowerCase().includes(lowercasedQuery) ||
+      property.owner.toLowerCase().includes(lowercasedQuery)
     );
   });
 
-  const indexOfLastAd = currentPage * adsPerPage;
-  const indexOfFirstAd = indexOfLastAd - adsPerPage;
-  const currentAds = filteredAds.slice(indexOfFirstAd, indexOfLastAd);
-  const totalPages = Math.ceil(filteredAds.length / adsPerPage);
+  const getImageUrl = (images = []) => {
+    const previewImg = images.find((img) => img.previewImage === false && img.imageId === 2);
+    const chosenImg = previewImg || images[0];
+    if (!chosenImg) {
+      return "/assets/image.png";
+    }
+    if (chosenImg.url) {
+      return chosenImg.url;
+    }
+  };
+
+  const indexOfLastProperty = currentPage * propertyPerPage;
+  const indexOfFirstProperty = indexOfLastProperty - propertyPerPage;
+  const currentProperties = filteredAds.slice(indexOfFirstProperty, indexOfLastProperty);
+  const totalPages = Math.ceil(filteredAds.length / propertyPerPage);
 
   return (
     <div className="ads-list">
@@ -87,9 +79,7 @@ const AdsList = () => {
               Добавить объявление
               <Plus/>
             </button>
-          </div>
-
-          <table className="ads-table">
+          </div><table className="ads-table">
             <thead>
               <tr>
                 <th>Фотография</th>
@@ -102,10 +92,10 @@ const AdsList = () => {
               </tr>
             </thead>
             <tbody>
-              {currentAds.length > 0 ? (
-                currentAds.map((ad) => (
+              {currentProperties.length > 0 ? (
+                currentProperties.map((property) => (
                   <tr
-                    key={ad.id}
+                    key={property.propertyId}
                     className="ad-row"
                     onClick={(e) => {
                       if (
@@ -113,8 +103,8 @@ const AdsList = () => {
                         e.target.closest(".dropdown-menu")
                       )
                         return;
-                      const { categoryIcon, ...serializableAd } = ad;
-                      navigate(`/ads/editad/${ad.id}`, {
+                      const {...serializableAd } = property;
+                      navigate(`/ads/editad/${property.propertyId}`, {
                         state: { editingAd: serializableAd },
                       });
                     }}
@@ -122,36 +112,50 @@ const AdsList = () => {
                   >
                     <td>
                       <img
-                        src={ad.image || (ad.images && ad.images[0]) || "/images/ad-image.jpg"}
-                        alt={ad.title}
+                        src={getImageUrl(property.imagesDTOs)}
+                        alt={property.propertyId}
                         className="ad-image"
                       />
                     </td>
-                    <td className="title-cell">{ad.title}</td>
-                    <td className="category-cell">{ad.categoryIcon}</td>
-                    <td>
-                      {ad.price} {ad.rentType === "monthly" ? "в месяц" : ad.rentType === "daily" ? "за сутки" : ""}
+                    <td className="title-cell">{property.title}</td>
+                    <td className="category-cell">
+                      {property.categoriesDTOs?.map((category, index) => (
+                        <div key={index} className="category-image-item">
+                          {category.imageDTO?.url && (
+                              <img
+                                  width={24}
+                                  height={24}
+                                  src={category.imageDTO.url}
+                                  alt={`Категория ${category.name}`}
+                                  className="category-image"
+                              />
+                          )}
+                        </div>
+                      ))}
                     </td>
-                    <td>{ad.address}</td>
-                    <td>{ad.owner}</td>
+                    <td>
+                      {property.cost} {property.longTermRent ? "в месяц" : "за сутки"}
+                    </td>
+                    <td>{property.address}</td>
+                    <td>{property.ownerDTO.email}</td>
                     <td className="actions-cell">
                       <div className="dropdown">
-                        <button className="menu-button" onClick={() => toggleMenu(ad.id)}>
+                        <button className="menu-button" onClick={() => toggleMenu(property.propertyId)}>
                           ⋯
                         </button>
-                        {openMenuId === ad.id && (
+                        {openMenuId === property.propertyId && (
                           <div className="dropdown-menu">
                             <button
                               onClick={() => {
-                                const { categoryIcon, ...serializableAd } = ad;
-                                navigate(`/ads/editad/${ad.id}`, {
+                                const {...serializableAd } = property;
+                                navigate(`/ads/editad/${property.id}`, {
                                   state: { editingAd: serializableAd },
                                 });
                               }}
                             >
                               Редактировать
                             </button>
-                            <button onClick={() => setAdsData((prev) => prev.filter((a) => a.id !== ad.id))}>
+                            <button>
                               Удалить
                             </button>
                           </div>
@@ -161,14 +165,12 @@ const AdsList = () => {
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td colSpan="7">Нет объявлений, соответствующих запросу.</td>
-                </tr>
+                  <tr>
+                    <td colSpan="7" className="no-properties">Нет объявлений, соответствующих запросу.</td>
+                  </tr>
               )}
             </tbody>
-          </table>
-
-          {totalPages > 0 && (
+          </table>{totalPages > 0 && (
             <div className="pagination-container">
               <div className="page-info">Страница {currentPage}</div>
               <div className="pagination-svg-wrapper">
@@ -204,11 +206,10 @@ const AdsList = () => {
         </>
       ) : 
         <EditAdForm
-          editingAd={editingAdFromState || editingAd}
-          addNewAd={addNewAd}
+          editingAd={editingAdFromState || editingProperty}
           onCancel={() => {
             setShowForm(false);
-            setEditingAd(null);
+            setEditingProperty(null);
             navigate("/ads");
           }}
         />
