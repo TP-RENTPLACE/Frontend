@@ -1,24 +1,36 @@
-import React, { createContext, useState, useContext } from "react";
+import React, {createContext, useState, useContext, useEffect} from "react";
+import userService from "../../api/userService";
 
 export const UserContext = createContext();
 
-export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    name: "Александр",
-    surname: "Виноградов",
-    email: "alex_vinogradov@yandex.ru",
-    birthDate: "1980-11-02",
-    gender: "Мужской",
-    role: "Администратор",
-    registrationDate: "2025-01-01",
-    avatar: "/images/default-avatar.png",
-  });
+export const UserProvider = ({children}) => {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const userData = await userService.getById(3);
+                setUser({
+                    ...userData,
+                    avatar: userData.imageDTO?.url || "../../assets/default-avatar.jpg",
+                });
+            } catch (error) {
+                console.error("Ошибка получения пользователя:", error);
+                setUser(null);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
+
+    return (
+        <UserContext.Provider value={{user, setUser}}>
+            {children}
+        </UserContext.Provider>
+    );
 };
 
 export const useUser = () => useContext(UserContext);
