@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Navigate, useLocation} from "react-router-dom";
 import EmailAuth from "./components/Authentificator/EmailAuth";
 import ModerationList from "./components/ModerationListComponents/ModerationList";
 import AdsList from "./components/AdsListComponents/AdsList";
@@ -8,25 +8,29 @@ import AdDetails from "./components/ModerationListComponents/AdDetails";
 import UsersList from "./components/UserListComponents/UsersList";
 import BookingsTable from "./components/BookingListComponents/BookingsTable";
 import AdminEditForm from "./components/AdminEditor/AdminEditForm";
-import AddAdForm from "./components/AdsListComponents/AddAdForm";
 import AddAdPage from "./components/AdsListComponents/AddAdPage";
 import EditAdFormWrapper from "./components/AdsListComponents/EditAdFormWrapper";
-import Header from "./components/HeaderComponents/Header";
-import { UserProvider } from "./components/UserListComponents/UserContext"; // Импортируем UserProvider
+import { UserProvider } from "./components/UserListComponents/UserContext";
 import AddUserFormWrapper from "./components/UserListComponents/AddUserFormWrapper";
 import EditUserFormWrapper from "./components/UserListComponents/EditUserFormWrapper";
 import BookingModalRoute from "./components/BookingListComponents/BookingModalRoute";
 import EditBookingModalRoute from "./components/BookingListComponents/EditBookingModalRoute";
 import GalleryView from "./components/ModerationListComponents/GalleryView"
-// import AdminEditRoute from "./components/AdminEditor/AdminEditRoute";
 
-function ProtectedRoute({ children }) {
-  return localStorage.getItem("isAdmin") === "true" ? children : <Navigate to="/email" />;
-}
+const ProtectedRoute = ({ children }) => {
+  const location = useLocation();
+  const accessToken = localStorage.getItem('accessToken');
+
+  if (!accessToken) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
+  return children;
+};
 
 function App() {
   return (
-    <UserProvider> {/* Оборачиваем все приложение в UserProvider */}
+    <UserProvider>
       <Router>
         <div className="app-container">
           <Sidebar />
@@ -36,7 +40,7 @@ function App() {
               <Route path="/email" element={<EmailAuth />} />
               <Route path="/admin" element={<ProtectedRoute><Navigate to="/ads" replace /></ProtectedRoute>} />
               <Route path="/ads" element={<ProtectedRoute><AdsList /></ProtectedRoute>} />
-              <Route path="/ad/:id" element={<ProtectedRoute><AdDetails /></ProtectedRoute>} /> {/* Маршрут для AdDetails */}
+              <Route path="/ad/:id" element={<ProtectedRoute><AdDetails /></ProtectedRoute>} />
               <Route path="/moderation" element={<ProtectedRoute><ModerationList /></ProtectedRoute>} />
               <Route path="/users" element={<ProtectedRoute><UsersList /></ProtectedRoute>} />
               <Route path="/bookings" element={<ProtectedRoute><BookingsTable /></ProtectedRoute>} />
