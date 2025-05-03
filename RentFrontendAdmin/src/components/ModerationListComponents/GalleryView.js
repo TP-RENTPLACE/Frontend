@@ -16,7 +16,7 @@ const GalleryView = () => {
     <div className="gallery-page">
       <div className="image-row">
         {images.map((img, index) => (
-          <img key={index} src={img} alt={`Фото ${index + 1}`} className="gallery-image" />
+          <img key={index} src={img.url} alt={`Фото ${index + 1}`} className="gallery-image" />
         ))}
       </div>
       <button className="back-button" onClick={() => navigate(-1)}>
