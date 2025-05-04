@@ -4,58 +4,39 @@ import BookingModal from "./BookingModal";
 import Header from "../HeaderComponents/Header";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
-
-const bookingsData = [
-  {
-    id: 1,
-    listing: "Парадная квартира рядом с метро Чернышевская",
-    tenant: "ivan.petrov1990@yandex.ru",
-    landlord: "maria.smirnova@gmail.com",
-    checkIn: "2025-03-17",
-    checkOut: "2025-03-24",
-    price: "88 000 ₽",
-  },
-  {
-    id: 2,
-    listing: "Парадная квартира рядом с метро Чернышевская",
-    tenant: "ivan.petrov1990@yandex.ru",
-    landlord: "maria.smirnova@gmail.com",
-    checkIn: "2025-03-17",
-    checkOut: "2025-03-24",
-    price: "88 000 ₽",
-  },
-  // Добавь больше бронирований по необходимости
-];
+import ReservationService from "../../api/reservationService";
 
 const BookingsTable = () => {
   const [isAdding, setIsAdding] = useState(false);
-  const [editingBooking, setEditingBooking] = useState(null);
-  const [bookings, setBookings] = useState(bookingsData);
+  const [editingReservation, setEditingReservation] = useState(null);
+  const [reservations, setReservations] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const bookingsPerPage = 7;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    ReservationService.getAll()
+        .then((data) => setReservations(data))
+        .catch((err) => console.error('Ошибка при загрузке:', err));
+  }, []);
+
   const handleSave = (newBooking) => {
-    setBookings((prev) => {
+    setReservations((prev) => {
       const exists = prev.some((b) => b.id === newBooking.id);
       return exists
-        ? prev.map((b) => (b.id === newBooking.id ? newBooking : b))
-        : [...prev, newBooking];
+          ? prev.map((b) => (b.id === newBooking.id ? newBooking : b))
+          : [...prev, newBooking];
     });
     setIsAdding(false);
-    setEditingBooking(null);
+    setEditingReservation(null);
     setCurrentPage(1);
   };
 
-  const handleEdit = (booking) => {
-    navigate(`/bookings/edit/${booking.id}`, { state: { booking } });
-  };
-  
-
-  const handleDelete = (id) => {
-    setBookings(bookings.filter((booking) => booking.id !== id));
+  const handleEdit = (reservation) => {
+    console.log(reservation);
+    navigate(`/bookings/edit/${reservation.reservationId}`, { state: { reservation } });
   };
 
   const toggleMenu = (id) => {
@@ -79,16 +60,17 @@ const BookingsTable = () => {
     setCurrentPage(1);
   };
 
-  const filteredBookings = bookings.filter((booking) =>
-    `${booking.id} ${booking.listing} ${booking.tenant} ${booking.landlord}`
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+  const filteredBookings = reservations.filter((reservation) =>
+      `${reservation.id} ${reservation.listing} ${reservation.tenant} ${reservation.landlord}`
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())
   );
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
   const currentBookings = filteredBookings.slice(indexOfFirstBooking, indexOfLastBooking);
   const totalPages = Math.ceil(filteredBookings.length / bookingsPerPage);
+
 
   return (
     <div className="bookings-container">
@@ -97,7 +79,7 @@ const BookingsTable = () => {
         handleSearchChange={handleSearchChange}
       />
 
-      {!isAdding && !editingBooking && (
+      {!isAdding && !editingReservation && (
         <div className="bookings-header">
           <h2>Брони</h2>
           <button className="add-booking-btn" onClick={() => navigate("/bookings/add")}>
@@ -105,9 +87,7 @@ const BookingsTable = () => {
             <Plus/>
           </button>
         </div>
-      )}
-
-      {!isAdding && !editingBooking && (
+      )}{!isAdding && !editingReservation && (
         <>
           <table className="bookings-table">
             <thead>
@@ -118,39 +98,39 @@ const BookingsTable = () => {
               <th style={{ width: "15%" }}>Арендодатель</th>
               <th style={{ width: "15%" }}>Дата проживания</th>
               <th style={{ width: "15%" }}>Стоимость</th>
-              <th style={{ width: "5%" }}>Действие</th>
+              <th>Действие</th>
               </tr>
             </thead>
             <tbody>
-              {currentBookings.length > 0 ? (
-                currentBookings.map((booking) => (
+              {reservations.length > 0 ? (
+                reservations.map((reservation) => (
                   <tr
-                    key={booking.id}
+                    key={reservation.reservationId}
                     className="clickable-row"
-                    onClick={() => navigate(`/bookings/edit/${booking.id}`, { state: { booking } })}
+                    onClick={() => navigate(`/bookings/edit/${reservation.reservationId}`, { state: { reservation } })}
                   >
-                    <td className="id-column">{booking.id}</td>
-                    <td className="listing-column">{booking.listing}</td>
-                    <td className="tenant-column"> {booking.tenant}</td>
-                    <td className="landlord-column">{booking.landlord}</td>
-                    <td className="dates-column">{booking.checkIn} <br /> {booking.checkOut}</td>
-                    <td className="price-column">{booking.price}</td>
+                    <td className="id-column">{reservation.reservationId}</td>
+                    <td>{reservation.propertyDTO.title}</td>
+                    <td>{reservation.renterDTO.email}</td>
+                    <td>{reservation.propertyDTO.ownerDTO.email}</td>
+                    <td className="dates-column">{reservation.startDate} <br /> {reservation.endDate}</td>
+                    <td className="price-column">{reservation.totalCost}</td>
                     <td className="action-column dropdown">
                       <button
                         className="action-btn"
                         onClick={(e) => {
                           e.stopPropagation();
-                          toggleMenu(booking.id);
+                          toggleMenu(reservation.reservationId);
                         }}
                       >
                         ⋯
                       </button>
-                      {menuOpen === booking.id && (
+                      {menuOpen === reservation.reservationId && (
                         <div className="dropdown-content">
-                          <button className="action-item" onClick={() => handleEdit(booking)}>
+                          <button className="action-item" onClick={() => handleEdit(reservation)}>
                             Редактировать
                           </button>
-                          <button className="action-item" onClick={() => handleDelete(booking.id)}>
+                          <button className="action-item" >
                             Удалить
                           </button>
                         </div>
@@ -159,9 +139,9 @@ const BookingsTable = () => {
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td colSpan="7">Брони не найдены</td>
-                </tr>
+                  <tr>
+                    <td colSpan="7" className="no-properties">На данный момент нет активных броней.</td>
+                  </tr>
               )}
             </tbody>
           </table>
@@ -169,9 +149,7 @@ const BookingsTable = () => {
           {/* Пагинация */}
           {totalPages > 0 && (
             <div className="pagination-container">
-              <div className="page-info">Страница {currentPage}</div>
-
-              <div className="pagination-svg-wrapper">
+              <div className="page-info">Страница {currentPage}</div><div className="pagination-svg-wrapper">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="86"
@@ -204,13 +182,13 @@ const BookingsTable = () => {
         </>
       )}
 
-      {(isAdding || editingBooking) && (
+      {(isAdding || editingReservation) && (
         <BookingModal
           onCancel={() => {
             setIsAdding(false);
-            setEditingBooking(null);
+            setEditingReservation(null);
           }}
-          booking={editingBooking}
+          reservation={editingReservation}
           onSave={handleSave}
         />
       )}

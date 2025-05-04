@@ -2,35 +2,27 @@
 
 /* Общий стиль для всей страницы */
 
-* {
-  font-family: 'Raleway', sans-serif;
-}
 .auth-container {
-  
+
     position: absolute;
     inset: 0;
     background: #FFFFFF;
-  
+
     display: flex;
     flex-direction: column;
     align-items: center;
-  
+
     font-family: 'Raleway', sans-serif;
     color: var(--Main-Color-Dark, #151515);
     font-variant-numeric: lining-nums proportional-nums;
-  
-    padding-top: 60px; /* Добавим отступ сверху для логотипа */
-  
-  
-  color: var(--Main-Color-Dark, #151515);
-  font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Medium */
-  font-family: Raleway;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px; /* 128.571% */
+    padding-top: 60px; /* Добавим отступ сверху для логотипа */
+
+    font-family: Raleway;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 128.571% */
 }
 
 /* Логотип */
@@ -69,7 +61,7 @@
   color: var(--Main-Color-Dark, #151515);
   text-align: center;
   font-variant-numeric: lining-nums tabular-nums;
-  
+
   /* H2 Medium */
   font-family: Montserrat;
   font-size: 26px;
@@ -90,7 +82,12 @@
 }
 
 
-
+.auth-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
 .auth-input {
   display: flex;
@@ -101,7 +98,7 @@
   align-items: center;
   flex-shrink: 0;
 
-  
+
   font-variant-numeric: lining-nums proportional-nums;
 
   /* Rentplace Mobile/Medium */
@@ -118,6 +115,10 @@
   color: #007AFF;
 }
 
+
+.auth-buttons-container{
+
+}
 
 
 .auth-input {
@@ -140,7 +141,7 @@
 .code-input-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
   margin-bottom: 16px;
 }
 
@@ -155,7 +156,6 @@
   border: 1px solid var(--Secondary-Gray, #C1C1C1);
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
-  margin-left: 15px;
 
   /* Rentplace Web/Code numbers */
   font-family: Raleway;
@@ -164,7 +164,7 @@
   text-align: center;
   font-weight: 400;
   line-height: 40px; /* 111.111% */
-  
+
 }
 
 .code-input:focus {
@@ -205,9 +205,7 @@
   width: 50px;
   height: 40px;
   transform: translateY(6px);
-}
-
-.auth-logo-text {
+}.auth-logo-text {
   color: var(--Main-Color-Dark, #151515);
   font-family: 'Montserrat', sans-serif;
   font-size: 52px;
@@ -272,8 +270,7 @@
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
-  margin-left: px;
-  
+
   flex-shrink: 0;
   border-radius: 20px;
   background: var(--Main-Color-Blue, #007AFF);
@@ -309,8 +306,7 @@
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
-  margin-left: px;
-  
+
   flex-shrink: 0;
   border-radius: 20px;
   background: var(--Main-Color-Blue, #007AFF);
@@ -332,8 +328,7 @@
   padding: 14px 100px;
   justify-content: center;
   align-items: center;
-  margin-left: px;
-  
+
   flex-shrink: 0;
   border-radius: 20px;
   background: var(--Main-Color-Blue, #007AFF);
@@ -358,10 +353,10 @@
   margin-left: 15px;
   flex-shrink: 0;
   border-radius: 20px;
-  
+
   background: #fff;
   color: var(--Main-Color-Blue, #007AFF);
-  border: none; 
+  border: none;
 
   font-variant-numeric: lining-nums proportional-nums;
   font-family: Raleway;
@@ -370,7 +365,7 @@
   font-weight: 400;
   line-height: 18px;
   text-align: center;
- 
+
 }
 .auth-input-icon-wrapper {
   position: relative;

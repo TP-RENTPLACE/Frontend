@@ -36,19 +36,12 @@
   display: none;
 }
 
-
-
-
 .add-user-form .empty-photo {
   width: 100%;
   height: 100%;
   background-color: #d3d3d3;
   border-radius: 50%;
 }
-
-
-
-
 
 /* Поля ввода */
 .add-user-form .fields-row {
@@ -71,7 +64,6 @@
   flex: 1 1 calc(33.333% - 12px);
 }
 
-/* ВОЗВРАЩАЕМ ТВОИ СТАРЫЕ СТИЛИ ДЛЯ INPUT И SELECT */
 .add-user-form input,
 .add-user-form select {
 
@@ -85,14 +77,7 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
-  box-sizing: border-box;
-  
-  padding: 0px 20px;
-  align-items: center;
-  gap: 10px;
-  border-radius: 20px;
-  border: 1px solid var(--Secondary-Gray, #C1C1C1);
-  color: var(--Main-Color-Dark, #151515);
+
   font-variant-numeric: lining-nums proportional-nums;
   
   /* Rentplace Mobile/Medium */
@@ -119,14 +104,6 @@
   flex: 1 1 calc(33.333% - 12px);
 }
 
-/* Кнопки */
-
-
-
-
-
-
-
 
 /* Адаптация для узких экранов */
 @media (max-width: 992px) {
@@ -134,15 +111,12 @@
     flex-wrap: wrap;
   }
 
-
-
   .add-user-form .registration-field div {
     flex: 0 0 362px;
     flex: 1 1 calc(33.333% - 12px);
   }
   
 }
-
 
 .column-name{
   color: var(--Main-Color-Dark, #151515);
@@ -236,9 +210,7 @@
 .input-icon-wrapper input {
   width: 100%;
   padding-right: 30px; /* чтобы текст не перекрывался иконкой */
-}
-
-.calendar-icon {
+}.calendar-icon {
   position: absolute;
   right: 10px;
   top: 50%;

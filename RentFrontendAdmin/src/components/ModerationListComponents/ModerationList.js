@@ -6,74 +6,34 @@ import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
 import AddAdForm from "../AdsListComponents/AddAdForm";
 import Header from "../HeaderComponents/Header";
 import "../../styles/moderationList.css";
-import image1 from "../../assets/image2.png";
+
 
 const ModerationList = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const [adsData, setAdsData] = useState([
-    {
-      id: 1,
-      title: "Таунаус Hillside",
-      categoryIcon: [<FaSwimmingPool />, <FaBuilding />, <LuMountainSnow />],
-      price: "18000 ₽",
-      rentType: "daily",
-      address: "Мистолово, Английский проезд, 3/1",
-      image: image1,
-      owner: "petr_petrov@gmail.com",
-    },
-    {
-      id: 2,
-      title: "Таунаус Hillside",
-      categoryIcon: [<FaSwimmingPool />, <FaBuilding />, <LuMountainSnow />],
-      price: "18000 ₽",
-      rentType: "monthly",
-      address: "Мистолово, Английский проезд, 3/1",
-      image: image1,
-      owner: "petr_petrov@gmail.com",
-    },
-    {
-      id: 3,
-      title: "Таунаус Hillside",
-      categoryIcon: [<FaSwimmingPool />, <FaBuilding />, <LuMountainSnow />],
-      price: "18000 ₽",
-      rentType: "monthly",
-      address: "Мистолово, Английский проезд, 3/1",
-      image: image1,
-      owner: "petr_petrov@gmail.com",
-    },
-    // Добавь больше для теста пагинации
-  ]);
+  const [properties, setProperties] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
-  const [editingAd, setEditingAd] = useState(null);
+  const [editingProperty, setEditingProperty] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const adsPerPage = 7;
 
   useEffect(() => {
-    if (location.state?.rejectedId) {
-      handleReject(location.state.rejectedId);
-    }
-  }, [location.state]);
+    PropertyService.getAll()
+        .then((data) => {
+          const moderatedProperties = data.filter(
+              property => property.propertyStatus === "ON_MODERATION"
+          );
+          setProperties(moderatedProperties);
+        })
+        .catch((err) => console.error('Ошибка при загрузке:', err));
+  }, []);
 
   const toggleForm = () => {
     setShowForm(!showForm);
-    setEditingAd(null);
-  };
-
-  const addNewAd = (newAd) => {
-    if (editingAd) {
-      setAdsData((prevAds) =>
-        prevAds.map((ad) => (ad.id === editingAd.id ? newAd : ad))
-      );
-      setEditingAd(null);
-    } else {
-      setAdsData((prevAds) => [...prevAds, newAd]);
-    }
-    setShowForm(false);
-    setCurrentPage(1);
+    setEditingProperty(null);
+    navigate("/moderation");
   };
 
   const handleSearchChange = (e) => {
@@ -87,20 +47,31 @@ const ModerationList = () => {
   };
 
   const handleReject = (id) => {
-    setAdsData((prevAds) => prevAds.filter((ad) => ad.id !== id));
+    setProperties((prevAds) => prevAds.filter((ad) => ad.id !== id));
     navigate("/moderation");
   };
 
-  const filteredAds = adsData.filter((ad) => {
+  const filteredAds = properties.filter((ad) => {
     const q = searchQuery.toLowerCase().trim();
     return (
       (ad.title && ad.title.toLowerCase().includes(q)) ||
       (ad.category && ad.category.toLowerCase().includes(q)) ||
-      (ad.price && ad.price.toLowerCase().includes(q)) ||
+      (ad.сost && ad.price.toLowerCase().includes(q)) ||
       (ad.address && ad.address.toLowerCase().includes(q)) ||
       (ad.owner && ad.owner.toLowerCase().includes(q))
     );
   });
+
+  const getImageUrl = (images = []) => {
+    const previewImg = images.find((img) => img.previewImage === false && img.imageId === 2);
+    const chosenImg = previewImg || images[0];
+    if (!chosenImg) {
+      return "/assets/image.png";
+    }
+    if (chosenImg.url) {
+      return chosenImg.url;
+    }
+  };
 
   const indexOfLastAd = currentPage * adsPerPage;
   const indexOfFirstAd = indexOfLastAd - adsPerPage;
@@ -115,9 +86,7 @@ const ModerationList = () => {
         <>
           <div className="ads-list-header">
             <h1>Модерация объявлений</h1>
-          </div>
-
-          <table className="ads-table">
+          </div><table className="ads-table">
             <thead>
               <tr>
                 <th>Фотография</th>
@@ -130,36 +99,57 @@ const ModerationList = () => {
               </tr>
             </thead>
             <tbody>
-              {currentAds.length > 0 ? (
-                currentAds.map((ad) => (
+              {properties.length > 0 ? (
+                properties.map((property) => (
                   <tr
-                    key={ad.id}
-                    className="clickable-row"
-                    onClick={() => navigate(`/ad/${ad.id}`)}
+                      key={property.propertyId}
+                      className="ad-row"
+                      onClick={(e) => {
+                        if (
+                            e.target.closest(".menu-button") ||
+                            e.target.closest(".dropdown-menu")
+                        )
+                          return;
+                        navigate(`/ad/${property.propertyId}`, {
+                          state: { editingProperty: property },
+                        });
+                      }}
+                      style={{ cursor: "pointer" }}
                   >
                     <td>
-                      <img src={ad.image} alt={ad.title} className="ad-image" />
+                      <img
+                          src={getImageUrl(property.imagesDTOs)}
+                          alt={property.title}
+                          className="ad-image"
+                      />
                     </td>
-                    <td className="ad-title-cell">{ad.title}</td>
+                    <td className="ad-title-cell">{property.title}</td>
                     <td className="category-cell">
-                      {ad.categoryIcon} <span>{ad.category}</span>
+                      {property.categoriesDTOs?.map((category, index) => (
+                          <div key={index} className="category-image-item">
+                            {category.imageDTO?.url && (
+                                <img
+                                    width={24}
+                                    height={24}
+                                    src={category.imageDTO.url}
+                                    alt={`Категория ${category.name}`}
+                                    className="category-image"
+                                />
+                            )}
+                          </div>
+                      ))}
                     </td>
                     <td>
-                      {ad.price}{" "}
-                      {ad.rentType === "monthly"
-                        ? "в месяц"
-                        : ad.rentType === "daily"
-                        ? "за сутки"
-                        : ""}
+                      {property.cost} {property.longTermRent ? "в месяц" : "за сутки"}
                     </td>
-                    <td>{ad.address}</td>
-                    <td>{ad.owner}</td>
+                    <td>{property.address}</td>
+                    <td>{property.ownerDTO.email}</td>
                     <td>
                       <button
                         className="approve-button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleApprove(ad.id);
+                          handleApprove(property.id);
                         }}
                       >
                         <IoCheckmarkSharp />
@@ -168,7 +158,7 @@ const ModerationList = () => {
                         className="reject-button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleReject(ad.id);
+                          handleReject(property.id);
                         }}
                       >
                         <IoClose />
@@ -177,18 +167,16 @@ const ModerationList = () => {
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td colSpan="7">Нет объявлений, соответствующих запросу.</td>
-                </tr>
+                  <tr>
+                    <td colSpan="7" className="no-properties">Нет объявлений, соответствующих запросу.</td>
+                  </tr>
               )}
             </tbody>
           </table>
 
           {totalPages > 0 && (
             <div className="pagination-container">
-              <div className="page-info">Страница {currentPage}</div>
-
-              <div className="pagination-svg-wrapper">
+              <div className="page-info">Страница {currentPage}</div><div className="pagination-svg-wrapper">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="86"
@@ -241,7 +229,7 @@ const ModerationList = () => {
           )}
         </>
       ) : (
-        <AddAdForm addNewAd={addNewAd} editingAd={editingAd} onCancel={toggleForm} />
+        <AdDetails editingProperty={editingProperty} onCancel={toggleForm} />
       )}
     </div>
   );

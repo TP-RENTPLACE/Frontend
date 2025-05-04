@@ -4,40 +4,12 @@ import Header from "../HeaderComponents/Header";
 import "../../styles/usersList.css";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
 import { useNavigate } from "react-router-dom";
+import userService from "../../api/userService";
 
 const UsersList = () => {
   
   const navigate = useNavigate();
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      photo: "/images/user1.jpg",
-      email: "user1@example.com",
-      firstName: "Иван",
-      lastName: "Петров",
-      birthDate: "1990-05-10",
-      gender: "Мужской",
-    },
-    {
-      id: 2,
-      photo: "/images/user2.jpg",
-      email: "user2@example.com",
-      firstName: "Мария",
-      lastName: "Сидорова",
-      birthDate: "1988-08-20",
-      gender: "Женский",
-    },
-    {
-      id: 3,
-      photo: "",
-      email: "user3@example.com",
-      firstName: "Алексей",
-      lastName: "Иванов",
-      birthDate: "1995-12-15",
-      gender: "Мужской",
-    },
-    // Добавь больше пользователей для теста
-  ]);
+  const [users, setUsers] = useState([]);
 
   const [isAddingUser, setIsAddingUser] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
@@ -45,6 +17,12 @@ const UsersList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 7;
+
+  useEffect(() => {
+    userService.getAll()
+        .then((data) => setUsers(data))
+        .catch((err) => console.error('Ошибка при загрузке:', err));
+  }, []);
 
   useEffect(() => {
     const closeMenu = (e) => {
@@ -81,7 +59,7 @@ const UsersList = () => {
   };
 
   const filteredUsers = users.filter((user) =>
-    `${user.firstName} ${user.lastName} ${user.email}`
+    `${user.name} ${user.surname} ${user.email}`
       .toLowerCase()
       .includes(searchQuery.toLowerCase())
   );
@@ -96,9 +74,7 @@ const UsersList = () => {
       <Header
         searchQuery={searchQuery}
         handleSearchChange={handleSearchChange}
-      />
-
-      {isAddingUser ? (
+      />{isAddingUser ? (
         <AddUserForm
           addNewUser={addNewUser}
           onCancel={() => setIsAddingUser(false)}
@@ -109,7 +85,7 @@ const UsersList = () => {
           editingUser={editingUser}
           onCancel={() => setEditingUser(null)}
           onDelete={() => {
-            removeUser(editingUser.id);
+            removeUser(editingUser.userId);
             setEditingUser(null);
           }}
         />
@@ -136,24 +112,24 @@ const UsersList = () => {
               </tr>
             </thead>
             <tbody>
-              {currentUsers.length > 0 ? (
-                currentUsers.map((user) => (
+              {users.length > 0 ? (
+                users.map((user) => (
                   <tr
-                    key={user.id}
-                    onClick={() => navigate(`/users/edit/${user.id}`, { state: { editingUser: user } })}
-                    style={{ cursor: "pointer" }} // Добавляем стиль для визуального указания, что строка кликабельная
+                    key={user.userId}
+                    onClick={() => navigate(`/users/edit/${user.userId}`, { state: { editingUser: user } })}
+                    style={{ cursor: "pointer" }}
                   >
                     <td>
-                      {user.photo ? (
-                        <img src={user.photo} alt="Фото" className="user-photo" />
+                      {!user.imageDTO?.url ? (
+                        <img src="../../assets/default-avatar.jpg" alt="Фото" className="user-photo" />
                       ) : (
-                        <img src="/images/default-avatar.png" alt="Фото" className="user-photo" />
+                        <img src={user.imageDTO.url} alt="Фото" className="user-photo" />
                       )}
                     </td>
                     <td className="emaill">{user.email}</td>
-                    <td>{user.firstName}</td>
-                    <td>{user.lastName}</td>
-                    <td>{user.gender}</td>
+                    <td>{user.name}</td>
+                    <td>{user.surname}</td>
+                    <td>{user.gender === "FEMALE" ? "Женский" : user.gender === "MALE" ? "Мужской" : "Не указан"}</td>
                     <td>{user.birthDate}</td>
                     <td className="actions-cell">
                       <div className="dropdown">
@@ -161,17 +137,17 @@ const UsersList = () => {
                           className="menu-button"
                           onClick={(e) => {
                             e.stopPropagation(); // Останавливаем всплытие события, чтобы не сработал клик по строке
-                            toggleMenu(user.id);
+                            toggleMenu(user.userId);
                           }}
                         >
                             ⋯
                         </button>
-                        {openMenuId === user.id && (
+                        {openMenuId === user.userId && (
                           <div className="dropdown-menu">
-                            <button onClick={() => navigate(`/users/edit/${user.id}`, { state: { editingUser: user } })}>
+                            <button onClick={() => navigate(`/users/edit/${user.userId}`, { state: { editingUser: user } })}>
                               Редактировать
                             </button>
-                            <button onClick={() => removeUser(user.id)}>Удалить</button>
+                            <button onClick={() => removeUser(user.userId)}>Удалить</button>
                           </div>
                         )}
                       </div>
@@ -179,9 +155,9 @@ const UsersList = () => {
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td colSpan="7">Пользователи не найдены</td>
-                </tr>
+                  <tr>
+                    <td colSpan="7" className="no-properties">На данный нет существующих пользователей</td>
+                  </tr>
               )}
             </tbody>
 
@@ -190,9 +166,7 @@ const UsersList = () => {
           {/* Пагинация */}
           {totalPages > 0 && (
             <div className="pagination-container">
-              <div className="page-info">Страница {currentPage}</div>
-
-              <div className="pagination-svg-wrapper">
+              <div className="page-info">Страница {currentPage}</div><div className="pagination-svg-wrapper">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="86"
