@@ -1,10 +1,8 @@
 name: Admin CI/CD
 
 on:
-  workflow_dispatch:
   push:
-    branches: 
-      - development
+    branches: [development]
     paths:
       - 'RentFrontendAdmin/**'
 
@@ -15,13 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          path: 'RentFrontendAdmin'
+          path: 'RentFrontendAdmin' 
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.15.0'
           cache: 'npm'
+          cache-dependency-path: 'RentFrontendAdmin/package-lock.json' 
 
       - name: Install dependencies
         working-directory: RentFrontendAdmin
@@ -37,6 +36,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "RentFrontendAdmin/build/*"
-          target: "/var/www/admin"
-          strip_components: 2
+          source: 'RentFrontendAdmin/build/*'
+          target: '/var/www/admin'
+          strip_components: 2 
