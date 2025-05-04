@@ -2,7 +2,82 @@ import React, {useEffect, useState} from "react";
 import "../../styles/adform.css";
 import {ReactComponent as Image} from "../../assets/Camera.svg";
 import Header from "../HeaderComponents/Header";
+import {ReactComponent as Ruble} from "../../assets/Ruble.svg";
+import {ReactComponent as Trash} from "../../assets/Trash.svg";
+import {useNavigate} from "react-router-dom";
+import PropertyService from "../../api/propertyService";
+import categoryService from "../../api/categoryService";
+import facilityService from "../../api/facilityService";
+import userService from "../../api/userService";
 
+
+const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
+    const navigate = useNavigate();
+    const [propertyStatuses] = useState([
+        "PUBLISHED",
+        "ON_MODERATION",
+        "REJECTED",
+        "NOT_PUBLISHED"
+    ]);
+
+    const [categories, setCategories] = useState([]);
+    const [facilities, setFacilities] = useState([]);
+    const [owners, setOwners] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const [formData, setFormData] = useState({
+        propertyStatus: "ON_MODERATION",
+        title: "",
+        address: "",
+        description: "",
+        longTermRent: false,
+        cost: 0,
+        area: 0,
+        rooms: 0,
+        bedrooms: 0,
+        sleepingPlaces: 0,
+        bathrooms: 0,
+        maxGuests: 0,
+        ownerId: "",
+        categoriesIds: [],
+        facilitiesIds: [],
+        images: []
+    });
+
+    useEffect(() => {
+        const loadInitialData = async () => {
+            try {
+                const [cats, facs, ownersRes] = await Promise.all([
+                    categoryService.getAll(),
+                    facilityService.getAll(),
+                    userService.getAll()
+                ]);
+
+                setCategories(cats);
+                setFacilities(facs);
+                setOwners(ownersRes);
+            } catch (err) {
+                console.error("Ошибка загрузки данных:", err);
+            }
+        };
+        loadInitialData();
+    }, []);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked
+                : type === "number" ? Number(value)
+                    : value
+        }));
+    };
+
+    const formatSelectedValues = (ids, data) => {
+        return data
+            .filter(item => ids.includes(item.categoryId || item.facilityId))
+            .map(item => item.name)
+            .join(", ");
     }
 
     const handleMultiSelect = (e, field) => {
@@ -14,7 +89,17 @@ import Header from "../HeaderComponents/Header";
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
 
+        const newImages = files.map(file => ({
+            file,
+            preview: URL.createObjectURL(file)
+        }));
 
+        setFormData(prev => ({
+            ...prev,
+            images: [...prev.images, ...newImages]
+        }));
+
+        e.target.value = null;
     };
 
     const removeImage = (index) => {

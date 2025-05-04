@@ -6,7 +6,8 @@ import { IoCheckmarkSharp, IoClose } from "react-icons/io5";
 import AddAdForm from "../AdsListComponents/AddAdForm";
 import Header from "../HeaderComponents/Header";
 import "../../styles/moderationList.css";
-
+import PropertyService from "../../api/propertyService";
+import AdDetails from "./AdDetails";
 
 const ModerationList = () => {
   const navigate = useNavigate();
