@@ -24,14 +24,12 @@ jobs:
           working-directory: RentFrontendAdmin
 
       - name: Install dependencies
+        working-directory: RentFrontendAdmin
         run: npm ci
-        with:
-          working-directory: RentFrontendAdmin
 
       - name: Build project
+        working-directory: RentFrontendAdmin
         run: npm run build
-        with:
-          working-directory: RentFrontendAdmin
 
       - name: Deploy to server
         uses: appleboy/scp-action@v0.1.3
