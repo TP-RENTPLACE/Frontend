@@ -45,6 +45,7 @@ const AdminEditForm = ({ onCancel }) => {
       data.append("name", formData.name);
       data.append("surname", formData.surname);
       data.append("email", formData.email);
+      data.append("role", formData.role);
       data.append("birthDate", formData.birthDate);
       data.append("gender", formData.gender);
 
@@ -124,15 +125,18 @@ const AdminEditForm = ({ onCancel }) => {
                   <option value="FEMALE">Женский</option>
                 </select>
               </div>
-              <div></div>
-              {/*<div>*/}
-              {/*  <label className="column-name">Роль</label>*/}
-              {/*  <select name="role">*/}
-              {/*    <option value="Admin">Администратор</option>*/}
-              {/*    <option value="Admin">Модератор</option>*/}
-              {/*    <option value="Пользователь">Пользователь</option>*/}
-              {/*  </select>*/}
-              {/*</div>*/}
+              <div>
+                <label className="column-name">Роль</label>
+                <select
+                    name="role"
+                    value={formData.role}
+                    onChange={handleChange}
+                >
+                  <option value="ROLE_USER">Пользователь</option>
+                  {/*<option value="Модератор">Модератор</option>*/}
+                  <option value="ROLE_ADMIN">Администратор</option>
+                </select>
+              </div>
             </div>
 
             {/*<div className="fields-row">*/}
