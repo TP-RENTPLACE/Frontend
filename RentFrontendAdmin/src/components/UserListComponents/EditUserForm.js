@@ -42,6 +42,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
         name: editingUser.name || "",
         surname: editingUser.surname || "",
         email: editingUser.email || "",
+        role: editingUser.role || "",
         birthDate: editingUser.birthDate?.split('T')[0] || "",
         gender: reverseGenderMapping[editingUser.gender] || "",
       });
@@ -207,12 +208,14 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
           </div>
           <div>
             <label className="column-name">Роль</label>
-            <select name="role"
-            onChange={handleChange}
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
             >
-              <option value="Пользователь">Пользователь</option>
-              <option value="Модератор">Модератор</option>
-              <option value="Администратор">Администратор</option>
+              <option value="ROLE_USER">Пользователь</option>
+              {/*<option value="Модератор">Модератор</option>*/}
+              <option value="ROLE_ADMIN">Администратор</option>
             </select>
           </div>
         </div>
