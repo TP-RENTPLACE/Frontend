@@ -13,21 +13,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          path: 'RentFrontendAdmin' 
+          path: 'repo'  
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22.15.0'
           cache: 'npm'
-          cache-dependency-path: 'RentFrontendAdmin/package-lock.json' 
+          cache-dependency-path: 'repo/RentFrontendAdmin/package-lock.json'  
 
       - name: Install dependencies
-        working-directory: RentFrontendAdmin
+        working-directory: repo/RentFrontendAdmin 
         run: npm ci
 
       - name: Build project
-        working-directory: RentFrontendAdmin
+        working-directory: repo/RentFrontendAdmin
         run: npm run build
 
       - name: Deploy to server
@@ -36,6 +36,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: 'RentFrontendAdmin/build/*'
+          source: 'repo/RentFrontendAdmin/build/*'
           target: '/var/www/admin'
-          strip_components: 2 
+          strip_components: 3 
