@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
 .ads-list {
   position: relative;
-  top: 0;
+  top: 20px;
   width: calc(100% - 250px);
   max-width: 100%;
   margin-left: 240px;
@@ -8,7 +9,16 @@
   font-family: Montserrat, sans-serif;
   box-sizing: border-box;
   margin-top: 0;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
 
+  
+  /* Rentplace Mobile/Medium */
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; /* 128.571% */
 }
 
 .ads-list-header {
@@ -16,19 +26,46 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%;
+  width: 97%;
 }
 
 h1 {
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums tabular-nums;
+  font-family: Montserrat;
   font-size: 26px;
+  font-style: normal;
   font-weight: 700;
-  color: #151515;
+  line-height: 30px; /* 115.385% */
+}
+
+.add-ad-button {
+  display: flex;
+  height: 44px;
+  padding: 14px 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #007AFF;
+  background: none;
+  color: #007AFF;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-left: auto;
+  margin-bottom: 20px;
+}
+
+.add-ad-button:hover {
+  background: #007AFF;
+  color: white;
 }
 
 .ads-table {
   width: 100%;
   border-collapse: collapse;
-
 }
 
 .ads-table thead {
@@ -40,7 +77,7 @@ h1 {
 
 .ads-table th {
   padding: 10px;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
 }
 
@@ -61,8 +98,54 @@ h1 {
   padding: 10px;
 }
 
+/* Задаём ширины для столбцов через nth-child */
+.ads-table thead tr,
+.ads-table tbody tr {
+  display: flex;
+}
+
+.ads-table thead tr th:nth-child(1),
+.ads-table tbody tr td:nth-child(1) {
+  width: 10%; /* Фото */
+}
+
+.ads-table thead tr th:nth-child(2),
+.ads-table tbody tr td:nth-child(2) {
+  width: 18%; /* Название */
+}
+
+.ads-table thead tr th:nth-child(3),
+.ads-table tbody tr td:nth-child(3) {
+  width: 12%; /* Категория */
+}
+
+.ads-table thead tr th:nth-child(4),
+.ads-table tbody tr td:nth-child(4) {
+  width: 10%; /* Цена */
+}
+
+.ads-table thead tr th:nth-child(5),
+.ads-table tbody tr td:nth-child(5) {
+  width: 25%; /* Адрес — шире */
+}
+
+.ads-table thead tr th:nth-child(6),
+.ads-table tbody tr td:nth-child(6) {
+  width: 18%; /* Хозяин жилья */
+}
+
+.ads-table thead tr th:nth-child(7),
+.ads-table tbody tr td:nth-child(7) {
+  width: 7%; /* Действие — узкий */
+}
+
+.ads-table td,
+.ads-table th {
+  text-overflow: ellipsis;
+}
+
 .ad-image {
-  width: 80px;
+  width: 90px;
   height: 80px;
   flex-shrink: 0;
   border-radius: 10px;
@@ -80,45 +163,105 @@ h1 {
   color: #151515;
 }
 
-.approve-button,
-.reject-button {
+.actions-cell {
+  position: relative;
+}
+
+.menu-button {
+  background: none;
   border: none;
-  padding: 8px 12px;
-  font-size: 30px;
+  font-size: 20px;
   cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  background: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
-  margin: 0px;
-
+  overflow: hidden;
 }
 
-.approve-button {
-  background-color: white;
-  color: blue;
+.dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+/* Информация о хозяине */
+.host-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
 }
 
-.approve-button:hover {
-
+.host-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.reject-button {
-  background-color: white;
-  color: red;
+.host-details {
+  display: flex;
+  flex-direction: column;
 }
 
+.host-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #151515;
+}
+
+.host-email {
+  font-size: 14px;
+  color: #888;
+}
+
+.host-member {
+  font-size: 14px;
+  color: #555;
+}
+
+
+.dropdown-menu button:hover {
+  background-color: #f5f5f5;
+}
 
 /* Адаптивность */
 @media (max-width: 1024px) {
   .ads-list {
-      width: calc(100% - 220px);
-      margin-left: 220px;
+    width: calc(100% - 220px); /* Подстраиваем ширину */
+    margin-left: 220px; /* Оставляем сайдбар */
+  }
+}@media (max-width: 768px) {
+  .ads-list {
+    width: 100%;
+    margin-left: 0; /* На маленьких экранах убираем отступ */
   }
 }
+* {
+  font-family: 'Raleway', sans-serif;
+}
 
-@media (max-width: 768px) {
-  .ads-list {
-      width: 100%;
-      margin-left: 0;
-  }
+
+.ads-table th {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.ads-table td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .pagination-container {
@@ -151,18 +294,12 @@ h1 {
   cursor: default;
 }
 
-.ad-title-cell {
+.title-cell {
   color: #007AFF;
   font-weight: 600;
   cursor: pointer;
 }
-
-.clickable-row {
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.clickable-row:hover {
+.ad-row:hover {
   background-color: #f5f5f5;
 }
 
