@@ -1,24 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
 .ads-list {
   position: relative;
-  top: 20px;
-  width: calc(100% - 240px);
+  top: 0;
+  width: calc(100% - 250px);
   max-width: 100%;
   margin-left: 240px;
   padding: 20px;
   font-family: Montserrat, sans-serif;
   box-sizing: border-box;
   margin-top: 0;
-  color: var(--Main-Color-Dark, #151515);
-  font-variant-numeric: lining-nums proportional-nums;
 
-  
-  /* Rentplace Mobile/Medium */
-  font-family: Raleway;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px; /* 128.571% */
 }
 
 .ads-list-header {
@@ -26,46 +16,19 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  width: 97%;
+  width: 100%;
 }
 
 h1 {
-  color: var(--Main-Color-Dark, #151515);
-  font-variant-numeric: lining-nums tabular-nums;
-  font-family: Montserrat;
   font-size: 26px;
-  font-style: normal;
   font-weight: 700;
-  line-height: 30px; /* 115.385% */
-}
-
-.add-ad-button {
-  display: flex;
-  height: 44px;
-  padding: 14px 60px;
-  justify-content: center;
-  align-items: center;
-  gap: 2px;
-  flex-shrink: 0;
-  border-radius: 20px;
-  border: 1px solid #007AFF;
-  background: none;
-  color: #007AFF;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-  margin-left: auto;
-  margin-bottom: 20px;
-}
-
-.add-ad-button:hover {
-  background: #007AFF;
-  color: white;
+  color: #151515;
 }
 
 .ads-table {
   width: 100%;
   border-collapse: collapse;
+
 }
 
 .ads-table thead {
@@ -76,7 +39,6 @@ h1 {
 }
 
 .ads-table th {
-  flex: 1;
   padding: 10px;
   text-align: left;
   font-weight: bold;
@@ -96,7 +58,6 @@ h1 {
 }
 
 .ads-table td {
-  flex: 1;
   padding: 10px;
 }
 
@@ -119,112 +80,47 @@ h1 {
   color: #151515;
 }
 
-.actions-cell {
-  position: relative;
-}
-
-.menu-button {
-  background: none;
+.approve-button,
+.reject-button {
   border: none;
-  font-size: 20px;
+  padding: 8px 12px;
+  font-size: 30px;
   cursor: pointer;
-}
-
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  background: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   border-radius: 5px;
-  overflow: hidden;
+  margin: 0px;
+
 }
 
-.dropdown-menu button {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  text-align: left;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-/* Информация о хозяине */
-.host-info {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-top: 15px;
+.approve-button {
+  background-color: white;
+  color: blue;
 }
 
-.host-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
+.approve-button:hover {
+
 }
 
-.host-details {
-  display: flex;
-  flex-direction: column;
+.reject-button {
+  background-color: white;
+  color: red;
 }
 
-.host-name {
-  font-size: 16px;
-  font-weight: 600;
-  color: #151515;
-}
-
-.host-email {
-  font-size: 14px;
-  color: #888;
-}
-
-.host-member {
-  font-size: 14px;
-  color: #555;
-}
-
-
-.dropdown-menu button:hover {
-  background-color: #f5f5f5;
-}
 
 /* Адаптивность */
 @media (max-width: 1024px) {
   .ads-list {
-    width: calc(100% - 220px); /* Подстраиваем ширину */
-    margin-left: 220px; /* Оставляем сайдбар */
+      width: calc(100% - 220px);
+      margin-left: 220px;
   }
 }
 
 @media (max-width: 768px) {
   .ads-list {
-    width: 100%;
-    margin-left: 0; /* На маленьких экранах убираем отступ */
+      width: 100%;
+      margin-left: 0;
   }
 }
-* {
-  font-family: 'Raleway', sans-serif;
-}
 
-
-.ads-table th {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.ads-table td {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: left; /* ключ: перенос текста будет по левому краю */
-}
-
-.ads-table td > * {
-  text-align: left;
-}
 .pagination-container {
   display: flex;
   justify-content: space-between;
@@ -240,7 +136,7 @@ h1 {
 
 .pagination-buttons {
   display: flex;
-  gap: 4px; /* или даже 2px для совсем плотного */
+  gap: 4px;
 }
 
 .arrow-button {
@@ -255,11 +151,26 @@ h1 {
   cursor: default;
 }
 
-.title-cell {
+.ad-title-cell {
   color: #007AFF;
   font-weight: 600;
   cursor: pointer;
 }
-.ad-row:hover {
+
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clickable-row:hover {
   background-color: #f5f5f5;
+}
+
+.no-properties {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
 }
