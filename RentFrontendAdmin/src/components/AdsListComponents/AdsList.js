@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 import Header from "../HeaderComponents/Header";
-import "../../styles/adsList.css";
+
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
 
 import { useNavigate, useLocation } from "react-router-dom";
