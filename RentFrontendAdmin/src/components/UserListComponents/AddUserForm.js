@@ -12,6 +12,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
     name: "",
     surname: "",
     email: "",
+    role: "ROLE_USER",
     birthDate: "",
     gender: "",
   });
@@ -21,6 +22,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
       name: formData.name,
       surname: formData.surname,
       email: formData.email,
+      role: formData.role,
       birthDate: formData.birthDate,
       gender: formData.gender,
     });
@@ -71,6 +73,7 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
       formDataToSend.append("name", formData.name);
       formDataToSend.append("surname", formData.surname);
       formDataToSend.append("email", formData.email);
+      formDataToSend.append("role", formData.role);
       formDataToSend.append("birthDate", formData.birthDate);
 
       formDataToSend.append("gender", gender);
@@ -168,10 +171,14 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
           </div>
           <div>
             <label className="column-name">Роль</label>
-            <select name="role" >
-              <option value="Пользователь">Пользователь</option>
-              <option value="Менеджер">Менеджер</option>
-              <option value="Администратор">Администратор</option>
+            <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+            >
+              <option value="ROLE_USER">Пользователь</option>
+              {/*<option value="Модератор">Модератор</option>*/}
+              <option value="ROLE_ADMIN">Администратор</option>
             </select>
           </div>
         </div>
