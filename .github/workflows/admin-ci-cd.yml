@@ -1,0 +1,45 @@
+name: Admin CI/CD
+
+on:
+  push:
+    branches: 
+      - development
+    paths:
+      - 'RentFrontendAdmin/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          working-directory: RentFrontendAdmin
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+          cache: 'npm'
+          working-directory: RentFrontendAdmin
+
+      - name: Install dependencies
+        run: npm ci
+        with:
+          working-directory: RentFrontendAdmin
+
+      - name: Build project
+        run: npm run build
+        with:
+          working-directory: RentFrontendAdmin
+
+      - name: Deploy to server
+        uses: appleboy/scp-action@v0.1.3
+        with:
+          working-directory: RentFrontendAdmin
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "build/*"
+          target: "/var/www/admin"
+          strip_components: 1
