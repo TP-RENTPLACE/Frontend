@@ -1,6 +1,7 @@
 name: Admin CI/CD
 
 on:
+  workflow_dispatch:
   push:
     branches: 
       - development
@@ -21,7 +22,6 @@ jobs:
         with:
           node-version: '22.15.0'
           cache: 'npm'
-        working-directory: RentFrontendAdmin
 
       - name: Install dependencies
         working-directory: RentFrontendAdmin
