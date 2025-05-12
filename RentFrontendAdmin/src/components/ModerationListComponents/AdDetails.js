@@ -3,6 +3,7 @@ import {Link, useParams, useNavigate, useLocation} from "react-router-dom";
 import Header from "../HeaderComponents/Header";
 import "../../styles/adDetails.css";
 import image1 from "../../assets/image1.png";
+import { ReactComponent as LocationIcon } from '../../assets/Location.svg';
 
 const AdDetails = ({ onCancel }) => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ const AdDetails = ({ onCancel }) => {
           </div>
 
           <div className="ad-header">
-            <h1 className="property-title">{editingProperty.title}</h1>
+            <h11 className="property-title">{editingProperty.title}</h11>
             <p className="price">
               {editingProperty.cost}₽
               <span className="price-period">
@@ -80,7 +81,7 @@ const AdDetails = ({ onCancel }) => {
             ))}
           </div>
 
-          <h2 className="section-title">Описание</h2>
+          <h11 className="section-title">Описание</h11>
           <div className="description-container">
             <p className={`description ${expanded ? "expanded" : ""}`}>
               {editingProperty.description}
@@ -95,7 +96,7 @@ const AdDetails = ({ onCancel }) => {
             )}
           </div>
 
-          <h2 className="section-title">Основные удобства</h2>
+          <h11 className="section-title">Основные удобства</h11>
           <ul className="amenities">
             {editingProperty.facilitiesDTOs?.map((facility, index) => (
                 <li key={index} className="amenity-item">
@@ -103,9 +104,14 @@ const AdDetails = ({ onCancel }) => {
                 </li>
             ))}
           </ul>
+          <h11 className="section-title">Расположение</h11>
+            <div className="location">
+              <LocationIcon className="location-icon" />
+              <span>{editingProperty.address}</span>
+            </div>
 
-          <h2 className="section-title">Расположение</h2>
-          <p className="location">{editingProperty.address}</p><h2 className="section-title">Хозяин</h2>
+
+            <h11 className="section-title">Хозяин</h11>
           <div className="host-wrapper">
             <div className="host-info">
               <img
@@ -120,9 +126,10 @@ const AdDetails = ({ onCancel }) => {
                 <p className="host-email">{editingProperty.ownerDTO?.email}</p>
               </div>
             </div>
-            <p className="host-member">
-              Участник rentplace с 2025 года
-            </p>
+              <p className="host-memberr">
+                Участник rentplace с 2025 года
+              </p>
+
           </div>
 
           {editingProperty.propertyStatus === "ON_MODERATION" && (

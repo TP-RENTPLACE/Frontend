@@ -3,6 +3,7 @@ import "../../styles/userform.css";
 import Header from "../HeaderComponents/Header";
 import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
 import userService from "../../api/userService";
+import birthdayIcon from "../../assets/Birthday.svg";
 
 const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
@@ -186,13 +187,22 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
         <div className="fields-row">
           <div>
             <label className="column-name">Дата рождения</label>
-            <input
-              type="date"
-              name="birthDate"
-              value={formData.birthDate}
-              onChange={handleChange}
-              required
-            />
+            <div className="date-field-with-icon">
+              <input
+                type="date"
+                id="birthDateEditInput"
+                name="birthDate"
+                value={formData.birthDate}
+                onChange={handleChange}
+                required
+              />
+              <img
+                src={birthdayIcon}
+                alt="calendar"
+                className="custom-calendar-icon"
+                onClick={() => document.getElementById("birthDateEditInput")?.showPicker?.()}
+              />
+            </div>
           </div>
           <div>
             <label className="column-name">Пол</label>
@@ -223,7 +233,21 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
         <div className="fields-row">
           <div>
             <label className="column-name">Дата регистрации</label>
-            <input type="date" name="registrationDate" onChange={handleChange} required />
+            <div className="date-field-with-icon">
+              <input
+                type="date"
+                id="registrationDateEditInput"
+                name="registrationDate"
+                onChange={handleChange}
+                required
+              />
+              <img
+                src={birthdayIcon}
+                alt="calendar"
+                className="custom-calendar-icon"
+                onClick={() => document.getElementById("registrationDateEditInput")?.showPicker?.()}
+              />
+            </div>
           </div>
           <div></div>
           <div></div>

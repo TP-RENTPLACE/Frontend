@@ -7,6 +7,7 @@ import UserService from "../../api/userService";
 import ReservationService from "../../api/reservationService";
 import userService from "../../api/userService";
 import reservationService from "../../api/reservationService";
+import birthdayIcon from "../../assets/Birthday.svg";
 
 const EditBookingModal = ({ onCancel, reservation, onSave }) => {
   const [properties, setProperties] = useState([]);
@@ -160,24 +161,44 @@ const EditBookingModal = ({ onCancel, reservation, onSave }) => {
             </div>
             <div>
               <label className="column-name">Дата начала проживания</label>
-              <input
-                type="date"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-                required
-              />
+              <div className="date-field-with-icon">
+                <input
+                  type="date"
+                  id="startDateEditInput"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleChange}
+                  required
+                />
+                <img
+                  src={birthdayIcon}
+                  alt="calendar"
+                  className="custom-calendar-icon"
+                  onClick={() => document.getElementById("startDateEditInput")?.showPicker?.()}
+                />
+              </div>
             </div>
+
             <div>
               <label className="column-name">Дата окончания проживания</label>
-              <input
-                type="date"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-                required
-              />
+              <div className="date-field-with-icon">
+                <input
+                  type="date"
+                  id="endDateEditInput"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleChange}
+                  required
+                />
+                <img
+                  src={birthdayIcon}
+                  alt="calendar"
+                  className="custom-calendar-icon"
+                  onClick={() => document.getElementById("endDateEditInput")?.showPicker?.()}
+                />
+              </div>
             </div>
+
           </div>
 
           <div className="footer-buttonss">

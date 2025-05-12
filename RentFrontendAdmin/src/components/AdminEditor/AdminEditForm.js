@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "../../styles/adminform.css";
 import { UserContext } from "../UserListComponents/UserContext";
 import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
+import birthdayIcon from "../../assets/Birthday.svg";
 import userService from "../../api/userService";
 
 const AdminEditForm = ({ onCancel }) => {
@@ -113,10 +114,25 @@ const AdminEditForm = ({ onCancel }) => {
                 <input type="text" name="surname" value={formData.surname} onChange={handleChange} required />
               </div>
             </div><div className="fields-row">
-              <div>
-                <label className="column-name">Дата рождения</label>
-                <input type="date" name="birthDate" value={formData.birthDate} onChange={handleChange} required />
+            <div>
+              <label className="column-name">Дата рождения</label>
+              <div className="date-field-with-icon">
+                <input
+                  type="date"
+                  name="birthDate"
+                  id="birthDateInput"
+                  value={formData.birthDate}
+                  onChange={handleChange}
+                  required
+                />
+                <img
+                  src={birthdayIcon}
+                  alt="calendar"
+                  className="custom-calendar-icon"
+                  onClick={() => document.getElementById("birthDateInput")?.showPicker?.()}
+                />
               </div>
+            </div>
               <div>
                 <label className="column-name">Пол</label>
                 <select name="gender" value={formData.gender} onChange={handleChange}>
