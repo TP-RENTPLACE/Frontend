@@ -5,6 +5,7 @@ import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
 import userService from "../../api/userService";
 import {useNavigate} from "react-router-dom";
 
+import birthdayIcon from "../../assets/Birthday.svg";
 
 const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
   const navigate = useNavigate();
@@ -152,14 +153,24 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
         <div className="fields-row">
         <div>
           <label className="column-name">Дата рождения</label>
-          <input
-            type="date"
-            name="birthDate"
-            value={formData.birthDate}
-            onChange={handleChange}
-            required
-          />
+          <div className="date-field-with-icon">
+            <input
+              type="date"
+              id="birthDateAddInput"
+              name="birthDate"
+              value={formData.birthDate}
+              onChange={handleChange}
+              required
+            />
+            <img
+              src={birthdayIcon}
+              alt="calendar"
+              className="custom-calendar-icon"
+              onClick={() => document.getElementById("birthDateAddInput")?.showPicker?.()}
+            />
+          </div>
         </div>
+
           <div>
             <label className="column-name">Пол</label>
             <select name="gender" value={formData.gender} onChange={handleChange}>
@@ -186,7 +197,21 @@ const AddUserForm = ({ addNewUser, editingUser, onCancel, onDelete }) => {
         <div className="fields-row">
           <div>
             <label className="column-name">Дата регистрации</label>
-            <input type="date" name="registrationDate" required />
+            <div className="date-field-with-icon">
+            <input
+              type="date"
+              id="registrationDateAddInput"
+              name="registrationDate"
+              required
+            />
+            <img
+              src={birthdayIcon}
+              alt="calendar"
+              className="custom-calendar-icon"
+              onClick={() => document.getElementById("registrationDateAddInput")?.showPicker?.()}
+            />
+          </div>
+
           </div>
           <div></div>
           <div></div>
