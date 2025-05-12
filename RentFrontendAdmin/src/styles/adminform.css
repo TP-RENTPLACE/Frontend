@@ -311,3 +311,75 @@
 
   padding-right: 40px;
 }
+
+.date-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.calendar-icon {
+  position: absolute;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  fill: #888;
+}
+
+.date-input-wrapper input[type="date"] {
+  padding-left: 35px; /* чтобы текст не наезжал на иконку */
+}
+
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+}
+.admin-edit-form input[type="date"] {
+  position: relative;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("../assets/Birthday.svg");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 20px 20px;
+  padding-right: 50px;
+}
+
+.admin-edit-form input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+}
+.date-field-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.date-field-with-icon input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding-right: 50px;
+  background: none;
+}
+
+.date-field-with-icon input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+}
+
+.custom-calendar-icon {
+  position: absolute;
+  right: 16px;
+  top: 20%; /* Центр по высоте */
+  transform: translateY(25%); /* ← смещение чуть ниже центра */
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  pointer-events: auto;
+}
