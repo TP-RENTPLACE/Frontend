@@ -5,6 +5,7 @@ import { ReactComponent as Ruble } from "../../assets/Ruble.svg";
 import PropertyService from "../../api/propertyService";
 import UserService from "../../api/userService";
 import ReservationService from "../../api/reservationService";
+import birthdayIcon from "../../assets/Birthday.svg";
 
 const BookingModal = ({ onCancel, reservation, onSave }) => {
   const [properties, setProperties] = useState([]);
@@ -157,24 +158,44 @@ const BookingModal = ({ onCancel, reservation, onSave }) => {
             </div>
             <div>
               <label className="column-name">Дата начала проживания</label>
-              <input
+              <div className="date-field-with-icon">
+                <input
                   type="date"
+                  id="startDateInput"
                   name="startDate"
                   value={formData.startDate}
                   onChange={handleChange}
                   required
-              />
+                />
+                <img
+                  src={birthdayIcon}
+                  alt="calendar"
+                  className="custom-calendar-icon"
+                  onClick={() => document.getElementById("startDateInput")?.showPicker?.()}
+                />
+              </div>
             </div>
+
             <div>
               <label className="column-name">Дата окончания проживания</label>
-              <input
+              <div className="date-field-with-icon">
+                <input
                   type="date"
+                  id="endDateInput"
                   name="endDate"
                   value={formData.endDate}
                   onChange={handleChange}
                   required
-              />
+                />
+                <img
+                  src={birthdayIcon}
+                  alt="calendar"
+                  className="custom-calendar-icon"
+                  onClick={() => document.getElementById("endDateInput")?.showPicker?.()}
+                />
+              </div>
             </div>
+
 
           </div>
               <div className="footer-buttonss">
