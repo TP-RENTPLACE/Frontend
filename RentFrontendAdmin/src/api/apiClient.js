@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class ApiClient {
     constructor() {
-        this.baseURL = 'http://rentplace.online:8080/api/v1';
+        this.baseURL = 'http://rentplace.online/api/v1';
         this.token = localStorage.getItem('accessToken');
 
 
