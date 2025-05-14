@@ -239,7 +239,9 @@ h1 {
     width: calc(100% - 220px); /* Подстраиваем ширину */
     margin-left: 220px; /* Оставляем сайдбар */
   }
-}@media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
   .ads-list {
     width: 100%;
     margin-left: 0; /* На маленьких экранах убираем отступ */
