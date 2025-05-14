@@ -20,6 +20,10 @@ class UserService {
     async delete(userId) {
         return await apiClient.delete(`/users/${userId}`, {authRequired: true});
     }
+
+    async updateMe(userData) {
+        return await apiClient.patch(`/users/me`, userData, {authRequired: true});
+    }
 }
 
 export default new UserService();
