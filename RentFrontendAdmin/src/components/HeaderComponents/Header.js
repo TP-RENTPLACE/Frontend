@@ -1,24 +1,22 @@
-import React, {useContext, useEffect, useState} from "react";
+import React from "react";
 import SearchBar from "./SearchBar";
 import { FiMenu } from "react-icons/fi";
-import { UserContext } from "../UserListComponents/UserContext";
+import defaultImg from "../../assets/default-avatar.jpg";
 import "../../styles/header.css";
 import { useNavigate } from "react-router-dom";
-import { ReactComponent as LogoIcon } from "../../assets/sidebarLogo.svg";
+import {useQuery} from "@tanstack/react-query";
+import authService from "../../api/authService";
 
 
 const Header = ({ searchQuery, handleSearchChange }) => {
-  const { user, loading } = useContext(UserContext);
   const navigate = useNavigate();
-  const [localUser, setLocalUser] = useState(user);
 
-  useEffect(() => {
-    if (user) {
-      setLocalUser(user);
-    }
-  }, [user]);
-
-  if (loading || !user) return null;
+  const { data: user } = useQuery({
+    queryKey: ['user'],
+    queryFn: authService.getInfo,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
 
   return (
     <header className="header">
@@ -34,9 +32,9 @@ const Header = ({ searchQuery, handleSearchChange }) => {
       onClick={() => navigate("/settings")}
       style={{ cursor: "pointer" }}
     >
-      <img src={user.avatar} alt={user.name} className="user-avatar" />
+      <img src={user?.imageDTO?.url || defaultImg} alt="Фото" className="user-avatar" />
       <div className="user-info">
-        <span className="user-name">{user.name} {user.surname}</span>
+        <span className="user-name">{user?.name} {user?.surname}</span>
         <span className="user-role">Администратор</span>
       </div>
     </div>
