@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class ApiClient {
     constructor() {
-        this.baseURL = 'http://rentplace.online:8080/api/v1';
+        this.baseURL = 'http://rentplace.online/api/v1';
         this.token = localStorage.getItem('accessToken');
 
 
@@ -41,6 +41,7 @@ class ApiClient {
                         return this.instance(originalRequest);
                     } catch (refreshError) {
                         this.clearAuth();
+                        window.location.href = "/email";
                         return Promise.reject(refreshError);
                     }
                 }
