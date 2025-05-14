@@ -26,7 +26,7 @@
 /* Заголовки */
 h2 {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 20px;
 }
 
@@ -90,7 +90,6 @@ h1 {
   font-style: normal;
   font-weight: 500;
   line-height: 30px; /* 115.385% */
-  opacity: 0.9;
 }
 
 /* Описание */
@@ -179,7 +178,7 @@ h1 {
 /* Заголовки */
 h2 {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   margin-top: 20px;
   text-align: left; /* Выровнены слева */
 }
@@ -210,7 +209,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #f3f3f3;
+
   padding: 8px 12px;
   border-radius: 20px;
   font-size: 16px;
@@ -225,7 +224,9 @@ h2 {
 .amenities {
   list-style: none;
   padding: 0;
-}.amenities li {
+}
+
+.amenities li {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -265,7 +266,7 @@ h2 {
   color: #888;
 }
 
-.host-memberr {
+.host-member {
   font-size: 14px;
   color: #555;
   margin-top: -20px;
@@ -301,36 +302,26 @@ h2 {
   background-color: white;
   color: #1E88E5;
 }
-h1, h2 {
-  margin-bottom: 20px; /* Увеличенный отступ снизу */
-}
 
 p {
   margin-bottom: 15px; /* Отступы для абзацев */
 }
 
-.description-container {
-  margin-bottom: 20px; /* Отступ между описанием и следующими элементами */
-}
 
-.amenities {
-  margin-bottom: 20px; /* Отступ между удобствами и следующим разделом */
-}
-
-.location {
-  margin-bottom: 20px;
-  margin-top:-10px; /* Отступ перед информацией о владельце */
-}
+/*.location {*/
+/*  margin-bottom: 20px;*/
+/*  margin-top:-10px; !* Отступ перед информацией о владельце *!*/
+/*}*/
 
 .host-info {
   margin-bottom: 30px;
   margin-top:-10px; /* Увеличенный отступ перед кнопками */
 }
 
-.moderation-buttons {
-  
-  margin-top:-10px; /* Дополнительный отступ перед кнопками */
-}
+/*.moderation-buttons {*/
+/*  */
+/*  margin-top:-10px; !* Дополнительный отступ перед кнопками *!*/
+/*}*/
 .moderation-buttons {
   display: flex;
   justify-content: space-between; /* Распределение кнопок по краям */
@@ -428,8 +419,11 @@ p {
   font-weight: 600;
   color: #151515;
   margin: 0; /* убираем лишние отступы */
-}/* Стили для "Участник rentplace с марта 2025 года" */
-.host-memberr {
+}
+
+
+/* Стили для "Участник rentplace с марта 2025 года" */
+.host-member {
   margin-top: -25px;
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
@@ -439,17 +433,16 @@ p {
   font-weight: 400px;
   line-height: 20px; /* 125% */
 }
-h11 {
+h1 {
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums tabular-nums;
-
-  /* H2 Medium */
   font-family: Montserrat;
   font-size: 26px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 500; /* стало 400 вместо 500 */
   line-height: 30px; /* 115.385% */
-  opacity: 0.9;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
 .modal-gallery-slider {
@@ -624,15 +617,21 @@ h11 {
 /*  border-radius: 10px;*/
 /*}*/
 
-.location {
+.show-all-button {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
   display: flex;
+  width: 194px;
+  height: 54px;
+  padding: 5px 10px;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid var(--White, #FFF);
+  background: rgba(217, 217, 217, 0.10);
+  backdrop-filter: blur(2px);
+  color: white;
+  cursor: pointer;
 }
-
-.location-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-

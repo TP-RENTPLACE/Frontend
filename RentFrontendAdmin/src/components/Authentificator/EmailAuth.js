@@ -4,6 +4,7 @@ import '../../styles/EmailStyles.css';
 import { ReactComponent as Logo } from '../../assets/logo.svg';
 import { ReactComponent as EmailLogo } from '../../assets/Email.svg';
 import authService from "../../api/authService";
+import {toast} from "react-toastify";
 
 export default function EmailAuth() {
   const [email, setEmail] = useState("");
@@ -42,9 +43,13 @@ export default function EmailAuth() {
     try {
       await authService.login(savedEmail, code);
 
+      localStorage.removeItem("authEmail");
+      setStep(1);
+      setEmail("");
+
       navigate("/ads");
     } catch (err) {
-      console.error("Auth error details:", {
+      toast.error("Auth error details:", {
         status: err.response?.status,
         data: err.response?.data,
         message: err.message
@@ -130,7 +135,9 @@ export default function EmailAuth() {
             <span className="auth-logo-text">rentplace</span>
           </div>
           <h6 className="auth-subtitle">Administration</h6>
-        </div><div className="auth-box">
+        </div>
+
+        <div className="auth-box">
           {step === 1 ? (
               <>
                 <h6 className="auth-title">Войдите в аккаунт</h6>

@@ -1,17 +1,29 @@
 import React, {useEffect, useState} from "react";
-import "../../styles/adform.css";
-import {ReactComponent as Image} from "../../assets/Camera.svg";
-import Header from "../HeaderComponents/Header";
-import {ReactComponent as Ruble} from "../../assets/Ruble.svg";
-import {ReactComponent as Trash} from "../../assets/Trash.svg";
 import {useNavigate} from "react-router-dom";
-import PropertyService from "../../api/propertyService";
+import {toast} from "react-toastify";
+import "../../styles/adform.css";
+import {ReactComponent as Ruble} from "../../assets/Ruble.svg";
+import Header from "../HeaderComponents/Header";
+import {ReactComponent as Image} from "../../assets/Camera.svg";
+import {ReactComponent as Trash} from "../../assets/Trash.svg";
 import categoryService from "../../api/categoryService";
 import facilityService from "../../api/facilityService";
 import userService from "../../api/userService";
+import PropertyService from "../../api/propertyService";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
+const VALIDATION_RULES = {
+    TITLE_MAX_LENGTH: 100,
+    ADDRESS_MAX_LENGTH: 200,
+    DESCRIPTION_MAX_LENGTH: 2000,
+    MIN_IMAGES: 3,
+    MAX_IMAGES: 20,
+    MIN_NUMBER_VALUE: 0,
+    MAX_FILE_SIZE: 5 * 1024 * 1024,
+    ALLOWED_FILE_TYPES: ["image/jpeg", "image/png"]
+};
 
-const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
+const AddAdForm = ({onCancel}) => {
     const navigate = useNavigate();
     const [propertyStatuses] = useState([
         "PUBLISHED",
@@ -24,6 +36,7 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
     const [facilities, setFacilities] = useState([]);
     const [owners, setOwners] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         propertyStatus: "ON_MODERATION",
@@ -36,7 +49,7 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
         rooms: 0,
         bedrooms: 0,
         sleepingPlaces: 0,
-        bathrooms: 0,
+        bathrooms: 2,
         maxGuests: 0,
         ownerId: "",
         categoriesIds: [],
@@ -57,19 +70,97 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                 setFacilities(facs);
                 setOwners(ownersRes);
             } catch (err) {
-                console.error("Ошибка загрузки данных:", err);
+                toast.error(`Ошибка загрузки данных: ${err.message}`);
             }
         };
         loadInitialData();
     }, []);
 
+    const validateForm = () => {
+        const errors = {};
+        const totalImages = formData.images.length;
+
+        const numberFields = [
+            'area', 'maxGuests', 'rooms',
+            'bedrooms', 'sleepingPlaces', 'cost'
+        ];
+
+        numberFields.forEach(field => {
+            if (formData[field] <= VALIDATION_RULES.MIN_NUMBER_VALUE) {
+                errors[field] = 'Значение должно быть положительным';
+            }
+        });
+
+        if (!formData.title.trim()) errors.title = 'Введите название';
+        if (formData.title.length > VALIDATION_RULES.TITLE_MAX_LENGTH) {
+            errors.title = `Максимум ${VALIDATION_RULES.TITLE_MAX_LENGTH} символов`;
+        }
+
+        if (!formData.address.trim()) errors.address = 'Введите адрес';
+        if (formData.address.length > VALIDATION_RULES.ADDRESS_MAX_LENGTH) {
+            errors.address = `Максимум ${VALIDATION_RULES.ADDRESS_MAX_LENGTH} символов`;
+        }
+
+        if (!formData.description.trim()) errors.description = 'Введите описание';
+        if (formData.description.length > VALIDATION_RULES.DESCRIPTION_MAX_LENGTH) {
+            errors.description = `Максимум ${VALIDATION_RULES.DESCRIPTION_MAX_LENGTH} символов`;
+        }
+
+        if (totalImages < VALIDATION_RULES.MIN_IMAGES) {
+            errors.images = `Минимум ${VALIDATION_RULES.MIN_IMAGES} фотографии`;
+        }
+        if (totalImages > VALIDATION_RULES.MAX_IMAGES) {
+            errors.images = `Максимум ${VALIDATION_RULES.MAX_IMAGES} фотографий`;
+        }
+
+        if (formData.categoriesIds.length === 0) errors.categoriesIds = 'Выберите категории';
+        if (formData.facilitiesIds.length === 0) errors.facilitiesIds = 'Выберите удобства';
+        if (!formData.ownerId) errors.ownerId = 'Выберите владельца';
+
+        if (Object.keys(errors).length > 0) {
+            const errorMessage = Object.values(errors).join('\n');
+            toast.error(`Ошибки валидации:\n${errorMessage}`, {
+                autoClose: 8000,
+                style: {whiteSpace: 'pre-line'}
+            });
+            return false;
+        }
+        return true;
+    };
+
+    const queryClient = useQueryClient();
+
+    const createPropertyMutation = useMutation({
+        mutationFn: (formDataToSend) => PropertyService.create(formDataToSend),
+        onSuccess: () => {
+            toast.success("Объявление успешно создано!");
+            queryClient.invalidateQueries({ queryKey: ['properties'] });
+            navigate("/ads", { replace: true });
+        },
+        onError: (err) => {
+            const errorMessage = err.message;
+            toast.error(`Ошибка создания: ${errorMessage}`);
+        },
+    });
+
+
+    const handleNumberInput = (e) => {
+        const {name, value} = e.target;
+        const numericValue = Math.max(VALIDATION_RULES.MIN_NUMBER_VALUE, Number(value));
+        setFormData(prev => ({...prev, [name]: numericValue}));
+    };
+
+    const handleTextInput = (e) => {
+        const {name, value, maxLength} = e.target;
+        const newValue = value.slice(0, maxLength);
+        setFormData(prev => ({...prev, [name]: newValue}));
+    };
+
     const handleChange = (e) => {
-        const { name, value, type, checked } = e.target;
+        const {name, value, type, checked} = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: type === "checkbox" ? checked
-                : type === "number" ? Number(value)
-                    : value
+            [name]: type === "checkbox" ? checked : value
         }));
     };
 
@@ -78,18 +169,48 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
             .filter(item => ids.includes(item.categoryId || item.facilityId))
             .map(item => item.name)
             .join(", ");
-    }
+    };
 
     const handleMultiSelect = (e, field) => {
         const options = Array.from(e.target.selectedOptions, opt => Number(opt.value));
-        setFormData(prev => ({ ...prev, [field]: options }));
+        setFormData(prev => ({...prev, [field]: options}));
     };
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
         if (files.length === 0) return;
 
-        const newImages = files.map(file => ({
+        const currentTotal = formData.images.length;
+        const potentialTotal = currentTotal + files.length;
+
+        if (potentialTotal > VALIDATION_RULES.MAX_IMAGES) {
+            toast.error(`Максимальное количество фотографий: ${VALIDATION_RULES.MAX_IMAGES}`);
+            e.target.value = null;
+            return;
+        }
+
+        const validFiles = [];
+        const errors = [];
+
+        files.forEach(file => {
+            if (!VALIDATION_RULES.ALLOWED_FILE_TYPES.includes(file.type)) {
+                errors.push(`Файл ${file.name}: недопустимый тип. Допустимы только JPEG и PNG.`);
+                return;
+            }
+
+            if (file.size > VALIDATION_RULES.MAX_FILE_SIZE) {
+                errors.push(`Файл ${file.name}: размер превышает 5MB.`);
+                return;
+            }
+
+            validFiles.push(file);
+        });
+
+        if (errors.length > 0) {
+            errors.forEach(err => toast.error(err));
+        }
+
+        const newImages = validFiles.map(file => ({
             file,
             preview: URL.createObjectURL(file)
         }));
@@ -103,12 +224,22 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
     };
 
     const removeImage = (index) => {
+        URL.revokeObjectURL(formData.images[index].preview);
+
         const newImages = formData.images.filter((_, i) => i !== index);
         setFormData(prev => ({ ...prev, images: newImages }));
+        toast.info("Изображение удалено из загрузки");
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+
+        if (!validateForm()) {
+            setLoading(false);
+            return;
+        }
 
         try {
             const formDataToSend = new FormData();
@@ -123,11 +254,24 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
 
             formData.images.forEach(img => {
                 formDataToSend.append("files", img.file, img.file.name);
-            });await PropertyService.create(formDataToSend);
-            navigate("/ads", { state: { refresh: true } });
+            });
 
+            createPropertyMutation.mutate(formDataToSend);
         } catch (err) {
-            console.error("Ошибка создания объявления:", err);
+            const errorMessage = err.response?.data?.message || err.message;
+            toast.error(`Ошибка создания: ${errorMessage}`);
+
+            if (err.response?.data?.errors) {
+                const serverErrors = err.response.data.errors
+                    .map(e => `${e.field}: ${e.message}`)
+                    .join('\n');
+                toast.error(`Ошибки сервера:\n${serverErrors}`, {
+                    autoClose: 10000,
+                    style: {whiteSpace: 'pre-line'}
+                });
+            }
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -135,22 +279,25 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
         setSearchQuery(e.target.value);
     };
 
-
     return (
         <div className="add-ad-container">
             <Header searchQuery={searchQuery} handleSearchChange={handleSearchChange}/>
             <form className="add-ad-form" onSubmit={handleSubmit}>
-                <h2 className="form-title">{"Добавить объявление"}</h2>
+                <h2 className="form-title">Добавить объявление</h2>
 
                 <div className="field-group">
-                    <label className="ccolumn-name">Изображения</label>
+                    <label className="ccolumn-name">
+                        Изображения ({formData.images.length}/{VALIDATION_RULES.MAX_IMAGES})
+                    </label>
                     <div className="image-preview-container">
                         {formData.images.map((image, index) => (
                             <div key={index} className="image-preview">
                                 <img src={image.preview} alt={`Preview ${index}`}/>
-                                <button className="delete-image-btn"
-                                        onClick={() => removeImage(index)}
-                                        type="button">
+                                <button
+                                    className="delete-image-btn"
+                                    onClick={() => removeImage(index)}
+                                    type="button"
+                                >
                                     <Trash/>
                                 </button>
                             </div>
@@ -161,45 +308,104 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                                 <Image className="upload-icon"/>
                             </div>
                         </label>
-
-                        <input id="file-input" type="file" accept="image/*" multiple onChange={handleFileChange}/>
+                        <input
+                            id="file-input"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleFileChange}
+                            disabled={formData.images.length >= VALIDATION_RULES.MAX_IMAGES}
+                        />
                     </div>
                 </div>
 
                 <div className="field">
-                    <label className="ccolumn-name">Название</label>
-                    <input type="text" name="title" value={formData.title} onChange={handleChange} required/>
+                    <label className="ccolumn-name">
+                        Название ({formData.title.length}/{VALIDATION_RULES.TITLE_MAX_LENGTH})
+                    </label>
+                    <input
+                        type="text"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleTextInput}
+                        maxLength={VALIDATION_RULES.TITLE_MAX_LENGTH}
+                        required
+                    />
                 </div>
 
                 <div className="field">
-                    <label className="ccolumn-name">Адрес</label>
-                    <input type="text" name="address" value={formData.address} onChange={handleChange} required/>
+                    <label className="ccolumn-name">
+                        Адрес ({formData.address.length}/{VALIDATION_RULES.ADDRESS_MAX_LENGTH})
+                    </label>
+                    <input
+                        type="text"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleTextInput}
+                        maxLength={VALIDATION_RULES.ADDRESS_MAX_LENGTH}
+                        required
+                    />
                 </div>
 
                 <div className="fields-container">
                     <div className="fields-row">
                         <div className="field">
                             <label className="ccolumn-name">Общая площадь (м²)</label>
-                            <input type="number" name="area" value={formData.area} onChange={handleChange} required/>
+                            <input
+                                type="number"
+                                name="area"
+                                value={formData.area}
+                                onChange={handleNumberInput}
+                                min={VALIDATION_RULES.MIN_NUMBER_VALUE}
+                                required
+                            />
                         </div>
                         <div className="field">
                             <label className="ccolumn-name">Количество гостей</label>
-                            <input type="number" name="maxGuests" value={formData.maxGuests} onChange={handleChange}
-                                   required/>
+                            <input
+                                type="number"
+                                name="maxGuests"
+                                value={formData.maxGuests}
+                                onChange={handleNumberInput}
+                                min={VALIDATION_RULES.MIN_NUMBER_VALUE}
+                                required
+                            />
                         </div>
                         <div className="field">
                             <label className="ccolumn-name">Количество комнат</label>
-                            <input type="number" name="rooms" value={formData.rooms} onChange={handleChange} required/>
+                            <input
+                                type="number"
+                                name="rooms"
+                                value={formData.rooms}
+                                onChange={handleNumberInput}
+                                min={VALIDATION_RULES.MIN_NUMBER_VALUE}
+                                required
+                            />
                         </div>
-                    </div><div className="fields-row">
+                    </div>
+
+                    <div className="fields-row">
                         <div className="field">
                             <label className="ccolumn-name">Количество спален</label>
-                            <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange}
-                                   required/>
+                            <input
+                                type="number"
+                                name="bedrooms"
+                                value={formData.bedrooms}
+                                onChange={handleNumberInput}
+                                min={VALIDATION_RULES.MIN_NUMBER_VALUE}
+                                required
+                            />
                         </div>
                         <div className="field">
                             <label className="ccolumn-name">Количество кроватей</label>
-                            <input type="number" name="sleepingPlaces" value={formData.sleepingPlaces} onChange={handleChange} required/>
+                            <input
+                                type="number"
+                                name="sleepingPlaces"
+                                value={formData.sleepingPlaces}
+                                onChange={handleNumberInput}
+                                min={VALIDATION_RULES.MIN_NUMBER_VALUE}
+                                required
+                            />
                         </div>
                         <div className="field">
                             <label className="ccolumn-name">Хозяин жилья (email)</label>
@@ -207,7 +413,9 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                                 name="ownerId"
                                 value={formData.ownerId}
                                 onChange={handleChange}
+                                required
                             >
+                                <option value="">Выберите владельца</option>
                                 {owners.map((owner) => (
                                     <option key={owner.userId} value={owner.userId}>
                                         {owner.email}
@@ -216,7 +424,9 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                             </select>
                         </div>
                     </div>
-                </div><div className="fields-row">
+                </div>
+
+                <div className="fields-row">
                     <div className="field">
                         <label className="ccolumn-name">Категории</label>
                         <select
@@ -225,6 +435,7 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                             value={formData.categoriesIds}
                             onChange={(e) => handleMultiSelect(e, 'categoriesIds')}
                             className="multi-select"
+                            required
                         >
                             <option>{formatSelectedValues(formData.categoriesIds, categories) || "Выберите категории..."}</option>
                             {categories.map(category => (
@@ -245,6 +456,7 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                             value={formData.facilitiesIds}
                             onChange={(e) => handleMultiSelect(e, 'facilitiesIds')}
                             className="multi-select"
+                            required
                         >
                             <option>{formatSelectedValues(formData.facilitiesIds, facilities) || "Выберите удобства..."}</option>
                             {facilities.map(facility => (
@@ -276,38 +488,65 @@ const AddAdForm = ({addNewAd, updateAd, editingAd, onCancel}) => {
                         Арендная плата,
                         <Ruble style={{width: "18px", height: "18px", fill: "black"}}/>
                     </label>
-
                     <div className="rent-options">
-                        <button type="button" className={`${!formData.longTermRent ? "active" : ""}`}
-                                onClick={() => setFormData(p => ({...p, longTermRent: false}))}>
+                        <button
+                            type="button"
+                            className={`${!formData.longTermRent ? "active" : ""}`}
+                            onClick={() => setFormData(p => ({...p, longTermRent: false}))}
+                        >
                             За сутки
                         </button>
-                        <button type="button" className={`${formData.longTermRent ? "active" : ""}`}
-                                onClick={() => setFormData(p => ({...p, longTermRent: true}))}>
+                        <button
+                            type="button"
+                            className={`${formData.longTermRent ? "active" : ""}`}
+                            onClick={() => setFormData(p => ({...p, longTermRent: true}))}
+                        >
                             В месяц
                         </button>
                     </div>
-                    <input type="number" name="cost" value={formData.price} onChange={handleChange} required/>
-                </div><div className="fields-container">
+                    <input
+                        type="number"
+                        name="cost"
+                        value={formData.cost}
+                        onChange={handleNumberInput}
+                        min={VALIDATION_RULES.MIN_NUMBER_VALUE}
+                        required
+                    />
+                </div>
+
+                <div className="fields-container">
                     <div className="fields-row">
                         <div className="field description-field">
-                            <div className="field">
-                                <label className="ccolumn-name">Описание</label>
-                                <textarea className="custom-textarea" name="description" value={formData.description}
-                                          onChange={handleChange} required/>
-                            </div>
+                            <label className="ccolumn-name">
+                                Описание ({formData.description.length}/{VALIDATION_RULES.DESCRIPTION_MAX_LENGTH})
+                            </label>
+                            <textarea
+                                className="custom-textarea"
+                                name="description"
+                                value={formData.description}
+                                onChange={handleTextInput}
+                                maxLength={VALIDATION_RULES.DESCRIPTION_MAX_LENGTH}
+                                required
+                            />
                         </div>
-                        <div className="field"></div>
-                        <div className="field"></div>
                     </div>
                 </div>
 
                 <div className="button-group">
-                    <button type="button" className="cancel-button" onClick={onCancel}>
+                    <button
+                        type="button"
+                        className="cancel-button"
+                        onClick={onCancel}
+                        disabled={loading}
+                    >
                         Отмена
                     </button>
-                    <button type="submit" className="submit-button" onClick={handleSubmit}>
-                        Добавить
+                    <button
+                        type="submit"
+                        className="submit-button"
+                        disabled={loading}
+                    >
+                        {loading ? 'Добавление...' : 'Добавить'}
                     </button>
                 </div>
             </form>

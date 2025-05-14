@@ -210,7 +210,9 @@
 .input-icon-wrapper input {
   width: 100%;
   padding-right: 30px; /* чтобы текст не перекрывался иконкой */
-}.calendar-icon {
+}
+
+.calendar-icon {
   position: absolute;
   right: 10px;
   top: 50%;
@@ -277,35 +279,4 @@
   background-size: 12px 12px;
 
   padding-right: 40px;
-}
-
-.date-field-with-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.date-field-with-icon input[type="date"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 100%;
-  padding-right: 50px;
-  background: none;
-}
-
-.date-field-with-icon input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  display: none;
-}
-
-.custom-calendar-icon {
-  position: absolute;
-  right: 16px;
-  top: 20%; /* Центр по высоте */
-  transform: translateY(25%); /* ← смещение чуть ниже центра */
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  pointer-events: auto;
 }

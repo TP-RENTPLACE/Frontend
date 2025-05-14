@@ -41,6 +41,7 @@ class ApiClient {
                         return this.instance(originalRequest);
                     } catch (refreshError) {
                         this.clearAuth();
+                        window.location.href = "/email";
                         return Promise.reject(refreshError);
                     }
                 }
