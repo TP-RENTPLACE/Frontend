@@ -16,6 +16,10 @@ export default {
         const response = await apiClient.refresh();
         apiClient.setAuthTokens(response.accessToken, response.refreshToken);
         return response;
+    },
+
+    async getInfo() {
+        return await apiClient.get('/auth/info', { authRequired: true });
     }
 
 };
