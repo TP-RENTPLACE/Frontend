@@ -5,6 +5,7 @@ import Header from "../HeaderComponents/Header";
 import { ReactComponent as EditIcon } from '../../assets/EditIcon.svg';
 import userService from "../../api/userService";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+import defaultImg from "../../assets/default-avatar.jpg";
 
 const AddUserForm = ({ onCancel }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const AddUserForm = ({ onCancel }) => {
     SURNAME_MAX_LENGTH: 50,
     MIN_AGE: 10,
     MAX_FILE_SIZE: 5 * 1024 * 1024,
-    ALLOWED_FILE_TYPES: ["image/jpeg", "image/png", "image/gif"]
+    ALLOWED_FILE_TYPES: ["image/jpeg", "image/png"]
   };
 
   const genderMapping = {
@@ -162,7 +163,7 @@ const AddUserForm = ({ onCancel }) => {
                   {previewUrl ? (
                       <img src={previewUrl} alt="Фото профиля" />
                   ) : (
-                      <div className="empty-photo" />
+                      <img src={defaultImg} alt={defaultImg} />
                   )}
                 </div>
                 <label className="photo-edit-button">
