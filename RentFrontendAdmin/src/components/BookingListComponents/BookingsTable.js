@@ -1,38 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import "../../styles/bookings.css";
 import BookingModal from "./BookingModal";
 import Header from "../HeaderComponents/Header";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
 import ReservationService from "../../api/reservationService";
+import {toast} from "react-toastify";
+import {useQuery} from "@tanstack/react-query";
 
 const BookingsTable = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingReservation, setEditingReservation] = useState(null);
-  const [reservations, setReservations] = useState([]);
   const [menuOpen, setMenuOpen] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const bookingsPerPage = 7;
+  const bookingsPerPage = 6;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    ReservationService.getAll()
-        .then((data) => setReservations(data))
-        .catch((err) => console.error('Ошибка при загрузке:', err));
-  }, []);
+  const { data: reservations = [], isError, error } = useQuery({
+    queryKey: ['reservations'],
+    queryFn: () => ReservationService.getAll(),
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+  });
 
-  const handleSave = (newBooking) => {
-    setReservations((prev) => {
-      const exists = prev.some((b) => b.id === newBooking.id);
-      return exists
-          ? prev.map((b) => (b.id === newBooking.id ? newBooking : b))
-          : [...prev, newBooking];
-    });
-    setIsAdding(false);
-    setEditingReservation(null);
-    setCurrentPage(1);
-  };
+  useEffect(() => {
+    if (isError) {
+      toast.error('Ошибка при загрузке: ' + error.message);
+    }
+  }, [isError, error]);
 
   const handleEdit = (reservation) => {
     console.log(reservation);
@@ -60,15 +56,23 @@ const BookingsTable = () => {
     setCurrentPage(1);
   };
 
-  const filteredBookings = reservations.filter((reservation) =>
-      `${reservation.id} ${reservation.listing} ${reservation.tenant} ${reservation.landlord}`
-          .toLowerCase()
-          .includes(searchQuery.toLowerCase())
-  );
+  const filteredBookings = useMemo(() => {
+    return reservations.filter((reservation) => {
+      const listingTitle = reservation.propertyDTO?.title?.toLowerCase() || '';
+      const tenantEmail = reservation.renterDTO?.email?.toLowerCase() || '';
+      const landlordEmail = reservation.propertyDTO?.ownerDTO?.email?.toLowerCase() || '';
+
+      return (
+          listingTitle.includes(searchQuery.toLowerCase()) ||
+          tenantEmail.includes(searchQuery.toLowerCase()) ||
+          landlordEmail.includes(searchQuery.toLowerCase())
+      );
+    });
+  }, [reservations, searchQuery]);
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
-  const currentBookings = filteredBookings.slice(indexOfFirstBooking, indexOfLastBooking);
+  const currentReservations = filteredBookings.slice(indexOfFirstBooking, indexOfLastBooking);
   const totalPages = Math.ceil(filteredBookings.length / bookingsPerPage);
 
 
@@ -87,23 +91,25 @@ const BookingsTable = () => {
             <Plus/>
           </button>
         </div>
-      )}{!isAdding && !editingReservation && (
+      )}
+
+      {!isAdding && !editingReservation && (
         <>
           <table className="bookings-table">
             <thead>
               <tr>
-              <th style={{ width: "5%" }}>ID</th>
-              <th style={{ width: "20%" }}>Объявление</th>
-              <th style={{ width: "15%" }}>Арендатор</th>
-              <th style={{ width: "15%" }}>Арендодатель</th>
-              <th style={{ width: "15%" }}>Дата проживания</th>
-              <th style={{ width: "15%" }}>Стоимость</th>
+              <th>ID</th>
+              <th>Объявление</th>
+              <th>Арендатор</th>
+              <th>Арендодатель</th>
+              <th>Дата проживания</th>
+              <th>Стоимость</th>
               <th>Действие</th>
               </tr>
             </thead>
             <tbody>
-              {reservations.length > 0 ? (
-                reservations.map((reservation) => (
+              {currentReservations.length > 0 ? (
+                currentReservations.map((reservation) => (
                   <tr
                     key={reservation.reservationId}
                     className="clickable-row"
@@ -149,7 +155,9 @@ const BookingsTable = () => {
           {/* Пагинация */}
           {totalPages > 0 && (
             <div className="pagination-container">
-              <div className="page-info">Страница {currentPage}</div><div className="pagination-svg-wrapper">
+              <div className="page-info">Страница {currentPage}</div>
+
+              <div className="pagination-svg-wrapper">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="86"
@@ -180,17 +188,6 @@ const BookingsTable = () => {
             </div>
           )}
         </>
-      )}
-
-      {(isAdding || editingReservation) && (
-        <BookingModal
-          onCancel={() => {
-            setIsAdding(false);
-            setEditingReservation(null);
-          }}
-          reservation={editingReservation}
-          onSave={handleSave}
-        />
       )}
     </div>
   );

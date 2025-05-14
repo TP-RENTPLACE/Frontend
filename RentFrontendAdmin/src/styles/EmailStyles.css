@@ -205,7 +205,9 @@
   width: 50px;
   height: 40px;
   transform: translateY(6px);
-}.auth-logo-text {
+}
+
+.auth-logo-text {
   color: var(--Main-Color-Dark, #151515);
   font-family: 'Montserrat', sans-serif;
   font-size: 52px;
