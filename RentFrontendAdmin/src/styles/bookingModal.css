@@ -198,34 +198,3 @@ h1, h2, h3, h4, h5, h6 {
   align-self: stretch;
 }
 
-
-.date-field-with-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.date-field-with-icon input[type="date"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 100%;
-  padding-right: 50px;
-  background: none;
-}
-
-.date-field-with-icon input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  display: none;
-}
-
-.custom-calendar-icon {
-  position: absolute;
-  right: 16px;
-  top: 20%; /* Центр по высоте */
-  transform: translateY(25%); /* ← смещение чуть ниже центра */
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
-  pointer-events: auto;
-}
