@@ -24,8 +24,8 @@ const ProtectedRoute = ({children}) => {
     const location = useLocation();
     const accessToken = localStorage.getItem('accessToken');
 
-    if (!accessToken) {
-        return <Navigate to="email/" state={{from: location}} replace/>;
+    if (!accessToken || accessToken === "null") {
+        return <Navigate to="/email" state={{from: location}} replace />;
     }
 
     return children;
@@ -89,7 +89,7 @@ function App() {
                                 <Route path="/bookings/edit/:id"
                                        element={<ProtectedRoute><EditBookingModalRoute/> </ProtectedRoute>}/>
 
-                                {/* <Route path="/admin/profile" element={<ProtectedRoute><AdminEditRoute /></ProtectedRoute>} /> */}
+                                
                                 <Route path="/gallery/:id" element={<GalleryView/>}/>
 
                             </Routes>
