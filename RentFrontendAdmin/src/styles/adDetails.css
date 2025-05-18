@@ -444,6 +444,18 @@ h1 {
   margin-bottom: 20px;
   text-align: left;
 }
+h6 {
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums tabular-nums;
+
+  /* H2 Medium */
+  font-family: Montserrat;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 30px; /* 115.385% */
+  align-self: stretch;
+}
 
 .modal-gallery-slider {
   position: relative;
