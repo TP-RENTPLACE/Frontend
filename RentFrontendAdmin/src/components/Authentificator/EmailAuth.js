@@ -13,7 +13,6 @@ export default function EmailAuth() {
   const [resendTimer, setResendTimer] = useState(120);
   const [canResend, setCanResend] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const navigate = useNavigate();
   const inputRefs = useRef([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,7 +37,6 @@ export default function EmailAuth() {
 
     setIsSubmitting(true);
     setLoading(true);
-    setError("");
 
     try {
       await authService.login(savedEmail, code);
@@ -49,17 +47,15 @@ export default function EmailAuth() {
 
       navigate("/ads");
     } catch (err) {
-      toast.error("Auth error details:", {
-        status: err.response?.status,
-        data: err.response?.data,
-        message: err.message
-      });
-
-      if (err.response?.status !== 400) {
+      if (err.response?.status === 403) {
+        toast.error("У вас нет прав администратора для входа в админ-панель");
+      } else if (err.response?.status === 401) {
+        toast.error("Неверный код")
+      } else {
+        toast.error("Ошибка авторизации. Попробуйте снова.");
         setCode("");
       }
 
-      setError(err.response?.data?.message || "Ошибка авторизации");
       inputRefs.current[0]?.focus();
     } finally {
       setIsSubmitting(false);
@@ -101,21 +97,26 @@ export default function EmailAuth() {
 
   const handleSendCode = async () => {
     if (!validateEmail(email)) {
-      setError("Некорректный формат email");
+      toast.error("Некорректный формат email")
       return;
     }
 
     setLoading(true);
-    setError("");
 
     try {
-      await authService.requestCode(email);
+      const response = await authService.requestCode(email);
+
+      if (response.authType !== "AUTH_LOGIN") {
+        toast.error("У вас нет доступа к админ-панели. Указанная почта не зарегистрирована.");
+        return;
+      }
+
       localStorage.setItem("authEmail", email);
       setStep(2);
       setCanResend(false);
       setResendTimer(120);
     } catch (err) {
-      setError(err.response?.data?.message || "Ошибка отправки кода");
+      toast.error("Ошибка отправки кода");
     } finally {
       setLoading(false);
     }
@@ -150,7 +151,6 @@ export default function EmailAuth() {
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        setError("");
                       }}
                       placeholder="Введите вашу почту"
                       className="auth-input"
@@ -158,8 +158,6 @@ export default function EmailAuth() {
                   />
                   <EmailLogo className="auth-input-svg-icon" />
                 </div>
-
-                {error && <div className="error-message" style={{color: "red"}}>{error}</div>}
 
                 <div className="auth-input-wrapper">
                   <button
@@ -202,8 +200,6 @@ export default function EmailAuth() {
                       />
                   ))}
                 </div>
-
-                {error && <div className="error-message">{error}</div>}
 
                 <div className="auth-buttons-container">
                   <button
