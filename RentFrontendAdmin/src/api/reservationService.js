@@ -2,7 +2,7 @@ import apiClient from './apiClient';
 
 class ReservationService {
     async getAll(params = {}) {
-        return await apiClient.get('/reservations/', { params, authRequired: false });
+        return await apiClient.get('/reservations/', { params, authRequired: true });
     }
 
     async getById(reservationId) {
