@@ -116,7 +116,7 @@ const ModerationList = () => {
   });
 
   const getImageUrl = (images = []) => {
-    const previewImg = images.find((img) => img.previewImage === false && img.imageId === 2);
+    const previewImg = images.find((img) => img.previewImage === true)
     const chosenImg = previewImg || images[0];
     if (!chosenImg) {
       return "/assets/image.png";
