@@ -112,7 +112,7 @@ const AdDetails = () => {
                 </div>
 
                 <div className="ad-header">
-                    <h1 className="property-title">{editingProperty.title}</h1>
+                    <h6 className="property-title">{editingProperty.title}</h6>
                     <p className="price">
                         {editingProperty.cost}₽
                         <span className="price-period">
@@ -130,7 +130,7 @@ const AdDetails = () => {
                     ))}
                 </div>
 
-                <h2 className="section-title">Описание</h2>
+                <h6 className="section-title">Описание</h6>
                 <div className="description-container">
                     <p className={`description ${expanded ? "expanded" : ""}`}>
                         {editingProperty.description}
@@ -145,7 +145,7 @@ const AdDetails = () => {
                     )}
                 </div>
 
-                <h2 className="section-title">Основные удобства</h2>
+                <h6 className="section-title">Основные удобства</h6>
                 <ul className="amenities">
                     {editingProperty.facilitiesDTOs?.map((facility, index) => (
                         <li key={index} className="amenity-item">
@@ -154,10 +154,10 @@ const AdDetails = () => {
                     ))}
                 </ul>
 
-                <h2 className="section-title">Расположение</h2>
+                <h6 className="section-title">Расположение</h6>
                 <p className="location">{editingProperty.address}</p>
 
-                <h2 className="section-title">Хозяин</h2>
+                <h6 className="section-title">Хозяин</h6>
                 <div className="host-wrapper">
                     <div className="host-info">
                         <img
