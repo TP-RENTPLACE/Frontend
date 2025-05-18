@@ -6,7 +6,7 @@ export default {
     },
 
     async login(email, code) {
-        const response = await apiClient.post('/auth/login', { email, code });
+        const response = await apiClient.post('/auth/admin/login', { email, code });
         const { accessToken, refreshToken } = response;
         apiClient.setAuthTokens(accessToken, refreshToken);
         return response;
