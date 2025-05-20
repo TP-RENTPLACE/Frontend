@@ -1,18 +1,13 @@
 import React, {useEffect, useState} from "react";
-
 import Header from "../HeaderComponents/Header";
 import "../../styles/adsList.css";
 import {ReactComponent as Plus} from "../../assets/Plus.svg";
 import {useNavigate, useLocation} from "react-router-dom";
 import EditAdForm from "./EditAdForm";
 import PropertyService from "../../api/propertyService";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-
-const propertiesCache = {
-    data: null,
-    timestamp: null,
-    CACHE_DURATION: 5 * 60 * 1000,
-};
+import {useQuery} from "@tanstack/react-query";
+import {toast} from "react-toastify";
+import propertyService from "../../api/propertyService";
 
 const AdsList = () => {
     const [showForm, setShowForm] = useState(false);
@@ -25,7 +20,7 @@ const AdsList = () => {
     const location = useLocation();
     const editingAdFromState = location.state?.editingAd;
 
-    const {data: properties = [], isLoading, isError, refetch,} = useQuery({
+    const {data: properties = [], refetch,} = useQuery({
         queryKey: ["properties"],
         queryFn: () => PropertyService.getAll(),
         staleTime: Infinity,
@@ -35,6 +30,26 @@ const AdsList = () => {
     const toggleMenu = (id) => {
         setOpenMenuId(openMenuId === id ? null : id);
     };
+
+    useEffect(() => {
+        const closeMenu = (e) => {
+            if (!e.target.closest(".dropdown")) {
+                setOpenMenuId(null);
+            }
+        };
+        document.addEventListener("click", closeMenu);
+        return () => document.removeEventListener("click", closeMenu);
+    }, []);
+
+    useEffect(() => {
+        const closeMenu = (e) => {
+            if (!e.target.closest(".dropdown")) {
+                setOpenMenuId(null);
+            }
+        };
+        document.addEventListener("click", closeMenu);
+        return () => document.removeEventListener("click", closeMenu);
+    }, []);
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
@@ -63,6 +78,16 @@ const AdsList = () => {
         }
         if (chosenImg.url) {
             return chosenImg.url;
+        }
+    };
+
+    const handleDelete = async (propertyId) => {
+        try {
+            await propertyService.delete(propertyId);
+            toast.success("Объявление удалено");
+            await refetch();
+        } catch (error) {
+            toast.error("Ошибка при удалении объявления");
         }
     };
 
@@ -119,7 +144,7 @@ const AdsList = () => {
                                         <td>
                                             <img
                                                 loading="lazy"
-                                                src={property.imagesDTOs?.[0]?.url}
+                                                src={getImageUrl(property.imagesDTOs)}
                                                 alt={property.propertyId}
                                                 className="ad-image"
                                             />
@@ -157,14 +182,19 @@ const AdsList = () => {
                                                         <button
                                                             onClick={() => {
                                                                 const {...serializableAd} = property;
-                                                                navigate(`/ads/editad/${property.id}`, {
+                                                                navigate(`/ads/editad/${property.propertyId}`, {
                                                                     state: {editingAd: serializableAd},
                                                                 });
                                                             }}
                                                         >
                                                             Редактировать
                                                         </button>
-                                                        <button>
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                void handleDelete(property.propertyId);
+                                                            }}
+                                                        >
                                                             Удалить
                                                         </button>
                                                     </div>

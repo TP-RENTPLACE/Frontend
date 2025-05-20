@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useMemo} from "react";
 import "../../styles/bookings.css";
-import BookingModal from "./BookingModal";
 import Header from "../HeaderComponents/Header";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Plus } from "../../assets/Plus.svg";
 import ReservationService from "../../api/reservationService";
 import {toast} from "react-toastify";
 import {useQuery} from "@tanstack/react-query";
+import reservationService from "../../api/reservationService";
 
 const BookingsTable = () => {
   const [isAdding, setIsAdding] = useState(false);
@@ -17,7 +17,7 @@ const BookingsTable = () => {
   const bookingsPerPage = 6;
   const navigate = useNavigate();
 
-  const { data: reservations = [], isError, error } = useQuery({
+  const { data: reservations = [], isError, error, refetch } = useQuery({
     queryKey: ['reservations'],
     queryFn: () => ReservationService.getAll(),
     staleTime: Infinity,
@@ -31,7 +31,6 @@ const BookingsTable = () => {
   }, [isError, error]);
 
   const handleEdit = (reservation) => {
-    console.log(reservation);
     navigate(`/bookings/edit/${reservation.reservationId}`, { state: { reservation } });
   };
 
@@ -69,6 +68,16 @@ const BookingsTable = () => {
       );
     });
   }, [reservations, searchQuery]);
+
+  const handleDelete = async (reservationId) => {
+    try {
+      await reservationService.delete(reservationId);
+      toast.success("Бронь удалена");
+      await refetch();
+    } catch (error) {
+      toast.error("Ошибка при удалении брони");
+    }
+  };
 
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
@@ -122,25 +131,32 @@ const BookingsTable = () => {
                     <td className="dates-column">{reservation.startDate} <br /> {reservation.endDate}</td>
                     <td className="price-column">{reservation.totalCost}</td>
                     <td className="action-column dropdown">
-                      <button
-                        className="action-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleMenu(reservation.reservationId);
-                        }}
-                      >
-                        ⋯
-                      </button>
-                      {menuOpen === reservation.reservationId && (
-                        <div className="dropdown-content">
-                          <button className="action-item" onClick={() => handleEdit(reservation)}>
-                            Редактировать
-                          </button>
-                          <button className="action-item" >
-                            Удалить
-                          </button>
-                        </div>
-                      )}
+                      <div className="dropdown">
+                        <button
+                            className="menu-button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleMenu(reservation.reservationId);
+                            }}
+                        >
+                          ⋯
+                        </button>
+                        {menuOpen === reservation.reservationId && (
+                            <div className="dropdown-menu">
+                              <button onClick={() => handleEdit(reservation)}>
+                                Редактировать
+                              </button>
+                              <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    void handleDelete(reservation.reservationId);
+                                  }}
+                              >
+                                Удалить
+                              </button>
+                            </div>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
