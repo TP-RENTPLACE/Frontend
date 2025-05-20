@@ -592,9 +592,10 @@ h6 {
 
 .thumbnail {
   width: 100%;
-  height: auto;
-  border-radius: 10px;
+  max-width: 280px;
+  max-height: 230px;
   object-fit: cover;
+  border-radius: 10px;
 }
 .show-all-button {
   position: absolute;
@@ -646,4 +647,11 @@ h6 {
   backdrop-filter: blur(2px);
   color: white;
   cursor: pointer;
+}
+
+
+.location-icon {
+  width: 20px;
+  height: 20px;
+ 
 }
