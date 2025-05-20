@@ -11,13 +11,11 @@ const EditUserFormWrapper = () => {
     navigate("/users");
   };
 
-  const handleUpdate = (updatedUser) => {
-    console.log("Обновлён пользователь:", updatedUser);
+  const handleUpdate = () => {
     navigate("/users");
   };
 
   const handleDelete = () => {
-    console.log("Удалён пользователь:", editingUser?.id);
     navigate("/users");
   };
 

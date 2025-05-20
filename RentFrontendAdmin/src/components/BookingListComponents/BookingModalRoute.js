@@ -5,8 +5,7 @@ import BookingModal from "./BookingModal";
 const BookingModalRoute = () => {
   const navigate = useNavigate();
 
-  const handleSave = (newBooking) => {
-    console.log("Сохраняем бронь:", newBooking);
+  const handleSave = () => {
     navigate("/bookings");
   };
 

@@ -11,10 +11,7 @@ const EditAdFormWrapper = () => {
     navigate("/ads");
   };
 
-  const handleUpdate = (updatedAd) => {
-    // Можно прокинуть вверх через props или обновлять глобальное состояние, в зависимости от структуры
-    // Здесь временно сохраняем в localStorage или обрабатываем через navigate state
-    console.log("Updated Ad:", updatedAd);
+  const handleUpdate = () => {
     navigate("/ads");
   };
 

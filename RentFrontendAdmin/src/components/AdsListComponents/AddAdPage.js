@@ -5,17 +5,12 @@ import AddAdForm from "./AddAdForm";
 const AddAdPage = () => {
   const navigate = useNavigate();
 
-  const addNewAd = (newAd) => {
-    console.log("Новое объявление:", newAd);
-
-    // Здесь можно сохранить в глобальное хранилище или отправить на сервер
-    // Пример: await api.post("/ads", newAd)
-
+  const addNewAd = () => {
     navigate("/ads");
   };
 
   return (
-    <div className="ads-list"> {/* Обертка для общих стилей */}
+    <div className="ads-list">
       <AddAdForm addNewAd={addNewAd} onCancel={() => navigate("/ads")} />
     </div>
   );
