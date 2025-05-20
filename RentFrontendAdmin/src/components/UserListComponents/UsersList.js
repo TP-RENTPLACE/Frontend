@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import userService from "../../api/userService";
 import defaultImg from "../../assets/default-avatar.jpg";
 import {useQuery} from "@tanstack/react-query";
+import {toast} from "react-toastify";
 
 const UsersList = () => {
 
@@ -19,7 +20,7 @@ const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const usersPerPage = 6;
 
-    const { data: users = [], isLoading, isError } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: () => userService.getAll(),
         staleTime: Infinity,
@@ -54,6 +55,32 @@ const UsersList = () => {
             return `${name} ${surname} ${email}`.includes(lowerQuery);
         });
     }, [users, searchQuery]);
+
+    const handleBlockToggle = async (user) => {
+        try {
+            if (user.userStatus === "STATUS_ACTIVE") {
+                await userService.blockUser(user.userId);
+                toast.success(`Пользователь ${user.email} заблокирован`);
+            } else {
+                await userService.activateUser(user.userId);
+                toast.success(`Пользователь ${user.email} разблокирован`);
+            }
+            await refetch();
+        } catch (error) {
+            toast.error("Ошибка при обновлении статуса пользователя");
+        }
+    };
+
+    const handleDelete = async (userId) => {
+        try {
+            await userService.delete(userId);
+            toast.success("Пользователь удалён");
+            await refetch();
+        } catch (error) {
+            toast.error("Ошибка при удалении пользователя");
+        }
+    };
+
 
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -124,7 +151,7 @@ const UsersList = () => {
                                             <button
                                                 className="menu-button"
                                                 onClick={(e) => {
-                                                    e.stopPropagation(); // Останавливаем всплытие события, чтобы не сработал клик по строке
+                                                    e.stopPropagation();
                                                     toggleMenu(user.userId);
                                                 }}
                                             >
@@ -136,7 +163,23 @@ const UsersList = () => {
                                                         onClick={() => navigate(`/users/edit/${user.userId}`, {state: {editingUser: user}})}>
                                                         Редактировать
                                                     </button>
-                                                    <button>Удалить</button>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            void handleBlockToggle(user);
+                                                        }}
+                                                    >
+                                                        {user.userStatus === "STATUS_ACTIVE" ? "Заблокировать" : "Разблокировать"}
+                                                    </button>
+
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            void handleDelete(user.userId);
+                                                        }}
+                                                    >
+                                                        Удалить
+                                                    </button>
                                                 </div>
                                             )}
                                         </div>
@@ -152,7 +195,6 @@ const UsersList = () => {
 
                     </table>
 
-                    {/* Пагинация */}
                     {totalPages > 0 && (
                         <div className="pagination-container">
                             <div className="page-info">Страница {currentPage}</div>
@@ -168,9 +210,9 @@ const UsersList = () => {
                                         const rect = e.currentTarget.getBoundingClientRect();
                                         const clickX = e.clientX - rect.left;
                                         if (clickX < 43 && currentPage > 1) {
-                                            setCurrentPage((prev) => prev - 1); // Назад
+                                            setCurrentPage((prev) => prev - 1);
                                         } else if (clickX >= 43 && currentPage < totalPages) {
-                                            setCurrentPage((prev) => prev + 1); // Вперёд
+                                            setCurrentPage((prev) => prev + 1);
                                         }
                                     }}
                                     style={{cursor: "pointer"}}

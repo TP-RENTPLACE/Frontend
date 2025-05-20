@@ -106,6 +106,11 @@ export default function EmailAuth() {
     try {
       const response = await authService.requestCode(email);
 
+      if (response.userStatus === "STATUS_BLOCKED") {
+        toast.error("Ваш аккаунт заблокирован.");
+        return;
+      }
+
       if (response.authType !== "AUTH_LOGIN") {
         toast.error("У вас нет доступа к админ-панели. Указанная почта не зарегистрирована.");
         return;
