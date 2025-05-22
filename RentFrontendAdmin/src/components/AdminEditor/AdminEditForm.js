@@ -258,7 +258,7 @@ const AdminEditForm = ({onCancel}) => {
                     {/*  <div></div>*/}
                     {/*</div>*/}
 
-                    <div className="button-group">
+                    <div className="footer-buttonss">
                         <button type="button" className="cancel-button" onClick={onCancel}>
                             Отмена
                         </button>

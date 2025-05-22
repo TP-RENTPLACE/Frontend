@@ -190,14 +190,7 @@
 
 
 /* Кнопки */
-.add-user-form .footer-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 7%;
-  
-  border-top: 1px solid #ffffff;
-}
+
 
 .input-with-icon {
   position: relative;
