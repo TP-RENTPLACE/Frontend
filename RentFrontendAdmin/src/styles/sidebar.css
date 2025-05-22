@@ -98,10 +98,15 @@ nav {
   text-align: right;
   font-variant-numeric: lining-nums tabular-nums;
 
-  /* H2 */
+ 
   font-family: Montserrat;
   font-size: 26px;
   font-style: normal;
   font-weight: 900;
   line-height: 30px; /* 115.385% */ 
   }
+
+
+.menu-item.logout {
+  color: red;
+}

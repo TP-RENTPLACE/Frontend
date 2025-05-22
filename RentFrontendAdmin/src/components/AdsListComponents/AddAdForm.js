@@ -134,7 +134,7 @@ const AddAdForm = ({onCancel}) => {
         mutationFn: (formDataToSend) => PropertyService.create(formDataToSend),
         onSuccess: () => {
             toast.success("Объявление успешно создано!");
-            queryClient.invalidateQueries({ queryKey: ['properties'] });
+            queryClient.invalidateQueries({ queryKey: ['properties', 'moderation'] });
             navigate("/ads", { replace: true });
         },
         onError: (err) => {
