@@ -98,7 +98,7 @@ const AdDetails = () => {
                         </Link>
                     </div>
                     <div className="thumbnail-container">
-                        {editingProperty.imagesDTOs?.slice(1).map((img, index) => (
+                        {editingProperty.imagesDTOs?.slice(1,5).map((img, index) => (
                             <img
                                 key={index}
                                 src={img.url}
