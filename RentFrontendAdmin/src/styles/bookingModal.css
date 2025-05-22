@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   position: relative;
   padding-bottom: 100px; /* для видимости кнопок */
-    
+  overflow: hidden;
 }
 
 .modal-container h2 {
@@ -159,12 +159,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-buttonss {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 16px 24px;
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 20px;
-  margin-top: 20rem;
-  flex-wrap: wrap;
+
+  z-index: 10;
 }
 
 .rent-buttons {

@@ -299,7 +299,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
           <div className="fields-row"></div>
           <div className="fields-row"></div>
 
-          <div className="footer-buttons">
+          <div className="footer-buttonss">
             <button
                 type="button"
                 className="cancel-button"

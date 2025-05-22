@@ -253,21 +253,14 @@
 
 
 
-.admin-edit-form.footer-buttons {
+.admin-edit-form.footer-buttonss {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 20%;
+  margin-top: 100%;
   border-top: 1px solid #ffffff;
 }
 
-.admin-edit-form.button-group {
-  display: flex;
-  flex-wrap: nowrap; /* никогда не переносить */
-  justify-content: flex-end;
-  gap: 10px;
-  flex-shrink: 1;
-}
 .admin-edit-form .photo-label {
   margin-bottom: 8px;
   text-align: center;

@@ -6,14 +6,7 @@ import defaultImg from "../../assets/default-avatar.jpg";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {toast} from "react-toastify";
 import PropertyService from "../../api/propertyService";
-import { ReactComponent as LoacationIcon } from '../../assets/Location.svg';
-import { ReactComponent as AirConditionerIcon } from "../../assets//AirConditioner.svg";
-import { ReactComponent as FridgeIcon } from "../../assets//Fridge.svg";
-import { ReactComponent as MicrowaveIcon } from "../../assets//Microwave.svg";
-import { ReactComponent as WashingMachineIcon } from "../../assets//WashingMachine.svg";
-import { ReactComponent as TVIcon } from "../../assets//TV.svg";
-import { ReactComponent as WifiIcon } from "../../assets//WiFi.svg";
-
+import {ReactComponent as LoacationIcon} from "../../assets/Location.svg";
 const AdDetails = () => {
     const navigate = useNavigate();
     const [expanded, setExpanded] = useState(false);
@@ -86,10 +79,7 @@ const AdDetails = () => {
         {label: "гости", value: editingProperty.maxGuests},
         {label: "кровати", value: editingProperty.sleepingPlaces},
         {label: "ванные", value: editingProperty.bathrooms},
-    ];
-   
-
-    return (
+    ];return (
         <div>
             <Header/>
             <div className="ad-details-container">
@@ -155,22 +145,18 @@ const AdDetails = () => {
 
                 <h6 className="section-title">Основные удобства</h6>
                 <ul className="amenities">
-                {editingProperty.facilitiesDTOs?.map((facility, index) => (
-                    <li key={index} className="amenity-item">
-                    <img src={facility.imageDTO.url} alt={index}></img>
-                    <span>{facility.name}</span>
-                    </li>
-                ))}
+                    {editingProperty.facilitiesDTOs?.map((facility, index) => (
+                        <li key={index} className="amenity-item">
+                            {facility.name}
+                        </li>
+                    ))}
                 </ul>
 
-
-                <h6 className="section-title">Расположение</h6>
-                    <div className="location">
+               <h6 className="section-title">Расположение</h6>
+                <div className="location">
                     <LoacationIcon className="location-icon" />
                     <span>{editingProperty.address}</span>
                     </div>
-
-
                 <h6 className="section-title">Хозяин</h6>
                 <div className="host-wrapper">
                     <div className="host-info">
@@ -186,7 +172,7 @@ const AdDetails = () => {
                             <p className="host-email">{editingProperty.ownerDTO?.email}</p>
                         </div>
                     </div>
-                    <p className="host-member">
+                    <p className="description">
                         Участник rentplace с 2025 года
                     </p>
                 </div>
