@@ -47,9 +47,9 @@ jobs:
             host: ${{ secrets.SSH_HOST }}
             username: ${{ secrets.SSH_USERNAME }}
             key: ${{ secrets.SSH_PRIVATE_KEY }}
-            source: 'repo/RentFrontendAdmin/*'
+            source: 'repo/RentFrontendAdmin/build'
             target: 'react-admin'
-            strip_components: 3
+            strip_components: 2
       - name: Restart Docker containers
         uses: appleboy/ssh-action@v0.1.3
         with:
