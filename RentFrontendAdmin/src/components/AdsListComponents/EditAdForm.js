@@ -558,7 +558,7 @@ const EditAdForm = ({ editingAd, onCancel }) => {
 
           <div className="fields-container">
             <div className="fields-row">
-              <div className="field description-field">
+              <div className="description-field">
                   <label className="column-name">Описание</label>
                   <textarea
                       className="custom-textarea"

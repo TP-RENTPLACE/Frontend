@@ -226,7 +226,7 @@ textarea {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 23%;
+  max-width: 548px; /* как у блока аренды */
   gap: 20px;
 }
 
@@ -291,9 +291,11 @@ textarea {
 
 /* Контейнер для изображений */
 .image-preview-container {
-  display: flex;
+ display: flex;
+  flex-wrap: wrap; /* разрешает перенос на новую строку */
   gap: 10px;
   align-items: center;
+  max-width: 100%; /* гарантирует, что изображения не выйдут за пределы контейнера */
 }
 
 /* Обертка для каждого изображения */

@@ -516,8 +516,8 @@ const AddAdForm = ({onCancel}) => {
 
                 <div className="fields-container">
                     <div className="fields-row">
-                        <div className="field description-field">
-                            <label className="ccolumn-name">
+                        <div className="description-field">
+                            <label className="сcolumn-name">
                                 Описание ({formData.description.length}/{VALIDATION_RULES.DESCRIPTION_MAX_LENGTH})
                             </label>
                             <textarea
