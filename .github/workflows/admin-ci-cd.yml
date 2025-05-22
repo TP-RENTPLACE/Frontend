@@ -48,5 +48,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd Deploy
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
