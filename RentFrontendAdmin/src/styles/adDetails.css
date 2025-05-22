@@ -129,6 +129,8 @@ h1 {
   font-size: 16px;
   font-weight: 500;
   color: #555;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Основные удобства */
@@ -651,7 +653,10 @@ h6 {
 
 
 .location-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
  
 }
+
+
