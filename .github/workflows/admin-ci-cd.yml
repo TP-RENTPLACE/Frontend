@@ -31,15 +31,25 @@ jobs:
         run: |
           export DISABLE_ESLINT_PLUGIN=true
           npm run build
-      - name: Deploy to server
+      - name: Delete old build
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+            cd react-admin
+            rm -rf build
+
+      - name: Deploy new build
         uses: appleboy/scp-action@v0.1.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: 'repo/RentFrontendAdmin/build/*'
-          target: 'react-admin/build'
-          strip_components: 4
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            source: 'repo/RentFrontendAdmin/*'
+            target: 'react-admin'
+            strip_components: 3
       - name: Restart Docker containers
         uses: appleboy/ssh-action@v0.1.3
         with:
