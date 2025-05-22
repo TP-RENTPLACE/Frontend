@@ -24,7 +24,7 @@ const ProtectedRoute = ({children}) => {
     const location = useLocation();
     const accessToken = localStorage.getItem('accessToken');
 
-    if (!accessToken || accessToken === "null") {
+    if (!accessToken || accessToken === "null" || accessToken === "undefined" || accessToken === "" || accessToken === "0") {
         return <Navigate to="/email" state={{from: location}} replace />;
     }
 
@@ -35,11 +35,17 @@ const PublicOnlyRoute = ({children}) => {
     const location = useLocation();
     const accessToken = localStorage.getItem('accessToken');
 
-    if (accessToken) {
+    if (accessToken && accessToken !== "null" && accessToken !== "undefined" && accessToken !== "" && accessToken !== "0") {
         return <Navigate to="/ads" state={{from: location}} replace/>;
     }
 
     return children;
+};
+
+const InitialRedirect = () => {
+    const accessToken = localStorage.getItem('accessToken');
+    const isValidToken = accessToken && accessToken !== "null" && accessToken !== "undefined" && accessToken !== "" && accessToken !== "0";
+    return <Navigate to={isValidToken ? "/ads" : "/email"} replace />;
 };
 
 function App() {
@@ -62,7 +68,7 @@ function App() {
                         <Sidebar/>
                         <div className="content">
                             <Routes>
-                                <Route path="/" element={<Navigate to="/email" replace/>}/>
+                                <Route path="/" element={InitialRedirect}/>
                                 <Route path="/email" element={<PublicOnlyRoute><EmailAuth/></PublicOnlyRoute>}/>
                                 <Route path="/admin"
                                        element={<ProtectedRoute><Navigate to="/ads" replace/></ProtectedRoute>}/>
@@ -89,7 +95,6 @@ function App() {
                                 <Route path="/bookings/edit/:id"
                                        element={<ProtectedRoute><EditBookingModalRoute/> </ProtectedRoute>}/>
 
-                                
                                 <Route path="/gallery/:id" element={<GalleryView/>}/>
 
                             </Routes>

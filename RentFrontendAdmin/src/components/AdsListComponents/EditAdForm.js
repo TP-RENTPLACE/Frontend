@@ -258,7 +258,7 @@ const EditAdForm = ({ editingAd, onCancel }) => {
     mutationFn: ({ propertyId, formData }) => PropertyService.update(propertyId, formData),
     onSuccess: async () => {
       toast.success("Объявление успешно обновлено");
-      await queryClient.invalidateQueries({ queryKey: ['properties'] });
+      await queryClient.invalidateQueries({ queryKey: ['properties', 'moderation'] });
       navigate("/ads", { replace: true });
     },
     onError: (err) => {
@@ -271,7 +271,7 @@ const EditAdForm = ({ editingAd, onCancel }) => {
     mutationFn: (propertyId) => PropertyService.delete(propertyId),
     onSuccess: async () => {
       toast.success("Объявление удалено");
-      await queryClient.invalidateQueries({ queryKey: ['properties'] });
+      await queryClient.invalidateQueries({ queryKey: ['properties', 'moderation'] });
       navigate("/ads", { replace: true });
     },
     onError: (err) => {
