@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Raleway:wght@400;500;600&display=swap');
 
-/* Общий стиль для всей страницы */
+
 
 .auth-container {
 
@@ -16,26 +16,26 @@
     color: var(--Main-Color-Dark, #151515);
     font-variant-numeric: lining-nums proportional-nums;
 
-    padding-top: 60px; /* Добавим отступ сверху для логотипа */
+    padding-top: 60px; 
 
     font-family: Raleway;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 18px; /* 128.571% */
+    line-height: 18px; 
 }
 
-/* Логотип */
+
 .auth-logo {
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 200px; /* Поднял выше */
+  margin-bottom: 200px; 
 }
 
-/* Подзаголовок */
 
 
-/* Карточка формы */
+
+
 .auth-box {
   width: 100%;
   max-width: 400px;
@@ -48,26 +48,26 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px; /* Добавил промежутки между элементами */
+  gap: 30px; 
   margin: auto 0;
 }
 
-/* Заголовок формы */
+
 .auth-title {
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 12px; /* Уменьшен отступ */
+  margin-bottom: 12px; 
   color: #000;
   color: var(--Main-Color-Dark, #151515);
   text-align: center;
   font-variant-numeric: lining-nums tabular-nums;
 
-  /* H2 Medium */
+ 
   font-family: Montserrat;
   font-size: 26px;
   font-style: normal;
   font-weight: 500;
-  line-height: 30px; /* 115.385% */
+  line-height: 30px;
 }
 
 .auth-description {
@@ -78,7 +78,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 }
 
 
@@ -101,12 +101,12 @@
 
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Medium */
+ 
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
 
 }
 
@@ -157,13 +157,13 @@
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Web/Code numbers */
+ 
   font-family: Raleway;
   font-size: 36px;
   font-style: normal;
   text-align: center;
   font-weight: 400;
-  line-height: 40px; /* 111.111% */
+  line-height: 40px;
 
 }
 
@@ -173,7 +173,7 @@
 
 .auth-logo-container {
   display: flex;
-  align-items: baseline; /* важно: выравнивает текст и иконку по текстовой базе */
+  align-items: baseline;
   gap: 4px;
   margin-bottom: 1rem;
 }
@@ -181,7 +181,7 @@
 .auth-logo {
   width: 50px;
   height: 40px;
-  transform: translateY(6px); /* поднимаем логотип до уровня текста */
+  transform: translateY(6px);
 }
 
 .auth-logo-text {
@@ -220,7 +220,7 @@
 .auth-logo-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center; /* выравнивание по центру */
+  align-items: center;
   margin-bottom: -162px;
 }
 
@@ -233,7 +233,7 @@
 .auth-logo {
   width: 50px;
   height: 40px;
-  transform: translateY(6px); /* подгонка иконки */
+  transform: translateY(6px);
 }
 
 .auth-logo-text {
@@ -252,15 +252,15 @@
 
   text-align: center;
     color: var(--Main-Color-Dark, #151515);
-  text-align: right;
+  text-align: center;
   font-variant-numeric: lining-nums tabular-nums;
   transform: translateY(-180px);
-  /* H2 Medium */
+ 
   font-family: Montserrat;
   font-size: 25px;
   font-style: normal;
   font-weight: 500;
-  line-height: 30px; /* 115.385% */
+  line-height: 30px; 
   justify-content: center;
 }
 
@@ -280,12 +280,12 @@
   font-variant-numeric: lining-nums proportional-nums;
   border-color:var(--Main-Color-Blue, #007AFF);
 
-  /* Rentplace Mobile/Big Bold */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 
 }
 
@@ -298,7 +298,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 
 }
 .auth-button-success{
@@ -316,12 +316,12 @@
   font-variant-numeric: lining-nums proportional-nums;
   border-color:var(--Main-Color-Blue, #007AFF);
 
-  /* Rentplace Mobile/Big Bold */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 }
 .auth-button-primary{
   display: flex;
@@ -338,12 +338,12 @@
   font-variant-numeric: lining-nums proportional-nums;
   border-color:var(--Main-Color-Blue, #007AFF);
 
-  /* Rentplace Mobile/Big Bold */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 }
 .auth-button-secondary{
   display: flex;
@@ -376,7 +376,7 @@
 
 .auth-input {
   width: 100%;
-  padding-right: 45px; /* отступ для иконки справа */
+  padding-right: 45px;
 }
 
 .auth-input-svg-icon {
@@ -386,5 +386,5 @@
   transform: translateY(-50%);
   width: 20px;
   height: 20px;
-  pointer-events: none; /* чтобы не мешать вводу */
+  pointer-events: none;
 }

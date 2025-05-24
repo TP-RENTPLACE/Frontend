@@ -13,12 +13,12 @@
   font-variant-numeric: lining-nums proportional-nums;
 
   
-  /* Rentplace Mobile/Medium */
+  
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px; 
 }
 
 .ads-list-header {
@@ -36,7 +36,7 @@ h1 {
   font-size: 26px;
   font-style: normal;
   font-weight: 700;
-  line-height: 30px; /* 115.385% */
+  line-height: 30px; 
 }
 
 .add-ad-button {
@@ -98,7 +98,7 @@ h1 {
   padding: 10px;
 }
 
-/* Задаём ширины для столбцов через nth-child */
+
 .ads-table thead tr,
 .ads-table tbody tr {
   display: flex;
@@ -106,37 +106,37 @@ h1 {
 
 .ads-table thead tr th:nth-child(1),
 .ads-table tbody tr td:nth-child(1) {
-  width: 10%; /* Фото */
+  width: 10%; 
 }
 
 .ads-table thead tr th:nth-child(2),
 .ads-table tbody tr td:nth-child(2) {
-  width: 18%; /* Название */
+  width: 18%; 
 }
 
 .ads-table thead tr th:nth-child(3),
 .ads-table tbody tr td:nth-child(3) {
-  width: 12%; /* Категория */
+  width: 12%; 
 }
 
 .ads-table thead tr th:nth-child(4),
 .ads-table tbody tr td:nth-child(4) {
-  width: 10%; /* Цена */
+  width: 10%;
 }
 
 .ads-table thead tr th:nth-child(5),
 .ads-table tbody tr td:nth-child(5) {
-  width: 25%; /* Адрес — шире */
+  width: 25%; 
 }
 
 .ads-table thead tr th:nth-child(6),
 .ads-table tbody tr td:nth-child(6) {
-  width: 18%; /* Хозяин жилья */
+  width: 18%; 
 }
 
 .ads-table thead tr th:nth-child(7),
 .ads-table tbody tr td:nth-child(7) {
-  width: 7%; /* Действие — узкий */
+  width: 7%; 
 }
 
 .ads-table td,
@@ -192,7 +192,7 @@ h1 {
   background: none;
   cursor: pointer;
 }
-/* Информация о хозяине */
+
 .host-info {
   display: flex;
   align-items: center;
@@ -233,18 +233,18 @@ h1 {
   background-color: #f5f5f5;
 }
 
-/* Адаптивность */
+
 @media (max-width: 1024px) {
   .ads-list {
-    width: calc(100% - 220px); /* Подстраиваем ширину */
-    margin-left: 220px; /* Оставляем сайдбар */
+    width: calc(100% - 220px); 
+    margin-left: 220px; 
   }
 }
 
 @media (max-width: 768px) {
   .ads-list {
     width: 100%;
-    margin-left: 0; /* На маленьких экранах убираем отступ */
+    margin-left: 0; 
   }
 }
 * {
