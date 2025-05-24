@@ -1,16 +1,16 @@
-/* sidebar.css */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
 .sidebar {
-  width: 220px; /* Фиксированная ширина */
-  height: 100vh; /* На всю высоту экрана */
+  width: 220px;
+  height: 100vh;
   font-family: 'Raleway', sans-serif;
   background: white;
   border-right: 1px solid #ddd;
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
-  position: fixed; /* Фиксируем сайдбар слева */
+  position: fixed;
   left: 0;
   top: 0;
   font-family: 'Raleway', sans-serif;
@@ -49,12 +49,12 @@ nav {
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Web/Big */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
   display: flex;
   
 }
@@ -69,7 +69,7 @@ nav {
   border-radius: 20px;
   padding: 10px 15px;
   display: flex;
-  flex-direction: row; /* <-- важное изменение */
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
@@ -103,7 +103,7 @@ nav {
   font-size: 26px;
   font-style: normal;
   font-weight: 900;
-  line-height: 30px; /* 115.385% */ 
+  line-height: 30px; 
   }
 
 

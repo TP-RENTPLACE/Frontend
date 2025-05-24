@@ -6,17 +6,17 @@
   background: #fff;
   border: 1px solid #ccc;
   border-radius: 20px;
-  padding: 3px 10px; /* Уменьшил внутренние отступы */
-  border-bottom: 1px solid #ddd; /* Сделал линию снизу тоньше */
+  padding: 3px 10px;
+  border-bottom: 1px solid #ddd;
   flex: 1;
   max-width: 400px;
   min-width: 200px;
-  height: 40px; /* Явно задал высоту */
-  box-sizing: border-box; /* Добавляет рамку и padding в общие размеры */
+  height: 40px;
+  box-sizing: border-box;
 }
 
 .search-bar .search-icon {
-  font-size: 16px; /* Чуть уменьшил иконку */
+  font-size: 16px;
   color: #888;
   margin-right: 6px;
 }
@@ -25,17 +25,17 @@
   border: none;
   outline: none;
   flex: 1;
-  font-size: 14px; /* Сделал текст в поиске чуть меньше */
-  padding: 4px 0; /* Уменьшил отступы */
-  height: 100%; /* Задаем высоту, чтобы она соответствовала высоте родителя */
-  box-sizing: border-box; /* Также учитывает рамки и padding */
+  font-size: 14px;
+  padding: 4px 0;
+  height: 100%;
+  box-sizing: border-box;
   color: var(--Main-Color-Dark, #151515);
 font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Medium */
+ 
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
 }

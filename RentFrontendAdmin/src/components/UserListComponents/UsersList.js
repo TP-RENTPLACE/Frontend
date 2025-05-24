@@ -201,37 +201,41 @@ const UsersList = () => {
 
                             <div className="pagination-svg-wrapper">
                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="86"
-                                    height="32"
-                                    viewBox="0 0 86 32"
-                                    fill="none"
-                                    onClick={(e) => {
-                                        const rect = e.currentTarget.getBoundingClientRect();
-                                        const clickX = e.clientX - rect.left;
-                                        if (clickX < 43 && currentPage > 1) {
-                                            setCurrentPage((prev) => prev - 1);
-                                        } else if (clickX >= 43 && currentPage < totalPages) {
-                                            setCurrentPage((prev) => prev + 1);
-                                        }
-                                    }}
-                                    style={{cursor: "pointer"}}
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="86"
+                                height="32"
+                                viewBox="0 0 86 32"
+                                fill="none"
+                                onClick={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect();
+                                    const clickX = e.clientX - rect.left;
+                                    if (clickX < 43 && currentPage > 1) {
+                                    setCurrentPage((prev) => prev - 1);
+                                    } else if (clickX >= 43 && currentPage < totalPages) {
+                                    setCurrentPage((prev) => prev + 1);
+                                    }
+                                }}
+                                style={{ cursor: (currentPage > 1 || currentPage < totalPages) ? "pointer" : "default" }}
                                 >
-                                    <rect x="0.3" y="1.3" width="85.4" height="29.4" rx="7.7" fill="white"
-                                          stroke="#C1C1C1" strokeWidth="0.6"/>
-                                    <g opacity="0.6">
-                                        <path
-                                            d="M25.41 20.4064L20.83 16L25.41 11.5936L24 10.24L18 16L24 21.76L25.41 20.4064Z"
-                                            fill="#151515"/>
-                                    </g>
-                                    <g opacity="0.9">
-                                        <path
-                                            d="M61.59 20.4064L66.17 16L61.59 11.5936L63 10.24L69 16L63 21.76L61.59 20.4064Z"
-                                            fill="#151515"/>
-                                    </g>
-                                    <path opacity="0.7" d="M43.5 31V1" stroke="#C1C1C1" strokeWidth="0.4"
-                                          strokeLinecap="square"/>
+                                <rect x="0.3" y="1.3" width="85.4" height="29.4" rx="7.7" fill="white" stroke="#C1C1C1" strokeWidth="0.6" />
+
+                                
+                                <path
+                                    d="M25.41 20.4064L20.83 16L25.41 11.5936L24 10.24L18 16L24 21.76L25.41 20.4064Z"
+                                    fill={currentPage > 1 ? "#151515" : "#C1C1C1"}
+                                    opacity={currentPage > 1 ? "1" : "0.3"}
+                                />
+
+                                
+                                <path
+                                    d="M61.59 20.4064L66.17 16L61.59 11.5936L63 10.24L69 16L63 21.76L61.59 20.4064Z"
+                                    fill={currentPage < totalPages ? "#151515" : "#C1C1C1"}
+                                    opacity={currentPage < totalPages ? "1" : "0.3"}
+                                />
+
+                                <path opacity="0.7" d="M43.5 31V1" stroke="#C1C1C1" strokeWidth="0.4" strokeLinecap="square" />
                                 </svg>
+
                             </div>
                         </div>
                     )}

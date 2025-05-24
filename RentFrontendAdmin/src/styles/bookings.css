@@ -13,12 +13,12 @@
   font-variant-numeric: lining-nums proportional-nums;
 
   
-  /* Rentplace Mobile/Medium */
+  
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px; 
 
 }
 
@@ -145,7 +145,7 @@ h2 {
   color: #666;
 }
 
-/* Адаптивность */
+
 @media (max-width: 1024px) {
   .bookings-container {
     width: calc(100% - 220px);
@@ -171,20 +171,20 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: left; /* Текст может оставаться по левому краю */
+  text-align: left; 
 }
 
 .bookings-table td > * {
-  text-align: left; /* Вложенные элементы тоже по левому */
+  text-align: left; 
 }
 .column-name{
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Big Bold */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px; 
 }

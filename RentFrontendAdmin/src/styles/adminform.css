@@ -5,7 +5,7 @@
   width: calc(100% - 240px);
   max-width: 100%;
   margin-left: 240px;
-  padding: 0 37px; /* добавляем отступы 37px */
+  padding: 0 37px; 
   font-family: Raleway, sans-serif;
   box-sizing: border-box;
   display: flex;
@@ -15,17 +15,17 @@
   font-variant-numeric: lining-nums proportional-nums;
 
   
-  /* Rentplace Mobile/Medium */
+ 
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px; 
   
 
 }
 
-/* Фото профиля */
+
 .admin-edit-form .profile-photo {
   display: flex;
   justify-content: center;
@@ -77,7 +77,7 @@
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-    border: 1px solid #007AFF; /* добавлена обводка */
+    border: 1px solid #007AFF; 
   padding: 4px;
 }
 
@@ -90,7 +90,7 @@
   height: 20px;
 }
 
-/* Поля ввода */
+
 .admin-edit-form .fields-row {
   display: flex;
   gap: 20px;
@@ -99,7 +99,7 @@
 }
 
 .admin-edit-form .fields-row div {
-  flex: 1 1 calc(33.333% - 20px); /* три поля в строке */
+  flex: 1 1 calc(33.333% - 20px); 
   min-width: 200px;
   display: flex;
   flex-direction: column;
@@ -120,12 +120,12 @@
   box-sizing: border-box;
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Medium */
+
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px; 
 }
 
 .admin-edit-form input:focus,
@@ -135,21 +135,21 @@
 
 
 
-/* Кнопки */
+
 
 
 .admin-edit-form .add-btn,
 .admin-edit-form .cancel-btn {
   display: flex;
-  min-width: 150px; /* минимальная ширина кнопки */
+  min-width: 150px; 
   height: 54px;
-  padding: 0 30px; /* внутренние отступы по горизонтали */
+  padding: 0 30px; 
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   font-weight: 600;
   font-size: 16px;
-  white-space: nowrap; /* текст кнопок не переносится */
+  white-space: nowrap; 
 }
 
 .admin-edit-form .cancel-btn {
@@ -212,18 +212,18 @@
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Big Bold */
+  
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
   margin-top: 30px;
 }
 .admin-form-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* растянуть обертку на весь экран */
+  min-height: 100vh;
 }
 
 .admin-edit-form {
@@ -233,7 +233,7 @@
 }
 
 .button-group {
-  margin-top: auto; /* кнопки уходят в самый низ формы */
+  margin-top: auto; 
   display: flex;
   justify-content: flex-end;
   gap: 10px;
@@ -242,7 +242,7 @@
 .admin-form-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* растянуть обертку на весь экран */
+  min-height: 100vh;
 }
 
 .admin-edit-form {
@@ -280,20 +280,20 @@
   align-items: center;
 }
 .admin-edit-form .photo-label {
-  margin-bottom: 20px; /* расстояние 20px до аватарки */
+  margin-bottom: 20px; 
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
   
-  /* Rentplace Mobile/Big Bold */
+  
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px; 
 }
 
 .admin-edit-form select {
-  appearance: none; /* убрать нативную стрелку */
+  appearance: none; 
   -webkit-appearance: none;
   -moz-appearance: none;
 

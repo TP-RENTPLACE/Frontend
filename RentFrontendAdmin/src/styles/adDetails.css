@@ -13,17 +13,17 @@
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Medium */
+  
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px; 
   gap: 30px;
   
 }
 
-/* Заголовки */
+
 h2 {
   font-size: 20px;
   font-weight: 500;
@@ -34,10 +34,10 @@ h2 {
   display: flex;
   gap: 20px;
   align-items: flex-start;
-  justify-content: center; /* <--- добавляем */
-  width: 100%; /* <--- меняем 1100px на 100% */
-  max-width: 1100px; /* <--- ограничиваем максимальную ширину */
-  margin: 20px auto 0 auto; /* <--- выравнивание по центру */
+  justify-content: center; 
+  width: 100%; 
+  max-width: 1100px; 
+  margin: 20px auto 0 auto; 
 }
 
 .main-image {
@@ -64,7 +64,7 @@ h2 {
   object-fit: cover;
 }
 
-/* Название и цена */
+
 .ad-header {
   display: flex;
   justify-content: space-between;
@@ -84,16 +84,15 @@ h1 {
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums tabular-nums;
 
-  /* H2 Medium */
+ 
   font-family: Montserrat;
   font-size: 26px;
   font-style: normal;
   font-weight: 500;
-  line-height: 30px; /* 115.385% */
+  line-height: 30px; 
 }
 
-/* Описание */
-/* Описание */
+
 .description-container {
   position: relative;
   max-width: 700px;
@@ -104,7 +103,7 @@ h1 {
   line-height: 1.5;
   color: #151515;
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Ограничение в 4 строки */
+  -webkit-line-clamp: 4; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
@@ -124,7 +123,7 @@ h1 {
   display: inline-block;
 }
 
-/* Расположение */
+
 .location {
   font-size: 16px;
   font-weight: 500;
@@ -133,7 +132,7 @@ h1 {
   align-items: center;
 }
 
-/* Основные удобства */
+
 .amenities {
   list-style: none;
   padding: 0;
@@ -146,7 +145,7 @@ h1 {
   margin-bottom: 5px;
 }
 
-/* Информация о хозяине */
+
 .host-info {
   display: flex;
   align-items: center;
@@ -161,7 +160,7 @@ h1 {
   object-fit: cover;
 }
 
-/* КНОПКИ */
+
 .moderation-buttons {
   display: flex;
   gap: 10px;
@@ -177,14 +176,13 @@ h1 {
 }
 
 
-/* Заголовки */
 h2 {
   font-size: 20px;
   font-weight: 500;
   margin-top: 20px;
-  text-align: left; /* Выровнены слева */
+  text-align: left; 
 }
-/* Теги с характеристиками */
+
 .ad-details-tags {
   display: flex;
   gap: 10px;
@@ -235,7 +233,7 @@ h2 {
   font-size: 16px;
   margin-bottom: 8px;
 }
-/* Информация о хозяине */
+
 .host-info {
   display: flex;
   align-items: center;
@@ -273,7 +271,7 @@ h2 {
   color: #555;
   margin-top: -20px;
 }
-/* КНОПКИ */
+
 .moderation-buttons {
   display: flex;
   gap: 10px;
@@ -293,46 +291,39 @@ h2 {
   background: var(--White, #FFF);
   }
 
-/* Кнопка "Принять" (синяя) */
+
 .approve-buttonn {
   background-color: #1E88E5;
   color: white;
 }
 
-/* Кнопка "Отклонить" (белая) */
+
 .reject-buttonn {
   background-color: white;
   color: #1E88E5;
 }
 
 p {
-  margin-bottom: 15px; /* Отступы для абзацев */
+  margin-bottom: 15px; 
 }
 
 
-/*.location {*/
-/*  margin-bottom: 20px;*/
-/*  margin-top:-10px; !* Отступ перед информацией о владельце *!*/
-/*}*/
 
 .host-info {
   margin-bottom: 30px;
   margin-top:-10px; /* Увеличенный отступ перед кнопками */
 }
 
-/*.moderation-buttons {*/
-/*  */
-/*  margin-top:-10px; !* Дополнительный отступ перед кнопками *!*/
-/*}*/
+
 .moderation-buttons {
   display: flex;
-  justify-content: space-between; /* Распределение кнопок по краям */
-  gap: 40px; /* Увеличенный отступ между кнопками */
+  justify-content: space-between; 
+  gap: 40px; 
   width: 100%;
 }
 
 .approve-buttonn, .reject-buttonn {
-  flex: 1; /* Равномерное распределение по ширине */
+  flex: 1; 
   display: flex;
   width: 540px;
   height: 54px;
@@ -347,15 +338,15 @@ p {
   color: var(--White, #FFF);
   font-variant-numeric: lining-nums proportional-nums;
 
-    /* Rentplace Mobile/Big Bold */
+   
     font-family: Raleway;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: 20px; /* 125% */
+    line-height: 20px; 
   }
 
-/* Убираем отступ внутри кнопок */
+
 .approve-buttonn {
   background-color: #1E88E5;
   color: white;
@@ -420,11 +411,11 @@ p {
   font-size: 16px;
   font-weight: 600;
   color: #151515;
-  margin: 0; /* убираем лишние отступы */
+  margin: 0; 
 }
 
 
-/* Стили для "Участник rentplace с марта 2025 года" */
+
 .host-member {
   margin-top: -25px;
   color: var(--Main-Color-Dark, #151515);
@@ -433,7 +424,7 @@ p {
   font-size: 16px;
   font-style: normal;
   font-weight: 400px;
-  line-height: 20px; /* 125% */
+  line-height: 20px; 
 }
 h1 {
   color: var(--Main-Color-Dark, #151515);
@@ -441,8 +432,8 @@ h1 {
   font-family: Montserrat;
   font-size: 26px;
   font-style: normal;
-  font-weight: 500; /* стало 400 вместо 500 */
-  line-height: 30px; /* 115.385% */
+  font-weight: 500; 
+  line-height: 30px; 
   margin-bottom: 20px;
   text-align: left;
 }
@@ -450,12 +441,12 @@ h6 {
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums tabular-nums;
 
-  /* H2 Medium */
+ 
   font-family: Montserrat;
   font-size: 26px;
   font-style: normal;
   font-weight: 500;
-  line-height: 30px; /* 115.385% */
+  line-height: 30px; 
   align-self: stretch;
 }
 
@@ -510,9 +501,9 @@ h6 {
 .next-button {
   right: 20px;
 }
-/* Предотвращаем выделение на Header, когда модальное окно открыто */
+
 .modal-overlayy {
-  pointer-events: auto; /* Блокируем действия на странице */
+  pointer-events: auto; 
 }
 
 .modal-overlayy {
@@ -521,8 +512,8 @@ h6 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
-  z-index: 9999; /* Обеспечит перекрытие всего, включая Header */
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 9999; 
 }
 
 .modal-gallery-slider {
@@ -534,7 +525,7 @@ h6 {
   padding: 20px;
   border-radius: 10px;
   overflow: hidden;
-  z-index: 10000; /* Для того, чтобы сам модальный контент был выше */
+  z-index: 10000; 
 }
 
 .close-button {
@@ -569,18 +560,13 @@ h6 {
   gap: 20px;
   align-items: flex-start;
   justify-content: center;
-  max-width: calc(100vw - 240px - 40px); /* окно - сайдбар - 40px отступ */
+  max-width: calc(100vw - 240px - 40px); 
   width: 100%;
   margin: 20px auto 0 auto;
   box-sizing: border-box;
 }
 
-/*.main-image {*/
-/*  max-width: 100%;*/
-/*  height: auto;*/
-/*  border-radius: 10px;*/
-/*  object-fit: cover;*/
-/*}*/
+
 
 .thumbnail-container {
   display: grid;
@@ -602,7 +588,7 @@ h6 {
 .show-all-button {
   position: absolute;
   left: 20px;
-  bottom: 20px; /* привязываем кнопку к низу картинки */
+  bottom: 20px; 
   display: flex;
   width: 194px;
   height: 54px;
@@ -620,17 +606,12 @@ h6 {
 .image-wrapper {
   position: relative;
   width: 500px;
-  height: 480px; /* Зафиксированная высота как у .main-image */
+  height: 480px; 
   overflow: hidden;
   border-radius: 10px;
 }
 
-/*.main-image {*/
-/*  width: 100%;*/
-/*  height: 100%;*/
-/*  object-fit: cover;*/
-/*  border-radius: 10px;*/
-/*}*/
+
 
 .show-all-button {
   position: absolute;
