@@ -107,7 +107,7 @@ h1 {
 }
 
 
-/* Адаптивность */
+
 @media (max-width: 1024px) {
     .ads-list {
         width: calc(100% - 220px);
