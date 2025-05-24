@@ -9,7 +9,7 @@
   
 }
 
-/* Фото профиля */
+
 .add-user-form .profile-photo {
   display: flex;
   justify-content: center;
@@ -43,7 +43,7 @@
   border-radius: 50%;
 }
 
-/* Поля ввода */
+
 .add-user-form .fields-row {
   display: flex;
   gap:px;
@@ -80,12 +80,12 @@
 
   font-variant-numeric: lining-nums proportional-nums;
   
-  /* Rentplace Mobile/Medium */
+ 
   font-family: Raleway;
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 18px; /* 128.571% */
+  line-height: 18px;
 }
 
 
@@ -94,7 +94,7 @@
   border-color: #007AFF;
 }
 
-/* Исправление для поля даты регистрации */
+
 .add-user-form .fields-row:last-of-type {
   justify-content: flex-start;
 }
@@ -105,7 +105,7 @@
 }
 
 
-/* Адаптация для узких экранов */
+
 @media (max-width: 992px) {
   .add-user-form .fields-row {
     flex-wrap: wrap;
@@ -122,12 +122,12 @@
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
 
-  /* Rentplace Mobile/Big Bold */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 }
 .add-user-form .photo-edit-button {
   position: absolute;
@@ -142,7 +142,7 @@
   align-items: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-    border: 1px solid #007AFF; /* добавлена обводка */
+    border: 1px solid #007AFF;
   padding: 4px;
 }
 
@@ -189,7 +189,7 @@
 }
 
 
-/* Кнопки */
+
 
 
 .input-with-icon {
@@ -202,7 +202,7 @@
 
 .input-icon-wrapper input {
   width: 100%;
-  padding-right: 30px; /* чтобы текст не перекрывался иконкой */
+  padding-right: 30px;
 }
 
 .calendar-icon {
@@ -213,7 +213,7 @@
   pointer-events: none;
   width: 20px;
   height: 20px;
-  fill: #aaa; /* если нужно задать цвет */
+  fill: #aaa;
 }
 .form-row label {
   flex: 1 1 calc(33.333% - 12px);
@@ -243,26 +243,26 @@
 }
 
 .add-user-form .photo-label {
-  margin-bottom: 20px; /* расстояние 20px до аватарки */
+  margin-bottom: 20px;
   color: var(--Main-Color-Dark, #151515);
   font-variant-numeric: lining-nums proportional-nums;
   
-  /* Rentplace Mobile/Big Bold */
+ 
   font-family: Raleway;
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
 }
 
 .add-user-form select {
-  padding-right: 40px; /* Делаем побольше отступ справа */
-  background-position: right 16px center; /* Сдвигаем стандартную стрелочку левее */
+  padding-right: 40px;
+  background-position: right 16px center;
   background-repeat: no-repeat;
   background-size: 16px 16px;
 }
 .add-user-form select {
-  appearance: none; /* убрать нативную стрелку */
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 
