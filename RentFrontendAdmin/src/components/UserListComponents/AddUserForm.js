@@ -112,9 +112,12 @@ const AddUserForm = ({ onCancel }) => {
 
   const createUserMutation = useMutation({
     mutationFn: (formDataToSend) => userService.create(formDataToSend),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Пользователь успешно создан!");
-      queryClient.invalidateQueries({ queryKey: ['users'] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['users'] }),
+        queryClient.invalidateQueries({ queryKey: ['reservations'] })
+      ]);
       navigate("/users", { replace: true });
     },
     onError: (err) => {
@@ -257,16 +260,7 @@ const AddUserForm = ({ onCancel }) => {
             </div>
           </div>
 
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-
+          
           <div className="footer-buttonss">
             <button
                 type="button"

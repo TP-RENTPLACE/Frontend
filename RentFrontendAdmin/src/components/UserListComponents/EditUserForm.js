@@ -127,9 +127,12 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
   const updateMutation = useMutation({
     mutationFn: ({ userId, formData }) => userService.update(userId, formData),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Пользователь обновлён");
-      queryClient.invalidateQueries({ queryKey: ['users'] });
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['users'] }),
+        queryClient.invalidateQueries({ queryKey: ['reservations'] })
+      ]);
       navigate("/users", { replace: true });
     },
     onError: (err) => {
@@ -140,9 +143,12 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
 
   const deleteMutation = useMutation({
     mutationFn: (userId) => userService.delete(userId),
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Пользователь удалён");
-      queryClient.invalidateQueries({ queryKey: ['users'] });
+        await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['users'] }),
+        queryClient.invalidateQueries({ queryKey: ['reservations'] })
+      ]);
       navigate("/users", { replace: true });
     },
     onError: (err) => {
@@ -287,17 +293,7 @@ const EditUserForm = ({ editingUser, onUpdate, onCancel, onDelete }) => {
             </div>
           </div>
 
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
-          <div className="fields-row"></div>
+
 
           <div className="footer-buttonss">
             <button
