@@ -20,6 +20,9 @@ class ApiClient {
 
     initializeInterceptors() {
         this.instance.interceptors.request.use(config => {
+            if (config.params) {
+                config.params = this.filterParams(config.params);
+            }
             if (config.authRequired !== false && this.token) {
                 config.headers.Authorization = `Bearer ${this.token}`;
             }
@@ -51,6 +54,14 @@ class ApiClient {
         );
     }
 
+    filterParams(params) {
+    return Object.fromEntries(
+        Object.entries(params).filter(([key, value]) =>
+            !['client', 'signal', 'queryKey'].includes(key) &&
+            !(value instanceof Object)
+        )
+    );
+    }
     setAuthTokens(accessToken, refreshToken) {
         this.token = accessToken;
         localStorage.setItem('accessToken', accessToken);
