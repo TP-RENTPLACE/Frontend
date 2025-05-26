@@ -160,9 +160,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-buttonss {
   position: sticky;
-  bottom: 0;
+  bottom: 1%;
   background: white;
-  padding: 16px 24px;
+  padding: 0px 8px;
   display: flex;
   justify-content: center;
   gap: 20px;
