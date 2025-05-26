@@ -147,6 +147,7 @@ const AdDetails = () => {
                 <ul className="amenities">
                     {editingProperty.facilitiesDTOs?.map((facility, index) => (
                         <li key={index} className="amenity-item">
+                            <img src={facility.imageDTO?.url} alt={index}/>
                             {facility.name}
                         </li>
                     ))}
