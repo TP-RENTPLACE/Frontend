@@ -249,16 +249,9 @@ const AdminEditForm = ({onCancel}) => {
                         </div>
                     </div>
 
-                    {/*<div className="fields-row">*/}
-                    {/*  <div>*/}
-                    {/*    <label className="column-name">Дата регистрации</label>*/}
-                    {/*    <input type="date" name="registrationDate" required />*/}
-                    {/*  </div>*/}
-                    {/*  <div></div>*/}
-                    {/*  <div></div>*/}
-                    {/*</div>*/}
 
-                    <div className="footer-buttonss">
+
+                    <div className="footerr-buttonss">
                         <button type="button" className="cancel-button" onClick={onCancel}>
                             Отмена
                         </button>
