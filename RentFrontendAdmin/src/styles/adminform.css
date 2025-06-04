@@ -1,0 +1,322 @@
+
+.admin-edit-form {
+  position: relative;
+  
+  width: calc(100% - 240px);
+  max-width: 100%;
+  margin-left: 240px;
+  padding: 0 37px; 
+  font-family: Raleway, sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  
+ 
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; 
+  
+
+}
+
+
+.admin-edit-form .profile-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-edit-form .photo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.admin-edit-form .photo-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-edit-form .photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.admin-edit-form .empty-photo {
+  width: 100%;
+  height: 100%;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+}
+
+.admin-edit-form .photo-edit-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+    border: 1px solid #007AFF; 
+  padding: 4px;
+}
+
+.admin-edit-form .photo-edit-button input {
+  display: none;
+}
+
+.admin-edit-form .photo-edit-button img {
+  width: 20px;
+  height: 20px;
+}
+
+
+.admin-edit-form .fields-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.admin-edit-form .fields-row div {
+  flex: 1 1 calc(33.333% - 20px); 
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-edit-form input,
+.admin-edit-form select {
+  width: 100%;
+  height: 54px;
+  padding: 0px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+  color: var(--Main-Color-Dark, #151515);
+  font-family: Raleway;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  box-sizing: border-box;
+  font-variant-numeric: lining-nums proportional-nums;
+
+
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; 
+}
+
+.admin-edit-form input:focus,
+.admin-edit-form select:focus {
+  border-color: #007AFF;
+}
+
+
+
+
+
+
+.admin-edit-form .add-btn,
+.admin-edit-form .cancel-btn {
+  display: flex;
+  min-width: 150px; 
+  height: 54px;
+  padding: 0 30px; 
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap; 
+}
+
+.admin-edit-form .cancel-btn {
+  border-radius: 20px;
+  border: 1px solid var(--Main-Color-Red, #FF7878);
+  background: var(--White, #FFF);
+  color: #FF7878;
+}
+
+.admin-edit-form .cancel-btn:hover {
+  background: #ff4d4f;
+  color: white;
+}
+
+.admin-edit-form .add-btn {
+  border-radius: 20px;
+  border: 1px solid var(--Main-Color-Blue, #007AFF);
+  background: var(--Main-Color-Blue, #007AFF);
+  color: white;
+}
+
+.admin-edit-form .add-btn:hover {
+  background: #0056b3;
+}
+
+
+
+
+.admin-edit-form .photo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.admin-edit-form .photo-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-edit-form .photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.admin-edit-form .empty-photo {
+  width: 100%;
+  height: 100%;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+}
+.column-name{
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+  
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  margin-top: 30px;
+}
+.admin-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.button-group {
+  margin-top: auto; 
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+}
+.admin-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+
+.admin-edit-form.ffooter-buttonss {
+
+}
+
+.footerr-buttonss {
+  position: sticky;
+  bottom: 1%;
+  background: white;
+  padding: 0px 8px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18%;
+  
+  border-top: 1px solid #ffffff;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.admin-edit-form .photo-label {
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--Main-Color-Dark, #151515);
+  font-family: "Raleway", sans-serif;
+}
+.admin-edit-form  .photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin-edit-form  .photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.admin-edit-form .photo-label {
+  margin-bottom: 20px; 
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+  
+  
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; 
+}
+
+.admin-edit-form select {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%23000' stroke-width='15' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 12px;
+
+  padding-right: 40px;
+}
+

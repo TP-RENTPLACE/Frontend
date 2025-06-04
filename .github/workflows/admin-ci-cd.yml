@@ -1,0 +1,62 @@
+name: Admin CI/CD
+
+on:
+  push:
+    branches: [development]
+    paths:
+      - 'RentFrontendAdmin/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          path: 'repo'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.15.0'
+          cache: 'npm'
+          cache-dependency-path: 'repo/RentFrontendAdmin/package-lock.json'
+
+      - name: Install dependencies
+        working-directory: repo/RentFrontendAdmin
+        run: npm ci
+
+      - name: Build project
+        working-directory: repo/RentFrontendAdmin
+        run: |
+          export DISABLE_ESLINT_PLUGIN=true
+          npm run build
+      - name: Delete old build
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd react-admin
+            rm -rf build
+
+      - name: Deploy new build
+        uses: appleboy/scp-action@v0.1.3
+        with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            source: 'repo/RentFrontendAdmin/build'
+            target: 'react-admin'
+            strip_components: 2
+      - name: Restart Docker containers
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd Deploy
+            docker compose down
+            docker compose up -d --build

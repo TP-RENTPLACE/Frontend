@@ -1,0 +1,98 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+.gallery-page {
+  padding: 20px;
+  
+    display: flex;
+    flex-direction: column;
+    margin-left: 240px;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: calc(100% - 240px);
+    width: 100%;
+    background: #FFF;
+    padding: 20px;
+    box-sizing: border-box;
+    color: var(--Main-Color-Dark, #151515);
+    font-variant-numeric: lining-nums proportional-nums;
+  
+   
+    font-family: Raleway;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px;
+    gap: 30px;
+    
+  
+}
+
+.back-button {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #eee;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+    font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  gap: 30px;
+}
+
+.image-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+}
+
+.gallery-image {
+  height: 300px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.gallery-page {
+  padding: 20px;
+  margin-left: 250px;
+}
+
+.back-button {
+  display: flex;
+  width: 540px;
+  height: 54px;
+  padding: 14px 100px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 20px;
+background: var(--Main-Color-Blue, #007AFF);
+  margin-top: 20px;
+  color:white;
+  
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  gap: 30px;
+  
+  margin-left: 30%;
+}
+
+.image-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+}
+
+.gallery-image {
+  height: 300px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 10px;
+}

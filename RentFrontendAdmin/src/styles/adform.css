@@ -1,0 +1,471 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+.add-ad-form {
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  height: 1142px;
+  flex-shrink: 0;
+  margin: 0 auto;
+  padding-bottom: 40px; 
+  
+  margin-left: 0; 
+  padding-left: 37px;
+  padding-right: 37px;
+}
+
+
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.preview-image {
+  margin-top: 10px;
+  width: 176px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+.field {
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 548px;
+  margin-top: auto;
+}
+
+
+.field input,
+.field select {
+  width: 100%;
+  height: 50px;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px; 
+}
+
+
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.fields-row {
+  display: flex;
+  gap: 20px;
+  align-items: end;
+}
+
+
+
+textarea {
+  width: 95%;
+  gap: 20px;
+
+
+  resize: vertical;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  height: 360px;
+}
+
+
+.rent-options button.active {
+  background: white;
+  color: #007bff;
+  border: 1px solid #007bff;
+}
+
+
+.button-group {
+  display: flex;
+  gap: 20px;
+}
+
+.submit-button:hover, .cancel-button:hover {
+  opacity: 0.8;
+}
+
+.image-preview-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.image-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.image-upload-button {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 12px;
+  font-size: 36px;
+  color: #888;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.image-upload-button:hover {
+  background: #e0e0e0;
+}
+
+input[type="file"] {
+  display: none;
+}
+.rent-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.rent-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  flex: 1 0 0;
+  align-self: stretch;
+}
+
+.desc-amenities-container {
+  display: flex;
+  gap: 20px;
+}
+
+
+
+textarea {
+  width: 100%;
+  height: 160px;
+  resize: vertical;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  gap: 20px;
+}
+
+
+.rent-options {
+  display: flex;
+  gap: 10px;
+}
+
+.rent-options button {
+  padding: 10px 20px;
+  border: 2px solid #007bff;
+  background: rgb(255, 255, 255);
+  color: #C1C1C1;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+
+}
+
+.desc-amenities-container {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.description-field,
+.amenities-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 548px; 
+  gap: 20px;
+}
+
+.description-field textarea,
+.amenities-field textarea {
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+  resize: none;
+
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+  padding-top: 20px;
+
+}
+
+.form-title {
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+.button-group {
+  display: flex;
+  gap: 20px;
+  justify-content: center; 
+  align-items: center;
+  padding-bottom: 2vh;
+}
+
+.submit-button, .cancel-button {
+  flex: 1;
+  padding: 14px 24px;
+  font-size: 16px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center; 
+  height: 100%;
+  padding: 14px 100px;
+  flex-shrink: 0;
+}
+
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  border: 2px solid #007bff;
+}
+
+.cancel-button {
+  background-color: white;
+  color: #FF7878;
+  border: 2px solid #FF7878;
+}
+
+.submit-button:hover, .cancel-button:hover {
+  opacity: 0.8;
+}
+
+
+.image-preview-container {
+ display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  max-width: 100%;
+}
+
+
+.image-preview {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  display: flex;
+  width: 176px;
+  height: 120px;
+  padding: 6px;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+
+.delete-image-btn {
+  position: absolute;
+  top: 74%;
+  right: 9px;
+  border-radius: 20px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.10) 100%);
+  border: none;
+  color: white;
+  border-radius: 12px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+
+  display: flex;
+  width: 24px;
+  height: 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+
+
+
+.image-upload-button {
+  display: flex;
+  width: 176px;
+  height: 120px;
+  padding: 36px 76px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: var(--Secondary-Gray, #C1C1C1);
+  border-radius: 12px;
+  font-size: 36px;
+  color: #888;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: var(--White, #FFF);
+  font-variant-numeric: lining-nums proportional-nums;
+
+
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.image-upload-button:hover {
+  background: #e0e0e0;
+}
+
+input[type="file"] {
+  display: none;
+}
+* {
+  font-family: 'Raleway', sans-serif;
+}
+
+.ccolumn-name{
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; 
+  width: 362.001px;
+
+}
+
+.fields-row .field {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+.upload-content {
+  display: flex;
+  flex-direction: column-reverse; 
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  width: 176px;
+  height: 120px;
+  white-space: nowrap; 
+  text-align: center;
+
+}
+
+.upload-icon {
+  width: 24px;
+  height: 24px;
+}
+
+
+.image-preview {
+  width: 176px;
+  height: 120px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.image-upload-button {
+  width: 176px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.h2{
+  font-family: 'Montserrat', sans-serif;
+}
+.fields-row .field {
+  flex: 1;
+  max-width: none;
+}
+
+.custom-textarea {
+  width: 100%;
+  height: 160px; 
+  resize: none; 
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  font-family: 'Raleway', sans-serif;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.add-ad-form select {
+  background-position: right 20px center; 
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%23000' stroke-width='15' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}

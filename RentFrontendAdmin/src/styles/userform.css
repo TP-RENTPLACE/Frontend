@@ -1,0 +1,275 @@
+.add-user-form {
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 37px;
+  padding-right: 37px;
+  
+  
+}
+
+
+.add-user-form .profile-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-user-form .photo-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.add-user-form .photo-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.add-user-form .photo-upload input {
+  display: none;
+}
+
+.add-user-form .empty-photo {
+  width: 100%;
+  height: 100%;
+  background-color: #d3d3d3;
+  border-radius: 50%;
+}
+
+
+.add-user-form .fields-row {
+  display: flex;
+  gap:px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.add-user-form .fields-row div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  
+}
+
+.add-user-form .registration-field div {
+  flex: 0 0 362px;
+  flex: 1 1 calc(33.333% - 12px);
+}
+
+.add-user-form input,
+.add-user-form select {
+
+  width: 100%;
+  height: 54px;
+  padding: 0px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--Secondary-Gray, #C1C1C1);
+  color: var(--Main-Color-Dark, #151515);
+  font-family: Raleway;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+
+  font-variant-numeric: lining-nums proportional-nums;
+  
+ 
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+
+.add-user-form input:focus,
+.add-user-form select:focus {
+  border-color: #007AFF;
+}
+
+
+.add-user-form .fields-row:last-of-type {
+  justify-content: flex-start;
+}
+
+.add-user-form .fields-row:last-of-type div {
+  flex: 1 1 100%;
+  flex: 1 1 calc(33.333% - 12px);
+}
+
+
+
+@media (max-width: 992px) {
+  .add-user-form .fields-row {
+    flex-wrap: wrap;
+  }
+
+  .add-user-form .registration-field div {
+    flex: 0 0 362px;
+    flex: 1 1 calc(33.333% - 12px);
+  }
+  
+}
+
+.column-name{
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+
+ 
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+.add-user-form .photo-edit-button {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+    border: 1px solid #007AFF;
+  padding: 4px;
+}
+
+.add-user-form .photo-edit-button input {
+  display: none;
+}
+.add-user-form .photo-edit-button img {
+  width: 20px;
+  height: 20px;
+}
+
+.add-user-form .photo-preview {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-user-form .photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.add-user-form .photo-preview {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-user-form .photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+
+
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon-wrapper input {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+  fill: #aaa;
+}
+.form-row label {
+  flex: 1 1 calc(33.333% - 12px);
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.add-user-form .photo-label {
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--Main-Color-Dark, #151515);
+  font-family: "Raleway", sans-serif;
+}
+.add-user-form .photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.add-user-form .photo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-user-form .photo-label {
+  margin-bottom: 20px;
+  color: var(--Main-Color-Dark, #151515);
+  font-variant-numeric: lining-nums proportional-nums;
+  
+ 
+  font-family: Raleway;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.add-user-form select {
+  padding-right: 40px;
+  background-position: right 16px center;
+  background-repeat: no-repeat;
+  background-size: 16px 16px;
+}
+.add-user-form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='20,50 70,100 120,50' stroke='%23000' stroke-width='15' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px 12px;
+
+  padding-right: 40px;
+}
